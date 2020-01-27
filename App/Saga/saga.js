@@ -163,14 +163,24 @@ function* UpdateUserInfo(props) {
         yield put({ type: "LOADER_STOP", payload: false });
         console.log('login -user updated', json)
         console.log('josin===>>>>>', json)
-        if (json.status == 1001) {
-            logout(props.payload.props)
-        } else {
+        if (json.success) {
             yield put({ type: "SAVE_USER_INFO", payload: json.userData });
             ViewUserProfile(props.payload.props)
+        } else {
+            yield put({
+                type: "ERROR_TOAST_SHOW", payload: {
+                    message: json.message,
+                    toast: true
+                }
+            });
         }
+        // if (json.status == 1001) {
+        //     logout(props.payload.props)
+        // } else {
+        // }
     }
     catch (error) {
+        yield put({ type: "LOADER_STOP", payload: false });
         console.log(error, '==>>errorerror')
         // logout(props.payload.props)
     }
