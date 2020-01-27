@@ -14,6 +14,10 @@ export const Loading = (payload) => ({
     type: 'LOADER_START',
     payload: payload
 });
+export const LoadingStop = (payload) => ({
+    type: 'LOADER_STOP',
+    payload: payload
+});
 export const logoutUser = (payload) => ({
     type: 'LOGOUT_USER',
     payload: payload
@@ -24,6 +28,9 @@ export const loginAction = (payload) => ({
 });
 export const ErrorToasterHide = () => ({
     type: 'ERROR_TOASTER'
+});
+export const DisplayToaster = () => ({
+    type: 'DISPLAY_TOASTER'
 });
 export const ForgotPasswordAction = (payload) => ({
     type: 'FORGOT_PASSWORD_ACTION',

@@ -136,7 +136,6 @@ function* UploadUserPic(props) {
     try {
         yield put({ type: "LOADER_START", payload: true });
         const json = yield FormPostAPI('auth/reguser/update', props.payload.data)
-        yield put({ type: "LOADER_STOP", payload: false });
         console.log('login -user', json)
         try {
             if (json.status == 1001) {
@@ -145,8 +144,10 @@ function* UploadUserPic(props) {
                 yield put({ type: "SAVE_USER_INFO", payload: json.userData });
                 ViewUserProfile(props.payload.props)
             }
+            yield put({ type: "LOADER_STOP", payload: false });
         }
         catch (error) {
+            yield put({ type: "LOADER_STOP", payload: false });
             // logout(props.payload)
         }
     }
@@ -324,6 +325,7 @@ function* loginAction() {
 function* HideErrorToaster() {
     yield takeLatest('ERROR_TOASTER', HideToaster)
 }
+
 function* LogoutUser() {
     yield takeLatest('LOGOUT_USER', LogoutThisUser)
 }
@@ -352,7 +354,12 @@ function* StudentOrdersList() {
 function* StudentCertificates() {
     yield takeLatest('STUDENT_CERTIFICATES', StudentCertificatesListAPICall)
 }
-
+function* LoaderStart() {
+    yield put({ type: "LOADER_START", payload: true });
+}
+function* LoaderStop() {
+    yield put({ type: "LOADER_STOP", payload: false });
+}
 
 export default function* rootSaga() {
     yield all([
@@ -370,6 +377,8 @@ export default function* rootSaga() {
         StudentCoursesDetails(),
         StudentOrdersList(),
         StudentCertificates(),
-        GetUserInfo()
+        GetUserInfo(),
+        LoaderStart(),
+        LoaderStop()
     ]);
 }

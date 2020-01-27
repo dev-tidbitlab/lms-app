@@ -41,7 +41,7 @@ class UserProfile extends Component {
     //     this.props.GetUserInfo(this.props)
     // }
     componentDidUpdate(prevProps) {
-        console.log(prevProps.isFocused !== this.props.isFocused, 'fwffwfwfwf===>>>')
+        console.log(prevProps.isFocused ,this.props.isFocused, 'fwffwfwfwf===>>>')
         if (prevProps.isFocused !== this.props.isFocused) {
             console.log('12345')
             this.props.GetUserInfo(this.props)

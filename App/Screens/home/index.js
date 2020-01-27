@@ -39,7 +39,7 @@ class HomeScreen extends Component {
             <TouchableOpacity onPress={() => this.OpenDrawer()} style={{ width: 32, height: 32 }}>
               {/* this.props.UserInfo.success ? this.props.UserInfo.userPic : */}
               {/* <Avatar.Image onPress={() => this.OpenDrawer()} size={32} source={{ uri:  null }} /> */}
-              <Avatar.Image style={{backgroundColor:'#EEE'}} onPress={() => this.OpenDrawer()} size={32} source={{ uri: this.props.UserInfo.success ? (this.props.UserInfo.profileImage ? this.props.UserInfo.profileImage : null) : null }} />
+              <Avatar.Image style={{backgroundColor:'#EEE'}} onPress={() => this.OpenDrawer()} size={32} source={{ uri: this.props.UserInfo.profileImage ? this.props.UserInfo.profileImage : null }} />
             </TouchableOpacity>
           </Left>
           <Body style={{ flex: 2, alignItems: 'center' }}>

@@ -44,6 +44,7 @@ export const POST = (url, Body) => {
 };
 
 export const FormPostAPI = (url, Body) => {
+    console.log(APIURL + url)
     return fetch(APIURL + url, {
         method: 'POST',
         headers: {
