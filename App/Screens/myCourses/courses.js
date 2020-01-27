@@ -74,7 +74,7 @@ class MyCourses extends Component {
     onFilterValueChange(v) {
         let query = ''
         if (v == 1) {
-            query = query + '?courseCompleted=' + false
+            query = query + '?courseStarted=' + false
         } else {
             if (v == 2) {
                 query = query + '?courseStarted=' + true
