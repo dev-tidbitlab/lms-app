@@ -16,7 +16,7 @@ import { Container, Thumbnail, Header, Picker, Left, Body, Right, Button, Title 
 import { Avatar } from 'react-native-paper';
 import { connect } from 'react-redux';
 import ImagePicker from 'react-native-image-picker'
-import { UploadUserPicAction } from '../../Reducers/actions'
+import { UploadUserPicAction, GetUserInfo } from '../../Reducers/actions'
 const width = Dimensions.get('window').width
 
 class UserProfile extends Component {
@@ -28,30 +28,6 @@ class UserProfile extends Component {
     }
     LoadImage() {
         return 0;
-        // if (!this.state.EditProfile) {
-        //     return;
-        // }
-        // const options = {
-        //     noData: true,
-        // }
-        // ImagePicker.launchImageLibrary(options, response => {
-        //     console.log(options, response, 'ffd')
-        //     if (response.didCancel == undefined) {
-        //         var media = {
-        //             uri: response.uri,
-        //             type: response.type,
-        //             name: response.fileName,
-        //         };
-        //         var formData1 = new FormData();
-        //         formData1.append('file', {
-        //             uri: response.uri,
-        //             name: response.fileName,
-        //             type: response.type
-        //         })
-        //         this.props.UploadUserPicAction(formData1)
-        //         console.log('hh==>>', formData1)
-        //     }
-        // })
     }
 
     ToggleEditProfile() {
@@ -61,9 +37,20 @@ class UserProfile extends Component {
         });
         // this.setState({ EditProfile: !this.state.EditProfile })
     }
+    // componentDidMount() {
+    //     this.props.GetUserInfo(this.props)
+    // }
+    componentDidUpdate(prevProps) {
+        console.log(prevProps.isFocused !== this.props.isFocused, 'fwffwfwfwf===>>>')
+        if (prevProps.isFocused !== this.props.isFocused) {
+            console.log('12345')
+            this.props.GetUserInfo(this.props)
+        }
+    }
     render() {
         let EditProfile = this.state.EditProfile
-        const { email, firstName, lastName, state, city, country, phoneNumber } = this.props.UserInfo
+        const { email, firstName, lastName, state, city, country, phoneNumber, profileImage } = this.props.UserInfo
+        console.log(this.props.UserInfo, '00000000000')
         return (
             <Container>
                 <Header style={{ backgroundColor: '#1A5566' }}>
@@ -93,14 +80,14 @@ class UserProfile extends Component {
                         </Button>
                         <View style={{ marginTop: 50 }}>
                             <TouchableOpacity onPress={() => this.LoadImage()} style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                <Avatar.Image style={{backgroundColor:'#EEE'}} size={110} source={{ uri: this.props.UserInfo.success ? (this.props.UserInfo.profileImage ? this.props.UserInfo.profileImage : null) : null }} />
+                                <Avatar.Image style={{ backgroundColor: '#EEE' }} size={110} source={{ uri: profileImage ? profileImage : null }} />
                                 {/* <Avatar.Image size={110} source={require('../../Images/33.png')} /> */}
                             </TouchableOpacity>
                         </View>
                         <View style={{ paddingLeft: 20, paddingRight: 20, justifyContent: 'flex-start', alignItems: 'flex-start', marginTop: 30, marginLeft: 20, marginRight: 20 }}>
                             <View style={{ marginBottom: 20 }}>
                                 <Text style={{ fontSize: 10, color: '#888', }} >Name</Text>
-                                <Text style={{ fontSize: 16, lineHeight: 16, fontWeight: 'bold', lineHeight: 16, marginTop: 0, }}>{firstName ? firstName + ' ' + lastName : null}</Text>
+                                <Text style={{ fontSize: 16, lineHeight: 16, fontWeight: '500', lineHeight: 16, marginTop: 0, }}>{firstName ? firstName + ' ' + lastName : null}</Text>
                             </View>
 
                             <View style={{ marginBottom: 20 }}>
@@ -155,6 +142,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         UploadUserPicAction: (payload) => dispatch(UploadUserPicAction(payload)),
+        GetUserInfo: (payload) => dispatch(GetUserInfo(payload)),
     };
 };
 export default withNavigationFocus(connect(mapStateToProps, mapDispatchToProps)(UserProfile))

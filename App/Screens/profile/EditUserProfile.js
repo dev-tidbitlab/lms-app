@@ -10,7 +10,7 @@ import {
     StatusBar,
 } from "react-native";
 import { TextInput } from 'react-native-paper';
-import { withNavigation } from 'react-navigation'
+import { withNavigationFocus } from 'react-navigation'
 import Icon from 'react-native-vector-icons/Ionicons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { Container, Thumbnail, Header, Picker, Left, Body, Right, Button, Title } from 'native-base';
@@ -20,13 +20,15 @@ import { connect } from 'react-redux';
 import { UploadUserPicAction, SaveUserInfoAction } from '../../Reducers/actions'
 const width = Dimensions.get('window').width
 import { Progress } from '../ProgressDialog/index'
+import ErrorToaster from '../../Components/alerts/error'
 
 class EditUserProfile extends Component {
     constructor() {
         super();
         this.state = {
             UserInfo: {
-                name: '',
+                firstName: '',
+                lastName: "",
                 email: '',
                 phoneNumber: '',
                 streetAddress: '',
@@ -34,6 +36,15 @@ class EditUserProfile extends Component {
                 state: '',
                 passcode: '',
                 country: ''
+            },
+            ValidationArray: {
+                firstName: false,
+                lastName: false,
+                email: false,
+                phoneNumber: false,
+                city: false,
+                state: false,
+                country: false
             }
         }
     }
@@ -47,16 +58,54 @@ class EditUserProfile extends Component {
     }
     SaveUserDetails() {
         console.log(this.state)
-        const { UserInfo } = this.state
+        const { UserInfo, ValidationArray } = this.state
         let ob = {
-            firstName: UserInfo.name,
+            firstName: UserInfo.firstName,
+            lastName: UserInfo.lastName,
             email: UserInfo.email,
-            city:UserInfo.city,
-            state:UserInfo.state,
-            country:UserInfo.country,
-            phoneNumber:UserInfo.phoneNumber
+            city: UserInfo.city,
+            state: UserInfo.state,
+            country: UserInfo.country,
+            phoneNumber: UserInfo.phoneNumber
         }
-        this.props.SaveUserInfoAction({ data: ob, props: this.props })
+        let Validations = ValidationArray
+        let status = 0
+        if (!ob.firstName) {
+            Validations.firstName = true
+            status = 1
+        }
+        if (!ob.lastName) {
+            Validations.lastName = true
+            status = 1
+        }
+        if (!ob.email) {
+            Validations.email = true
+            status = 1
+        }
+        if (!ob.city) {
+            Validations.city = true
+            status = 1
+        }
+        if (!ob.state) {
+            Validations.state = true
+            status = 1
+        }
+        if (!ob.country) {
+            Validations.country = true
+            status = 1
+        }
+        if (!ob.phoneNumber) {
+            Validations.phoneNumber = true
+            status = 1
+        }
+        if (status == 1) {
+            this.setState({ ValidationArray: Validations })
+            return 0;
+        } else {
+            this.props.SaveUserInfoAction({ data: ob, props: this.props })
+        }
+        console.log('ob,ob', ob)
+
     }
     LoadImage() {
         // return 0;
@@ -68,12 +117,12 @@ class EditUserProfile extends Component {
             console.log(options, response, 'ffd==>>>>')
             if (response.didCancel == undefined) {
                 var formData = new FormData();
-                formData.append('file', {
+                formData.append('profileImage', {
                     uri: response.uri,
                     name: response.fileName,
                     type: response.type
                 })
-                // this.props.UploadUserPicAction(formData)
+                this.props.UploadUserPicAction({ props: this.props, data: formData })
                 console.log('hh==>>', formData)
             }
         })
@@ -87,7 +136,7 @@ class EditUserProfile extends Component {
         return true;
     }
     render() {
-        let UserInfo = this.state.UserInfo
+        const { UserInfo, ValidationArray } = this.state
         return (
             <Container>
                 <Header style={{ elevation: 0, backgroundColor: '#1A5566' }}>
@@ -115,34 +164,45 @@ class EditUserProfile extends Component {
                         <View>
                             <View style={{ marginTop: 50 }}>
                                 <TouchableOpacity onPress={() => this.LoadImage()} style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Avatar.Image size={110} source={{ uri: this.props.UserInfo.success ? this.props.UserInfo.userPic + '?' + this.props.UserInfo.profileImage : null }} />
-                                    <FontAwesome style={{ padding: 5, backgroundColor: 'transparent', position: 'absolute', top: (110 / 2) - 20, left: (width / 2) + (110 / 2) - 15 }} name="pencil" size={24} color="#F00" />
+                                    <Avatar.Image size={110} source={{ uri: this.props.UserInfo.profileImage ? this.props.UserInfo.profileImage : null }} />
+                                    <FontAwesome style={{ padding: 5, backgroundColor: 'transparent', position: 'absolute', top: (110 / 2) - 20, left: (width / 2) + (110 / 2) - 15 }} name="pencil" size={24} color="#1A5566" />
                                 </TouchableOpacity>
                             </View>
                             <View style={{ paddingLeft: 30, marginRight: 30, marginBottom: 40, }}>
                                 <View style={{ height: 30, marginBottom: 30 }}>
                                     <TextInput
+                                        error={ValidationArray.firstName}
                                         style={styles.TextInputAll}
-                                        label="Name"
-                                        onChangeText={(v) => this.setState({ UserInfo: { ...this.state.UserInfo, name: v } })}
-                                        value={UserInfo.name}
+                                        label="First Name"
+                                        onChangeText={(v) => this.setState({ UserInfo: { ...this.state.UserInfo, firstName: v }, ValidationArray: { ...this.state.ValidationArray, firstName: false } })}
+                                        value={UserInfo.firstName}
                                         theme={{ colors: { lineHeight: 14, background: 'white', placeholder: '#888', text: '#000', primary: '#1A5566', underlineColor: 'transparent' } }}
                                     />
                                 </View>
 
 
                                 <TextInput
+                                    error={ValidationArray.lastName}
+                                    style={styles.TextInputAll}
+                                    label="Last Name"
+                                    onChangeText={(v) => this.setState({ UserInfo: { ...this.state.UserInfo, lastName: v }, ValidationArray: { ...this.state.ValidationArray, lastName: false } })}
+                                    value={UserInfo.lastName}
+                                    theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#1A5566', underlineColor: 'transparent' } }}
+                                />
+                                <TextInput
+                                    error={ValidationArray.email}
                                     style={styles.TextInputAll}
                                     label="Email"
-                                    onChangeText={(v) => this.setState({ UserInfo: { ...this.state.UserInfo, email: v } })}
+                                    onChangeText={(v) => this.setState({ UserInfo: { ...this.state.UserInfo, email: v }, ValidationArray: { ...this.state.ValidationArray, email: false } })}
                                     value={UserInfo.email}
                                     theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#1A5566', underlineColor: 'transparent' } }}
                                 />
 
                                 <TextInput
+                                    error={ValidationArray.phoneNumber}
                                     style={styles.TextInputAll}
                                     label="Phone Number"
-                                    onChangeText={(v) => this.setState({ UserInfo: { ...this.state.UserInfo, phoneNumber: v } })}
+                                    onChangeText={(v) => this.setState({ UserInfo: { ...this.state.UserInfo, phoneNumber: v }, ValidationArray: { ...this.state.ValidationArray, phoneNumber: false } })}
                                     value={UserInfo.phoneNumber}
                                     theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#1A5566', underlineColor: 'transparent' } }}
                                 />
@@ -156,17 +216,19 @@ class EditUserProfile extends Component {
                                 /> */}
 
                                 <TextInput
+                                    error={ValidationArray.city}
                                     style={styles.TextInputAll}
                                     label="City"
-                                    onChangeText={(v) => this.setState({ UserInfo: { ...this.state.UserInfo, city: v } })}
+                                    onChangeText={(v) => this.setState({ UserInfo: { ...this.state.UserInfo, city: v }, ValidationArray: { ...this.state.ValidationArray, city: false } })}
                                     value={UserInfo.city}
                                     theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#1A5566', underlineColor: 'transparent' } }}
                                 />
 
                                 <TextInput
+                                    error={ValidationArray.state}
                                     style={styles.TextInputAll}
                                     label="State"
-                                    onChangeText={(v) => this.setState({ UserInfo: { ...this.state.UserInfo, state: v } })}
+                                    onChangeText={(v) => this.setState({ UserInfo: { ...this.state.UserInfo, state: v }, ValidationArray: { ...this.state.ValidationArray, state: false } })}
                                     value={UserInfo.state}
                                     theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#1A5566', underlineColor: 'transparent' } }}
                                 />
@@ -180,20 +242,22 @@ class EditUserProfile extends Component {
                                 /> */}
 
                                 <TextInput
+                                    error={ValidationArray.country}
                                     style={styles.TextInputAll}
                                     label="Country"
-                                    onChangeText={(v) => this.setState({ UserInfo: { ...this.state.UserInfo, country: v } })}
+                                    onChangeText={(v) => this.setState({ UserInfo: { ...this.state.UserInfo, country: v }, ValidationArray: { ...this.state.ValidationArray, country: false } })}
                                     value={UserInfo.country}
                                     theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#1A5566', underlineColor: 'transparent' } }}
                                 />
-                                <TouchableOpacity onPress={()=>this.GoBack()} style={{ marginTop: 25, bottom: 5, padding: 6, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
-                                    <Text style={{ fontSize: 16, fontWeight:'600',  padding: 10, color: '#FFF' }}>Save</Text>
+                                <TouchableOpacity onPress={() => this.SaveUserDetails()} style={{ marginTop: 25, bottom: 5, padding: 6, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
+                                    <Text style={{ fontSize: 16, fontWeight: '600', padding: 10, color: '#FFF' }}>Save</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
                         <Progress DialogLoader={this.props.loading} title={'Please wait...'} />
                     </View>
                 </ScrollView>
+                {this.props.ErrorToaster.toast ? <ErrorToaster message={this.props.ErrorToaster.message} /> : null}
             </Container>
         );
     }
@@ -203,6 +267,7 @@ const mapStateToProps = (state) => {
     return {
         UserInfo: state.authReducer.UserInfo,
         loading: state.authReducer.loading,
+        ErrorToaster: state.authReducer.ErrorToaster,
     };
 };
 const mapDispatchToProps = (dispatch) => {
@@ -212,7 +277,7 @@ const mapDispatchToProps = (dispatch) => {
 
     };
 };
-export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(EditUserProfile))
+export default withNavigationFocus(connect(mapStateToProps, mapDispatchToProps)(EditUserProfile))
 
 const styles = StyleSheet.create({
     container: {

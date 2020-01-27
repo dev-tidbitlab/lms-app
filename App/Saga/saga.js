@@ -135,20 +135,19 @@ function* UploadUserPic(props) {
     console.log('params==>>>forgot', props)
     try {
         yield put({ type: "LOADER_START", payload: true });
-        const json = yield FormPostAPI('user/reguser/uploadImage', props.payload)
+        const json = yield FormPostAPI('auth/reguser/update', props.payload.data)
         yield put({ type: "LOADER_STOP", payload: false });
         console.log('login -user', json)
         try {
-            const json = yield GET('isLoggedIn')
-            console.log('josin===>>>>>', json)
             if (json.status == 1001) {
-                logout(props.payload)
+                logout(props.payload.props)
             } else {
-                yield put({ type: "SAVE_USER_INFO", payload: json });
+                yield put({ type: "SAVE_USER_INFO", payload: json.userData });
+                ViewUserProfile(props.payload.props)
             }
         }
         catch (error) {
-            logout(props.payload)
+            // logout(props.payload)
         }
     }
     catch (error) {
@@ -157,21 +156,31 @@ function* UploadUserPic(props) {
 }
 
 function* UpdateUserInfo(props) {
-    console.log('params==>>>update', props)
+    console.log('params==>>>update', props.payload.data)
     try {
-        // yield put({ type: "LOADER_START", payload: true });
-        const json = yield POST('auth/reguser/update', props.payload.data)
-        // yield put({ type: "LOADER_STOP", payload: false });
+        yield put({ type: "LOADER_START", payload: true });
+        const json = yield POST('auth/reguser/update', JSON.stringify(props.payload.data))
+        yield put({ type: "LOADER_STOP", payload: false });
         console.log('login -user updated', json)
         console.log('josin===>>>>>', json)
+        if (json.success) {
+            yield put({ type: "SAVE_USER_INFO", payload: json.userData });
+            ViewUserProfile(props.payload.props)
+        } else {
+            yield put({
+                type: "ERROR_TOAST_SHOW", payload: {
+                    message: json.message,
+                    toast: true
+                }
+            });
+        }
         // if (json.status == 1001) {
         //     logout(props.payload.props)
         // } else {
-        //     yield put({ type: "SAVE_USER_INFO", payload: json });
-        //     ViewUserProfile(props.payload.props)
         // }
     }
     catch (error) {
+        yield put({ type: "LOADER_STOP", payload: false });
         console.log(error, '==>>errorerror')
         // logout(props.payload.props)
     }
@@ -275,13 +284,34 @@ function* StudentCertificatesListAPICall(props) {
     }
 }
 
-
+function* GetUserInfoOf(props) {
+    console.log('GetUserInfoOf')
+    try {
+        const json = yield GET('isLoggedIn')
+        console.log('josin===>>>>>', json)
+        if (json.success) {
+            yield put({ type: "SAVE_USER_INFO", payload: json });
+        } else {
+            if (json.status == 1002) {
+                logout(props.payload)
+            } else {
+                logout(props.payload)
+            }
+        }
+    }
+    catch (error) {
+        logout(props.payload)
+    }
+}
+function* GetUserInfo() {
+    yield takeLatest("GET_USER_INFO", GetUserInfoOf);
+}
 function* SaveUserDetails(props) {
     yield put({ type: "SAVE_USER_INFO", payload: props.payload });
 }
-function* SaveUserInfo() {
-    yield takeLatest("SAVE_USER", SaveUserDetails);
-}
+// function* SaveUserInfo() {
+//     yield takeLatest("SAVE_USER", SaveUserDetails);
+// }
 function* isUserLoggedIn() {
     yield takeLatest('IS_USER_LOGGED_IN', CheckUserLoggedIn)
 }
@@ -331,7 +361,7 @@ export default function* rootSaga() {
         loginAction(),
         HideErrorToaster(),
         LogoutUser(),
-        SaveUserInfo(),
+        // SaveUserInfo(),
         ForgotPassword(),
         UserPicAction(),
         UserSaveInfoAction(),
@@ -339,6 +369,7 @@ export default function* rootSaga() {
         StudentRecentlyCoursesList(),
         StudentCoursesDetails(),
         StudentOrdersList(),
-        StudentCertificates()
+        StudentCertificates(),
+        GetUserInfo()
     ]);
 }
