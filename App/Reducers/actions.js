@@ -6,10 +6,10 @@ export const CurrentUser = (payload) => ({
     type: 'CURRENT_USER',
     payload: payload
 });
-export const SaveUserInfo = (payload) => ({
-    type: 'SAVE_USER',
-    payload: payload
-});
+// export const SaveUserInfo = (payload) => ({
+//     type: 'SAVE_USER',
+//     payload: payload
+// });
 export const Loading = (payload) => ({
     type: 'LOADER_START',
     payload: payload
@@ -35,6 +35,10 @@ export const UploadUserPicAction = (payload) => ({
 });
 export const SaveUserInfoAction = (payload) => ({
     type: 'USER_SAVE_INFO_ACTION',
+    payload: payload
+});
+export const GetUserInfo = (payload) => ({
+    type: 'GET_USER_INFO',
     payload: payload
 });
 
