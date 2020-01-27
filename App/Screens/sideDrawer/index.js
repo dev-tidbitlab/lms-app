@@ -161,7 +161,7 @@ export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(SideM
 const styles = StyleSheet.create({
     line: {
         height: 0.5,
-        width: 300,
+        width: '100%',
         backgroundColor: "#BBB"
     }
 });
