@@ -324,17 +324,8 @@ class ViewCourseDetails extends Component {
         this.setState({ overlay: true });
         this.overlayTimer = setTimeout(() => this.setState({ overlay: false }), 3000);
     }
-    youtubeSeekRight = () => {
-        const { currentTime } = this.state;
-        this.handleDoubleTap(() => { // this fn is used to detect the double tap first callback
-            this.video.seek(currentTime + 5);
-        }, () => {
-            this.setState({ overlay: true });
-            this.overlayTimer = setTimeout(() => this.setState({ overlay: false }), 3000);
-        })
-    }
     onEndVideo() {
-        this.setState({ paused: true, overlay: true })
+        this.setState({ overlay: true })
     }
     FullScreenMethod = () => {
         // return 0;
@@ -382,92 +373,6 @@ class ViewCourseDetails extends Component {
                 singleTapCallback();
             }, DOUBLE_PRESS_DELAY);
         }
-    }
-    HandleBackButton() {
-        console.log('back press==>>')
-        Orientation.lockToPortrait();
-        return true;
-    }
-    getTime = t => {
-        const digit = n => n < 10 ? `0${n}` : `${n}`;
-        // const t = Math.round(time);
-        const sec = digit(Math.floor(t % 60));
-        const min = digit(Math.floor((t / 60) % 60));
-        const hr = digit(Math.floor((t / 3600) % 60));
-        return hr + ':' + min + ':' + sec; // this will convert sec to timer string
-        // 33 -> 00:00:33
-        // this is done here
-        // ok now the theme is good to look
-    }
-
-    load = ({ duration }) => {
-        console.log('load', duration)
-        this.setState({ duration })
-    }
-    // now here the duration is update on load video
-    progress = ({ currentTime }) => this.setState({ currentTime }) // here the current time is upated
-
-    backward = () => {
-        this.video.seek(this.state.currentTime - 5);
-        clearTimeout(this.overlayTimer);
-        this.overlayTimer = setTimeout(() => this.setState({ overlay: false }), 3000);
-    }
-    forward = () => {
-        this.video.seek(this.state.currentTime + 5); // here the video is seek to 5 sec forward
-        clearTimeout(this.overlayTimer);
-        this.overlayTimer = setTimeout(() => this.setState({ overlay: false }), 3000);
-    }
-
-    onslide = slide => {
-        this.video.seek(slide * this.state.duration); // here the upation is maked for video seeking
-        clearTimeout(this.overlayTimer);
-        this.overlayTimer = setTimeout(() => this.setState({ overlay: false }), 3000);
-    }
-
-    youtubeSeekLeft = () => {
-        const { currentTime } = this.state;
-        console.log('ggggggg======??????')
-        // this.handleDoubleTap(() => {
-        //     this.video.seek(currentTime - 5);
-        // }, () => {
-        this.setState({ overlay: true });
-        this.overlayTimer = setTimeout(() => this.setState({ overlay: false }), 3000);
-        // })
-    }
-    youtubeSeekRight = () => {
-        const { currentTime } = this.state;
-        this.handleDoubleTap(() => { // this fn is used to detect the double tap first callback
-            this.video.seek(currentTime + 5);
-        }, () => {
-            this.setState({ overlay: true });
-            this.overlayTimer = setTimeout(() => this.setState({ overlay: false }), 3000);
-        })
-    }
-
-    Fullscreen = () => {
-        const { fullscreen } = this.state;
-        if (fullscreen) {
-            Orientation.lockToPortrait();
-            // this.setState({ Height: width * .6 })
-        } else {
-            Orientation.lockToLandscape();
-            // this.setState({ Height: width-20 })
-        }
-        this.setState({ overlay: true });
-        this.overlayTimer = setTimeout(() => this.setState({ overlay: false }), 3000);
-        this.setState({ fullscreen: !fullscreen });
-    }
-
-    onLoadStart() {
-        console.log('onLoadStart')
-    }
-    onEnd() {
-        this.setState({ overlay: true });
-        console.log('onEnd')
-    }
-    onReadyForDisplay() {
-        this.setState({ VideoLoading: false })
-        console.log('onReadyForDisplay')
     }
     render() {
         const { isFullScreen, CurrentWidth, CurrentHieght, currentTime, isLoading, duration, paused, overlay, fullscreen, CurrentVideoIndex, VideoLoading, CurrentVideoDetail } = this.state;

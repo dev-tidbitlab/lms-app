@@ -133,7 +133,7 @@ class MyOrders extends Component {
                                                     <Text style={{ fontSize: 14, color: '#AAA' }}>{v.amount}</Text>
                                                 </View>
                                             </View>
-                                            <Text style={{ fontSize: 12, color: '#AAA', paddingBottom: 5 }}>Transaction No. {v.transactionId}</Text>
+                                            <Text style={{ fontSize: 12, color: '#AAA', paddingBottom: 5, marginBottom: 15 }}>Transaction No. {v.transactionId}</Text>
                                         </View>
                                         <Text style={{ fontSize: 12, color: '#AAA', position: 'absolute', bottom: 5, right: 15 }}>Payment mode: {v.modeOfPayment}</Text>
                                     </TouchableOpacity>
