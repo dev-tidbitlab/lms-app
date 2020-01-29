@@ -218,7 +218,7 @@ class ViewCourseDetails extends Component {
         //     'connectionChange',
         //     this._handleConnectivityChange
         // );
-        
+
         this.checkInternetConneectivity()
         AppState.addEventListener('change', this._handleAppStateChange);
         Orientation.addOrientationListener(this._orientationDidChange);
@@ -254,7 +254,9 @@ class ViewCourseDetails extends Component {
         this.props.navigation.navigate('StudentCourses');
     }
     StartMCQ() {
-        this.props.navigation.navigate('StudentMCQTest')
+        this.props.navigation.navigate('StartMCQ', {
+            course_id: this.state.course_id
+        })
     }
     FilterCourseVideo(Videos, index) {
         clearTimeout(this.overlayTimer);

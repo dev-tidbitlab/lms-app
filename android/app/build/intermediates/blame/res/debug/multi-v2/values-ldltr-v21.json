@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/tsm101/Desktop/lms-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ldltr-v21/values-ldltr-v21.xml",
+            "outputFile": "/home/tidbit/Music/lms-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ldltr-v21/values-ldltr-v21.xml",
             "map": [
                 {
-                    "source": "/Users/tsm101/.gradle/caches/transforms-2/files-2.1/08bdd86b6186765387482ada1e856f07/res/values-ldltr-v21/values-ldltr-v21.xml",
+                    "source": "/home/tidbit/.gradle/caches/transforms-2/files-2.1/9e15df44e21ce3966cba350fa5b06ba3/res/values-ldltr-v21/values-ldltr-v21.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

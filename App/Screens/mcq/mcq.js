@@ -25,44 +25,51 @@ class MCQs extends Component {
         this.state = {
             loading: true,
             MCQList: [],
-            ReviewRatingModal: false
+            ReviewRatingModal: false,
+            course_id: '',
+            QuestionType: null
         };
     }
 
     GoBack() {
         this.props.navigation.goBack();
     }
-    FilterMCQs(MCQ){
-        let mcqFormatting = [{options:[]}]
-        MCQ.forEach((element, i) => {
-            console.log(element, i,'hey')
-            mcqFormatting[i] = element
-            mcqFormatting[i].options = []
-            if(element.optiona){
-                mcqFormatting[i].options.push(element.optiona) 
-            }
-            if(element.optionb){
-                mcqFormatting[i].options.push(element.optionb) 
-            }
-            if(element.optionc){
-                mcqFormatting[i].options.push(element.optionc) 
-            }
-            if(element.optiond){
-                mcqFormatting[i].options.push(element.optiond) 
-            }
-            if(element.optione){
-                mcqFormatting[i].options.push(element.optione) 
-            }
-        });
+    FilterRadioMCQs(MCQ) {
+        let mcqFormatting = [{ options: [] }]
+        if (MCQ.isMultiSelect) {
+            this.setState({ QuestionType: 'radio' })
+        } else {
+            this.setState({ QuestionType: 'checkbox' })
+        }
+        for (let key in MCQ) {
+            console.log("User " + MCQ[key] + " is #" + key)
+
+        }
+        // if (MCQ.optiona) {
+        //     mcqFormatting[i].options.push(MCQ.optiona)
+        // }
+        // if (MCQ.optionb) {
+        //     mcqFormatting[i].options.push(MCQ.optionb)
+        // }
+        // if (MCQ.optionc) {
+        //     mcqFormatting[i].options.push(MCQ.optionc)
+        // }
+        // if (MCQ.optiond) {
+        //     mcqFormatting[i].options.push(MCQ.optiond)
+        // }
+        // if (MCQ.optione) {
+        //     mcqFormatting[i].options.push(MCQ.optione)
+        // }
+        // });
         console.log('mcqFormatting', mcqFormatting)
     }
-    componentDidMount() {
-        GET('studentdashboard/student/listMcq/5e0eef2c2dcd951abaa2d6ea').then(response => {
-            console.log('response==>>', response)
+    getInitialMCQs(course_id) {
+        GET('coursejourney/student/mcq/' + course_id + '/loadMcq').then(response => {
+            console.log('response==>> mcq', response)
             if (response.success) {
                 // this.setState({ MCQList: response.data })
-                if(response.data.length>0){
-                    this.FilterMCQs(response.data)
+                if (response.data.mcq) {
+                    this.FilterRadioMCQs(response.data.mcq)
                 }
             } else {
 
@@ -75,11 +82,17 @@ class MCQs extends Component {
             }
         })
     }
-    ReviewRatingModalView(){
-        this.setState({ReviewRatingModal: true})
+    componentDidMount() {
+        const { navigation } = this.props;
+        const course_id = navigation.getParam('course_id', '');
+        this.setState({ course_id: course_id })
+        this.getInitialMCQs(course_id)
     }
-    toggleBottomNavigationView(){
-        this.setState({ReviewRatingModal: false})
+    ReviewRatingModalView() {
+        this.setState({ ReviewRatingModal: true })
+    }
+    toggleBottomNavigationView() {
+        this.setState({ ReviewRatingModal: false })
     }
     RenderCheckBox(item) {
         return (
@@ -128,6 +141,7 @@ class MCQs extends Component {
         )
     }
     render() {
+        const {QuestionType} = this.state
         return (
             <Container style={{ backgroundColor: '#F4F4F6' }}>
                 <Header style={{ backgroundColor: '#1A5566' }}>
@@ -157,7 +171,7 @@ class MCQs extends Component {
                         <View>
                             <Text style={{ fontSize: 18, color: '#000', fontWeight: '900' }}>MCQ Question will display here</Text>
                         </View>
-                        <TouchableOpacity style={{marginTop: 30, backgroundColor:'#AAA', padding: 5}} onPress={()=>this.ReviewRatingModalView()}>
+                        <TouchableOpacity style={{ marginTop: 30, backgroundColor: '#AAA', padding: 5 }} onPress={() => this.ReviewRatingModalView()}>
                             <Text>Review Rating</Text>
                         </TouchableOpacity>
                         <View>
@@ -170,8 +184,8 @@ class MCQs extends Component {
 
                     </View>
                 </ScrollView>
-                <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 50, backgroundColor:'#FFF' }}>
-                    <View style={{flexDirection:'row', flex: 1, justifyContent:'space-around'}}>
+                <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 50, backgroundColor: '#FFF' }}>
+                    <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-around' }}>
                         <TouchableOpacity>
                             <Ionicons color="#1A5566" name="ios-arrow-dropleft-circle" size={48} />
                         </TouchableOpacity>
@@ -180,7 +194,7 @@ class MCQs extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                <ReviewRatingModalComponent toggleBottomNavigationView={()=>this.toggleBottomNavigationView()}  ReviewRatingModal={this.state.ReviewRatingModal} />
+                <ReviewRatingModalComponent toggleBottomNavigationView={() => this.toggleBottomNavigationView()} ReviewRatingModal={this.state.ReviewRatingModal} />
             </Container>
         );
     }
