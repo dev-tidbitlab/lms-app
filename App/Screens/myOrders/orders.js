@@ -10,7 +10,8 @@ import {
     TextInput,
     StatusBar,
     Dimensions,
-    ActivityIndicator
+    ActivityIndicator,
+    RefreshControl
 } from "react-native";
 import { Avatar, ProgressBar, Colors } from 'react-native-paper';
 import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button, Title } from 'native-base';
@@ -37,6 +38,9 @@ class MyOrders extends Component {
     }
     ViewCourseDetails() {
         this.props.navigation.navigate('ViewCourseDetails');
+    }
+    _onRefresh(){
+        this.props.StudentOrderList(this.props)
     }
     componentDidMount() {
         Dimensions.addEventListener('change', () => {
@@ -107,14 +111,22 @@ class MyOrders extends Component {
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
                     horizontal={false}
+                    refreshControl={
+                        <RefreshControl
+                            colors={['#1A5566']}
+                            progressBackgroundColor="#FFF"
+                            refreshing={this.props.loading}
+                            onRefresh={() => this._onRefresh()}
+                        />
+                    }
                 >
                     <View style={{ margin: 10 }}>
                         <View style={{ marginLeft: 10 }}>
                             <Text style={{ fontSize: 18, color: '#000', fontWeight: '600' }}>My Orders List</Text>
                         </View>
-                        {this.props.loading ? <View style={{ marginTop: 10, position: 'absolute', zIndex: 1000, left: 0, right: 0 }}>
+                        {/* {this.props.loading ? <View style={{ marginTop: 10, position: 'absolute', zIndex: 1000, left: 0, right: 0 }}>
                             <ActivityIndicator size="large" color="yellow" />
-                        </View> : null}
+                        </View> : null} */}
                         {this.props.StudentOrdersList.length > 0 ? <View>
                             {this.props.StudentOrdersList.map((v, i) => {
                                 return (

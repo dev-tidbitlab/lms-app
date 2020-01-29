@@ -6,5 +6,5 @@ export const goHomeScreen = (props) => {
     props.navigation.navigate('Home')
 };
 export const ViewUserProfile = (props) => {
-    props.navigation.replace('StudentProfile')
+    props.navigation.navigate('StudentProfile')
 };

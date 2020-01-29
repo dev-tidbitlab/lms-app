@@ -7,7 +7,8 @@ import {
     TouchableOpacity,
     ScrollView,
     StatusBar,
-    Dimensions
+    Dimensions,
+    RefreshControl
 } from "react-native";
 import { withNavigation, withNavigationFocus } from 'react-navigation'
 import Icon from 'react-native-vector-icons/Ionicons'
@@ -40,8 +41,11 @@ class UserProfile extends Component {
     // componentDidMount() {
     //     this.props.GetUserInfo(this.props)
     // }
+    _onRefresh() {
+        this.props.GetUserInfo(this.props)
+    }
     componentDidUpdate(prevProps) {
-        console.log(prevProps.isFocused ,this.props.isFocused, 'fwffwfwfwf===>>>')
+        console.log(prevProps.isFocused, this.props.isFocused, 'fwffwfwfwf===>>>')
         if (prevProps.isFocused !== this.props.isFocused) {
             console.log('12345')
             this.props.GetUserInfo(this.props)
@@ -73,6 +77,14 @@ class UserProfile extends Component {
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
                     horizontal={false}
+                    refreshControl={
+                        <RefreshControl
+                            colors={['#1A5566']}
+                            progressBackgroundColor="#FFF"
+                            refreshing={this.props.loading}
+                            onRefresh={() => this._onRefresh()}
+                        />
+                    }
                 >
                     <View style={styles.container}>
                         <Button style={{ position: 'absolute', left: 20, top: 15 }} transparent onPress={() => this.GoBack()} >

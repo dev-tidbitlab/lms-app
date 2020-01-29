@@ -633,6 +633,7 @@ drawable app_images_certificate64
 drawable app_images_course64
 drawable app_images_logo
 drawable app_images_sp2
+drawable app_images_video100
 drawable common_full_open_on_phone
 drawable common_google_signin_btn_icon_dark
 drawable common_google_signin_btn_icon_dark_focused
