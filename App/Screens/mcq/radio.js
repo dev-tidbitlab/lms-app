@@ -39,7 +39,6 @@ class RadioQuestion extends Component {
                 </RadioButton>)
             })
         }
-
     }
     render() {
         return (
