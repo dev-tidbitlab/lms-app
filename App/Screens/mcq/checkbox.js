@@ -1,34 +1,50 @@
 import React, { Component } from "react";
 import {
     View,
-    Platform,
     StyleSheet,
     TouchableOpacity,
-    ActivityIndicator,
     Text,
-    ScrollView,
-    StatusBar,
-    Dimensions,
-    FlatList
 } from "react-native";
-import { Avatar, ProgressBar, Colors } from 'react-native-paper';
-import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button, Title } from 'native-base';
-import { withNavigation, withNavigationFocus } from 'react-navigation';
-import Ionicons from "react-native-vector-icons/Ionicons";
-const ScreenWidth = Dimensions.get('window').width
-import { GET } from '../../service/index'
 import { CheckBox } from 'react-native-elements';
-import ReviewRatingModalComponent from '../reviewRating/rating'
 class CheckBoxQuestion extends Component {
     constructor() {
         super();
         this.state = {
-            loading: true,
-            MCQList: [],
-            ReviewRatingModal: false
+            isCheckBoxSelected: {},
+            SelectedAns: [],
+
         };
     }
-    RenderCheckBox(item) {
+    componentDidMount() {
+        this.setState({ isCheckBoxSelected: {}, SelectedAns: [] })
+    }
+    shouldComponentUpdate(nextState, nextProps) {
+        if (nextProps.questionNo && this.props.questionNo) {
+            if (nextProps.questionNo != this.props.questionNo && nextProps.data != this.props.data) {
+                this.setState({ isCheckBoxSelected: {}, SelectedAns: [] })
+                return true
+            }
+        }
+        return true
+    }
+    onChnageCheckBox(item, option) {
+        let { SelectedAns } = this.state
+        let index = SelectedAns.indexOf(option)
+        let UpdateAns = SelectedAns
+        let isCheckBoxSelected = this.state.isCheckBoxSelected
+        if (index == -1) {
+            UpdateAns.push(option)
+            isCheckBoxSelected[option] = option
+        } else {
+            UpdateAns.splice(index, 1);
+            isCheckBoxSelected[option] = null
+        }
+        console.log('UpdateAns', UpdateAns)
+        this.setState({ isCheckBoxSelected: isCheckBoxSelected, SelectedAns: UpdateAns })
+        this.props.onChangeOptions(UpdateAns)
+    }
+    RenderCheckBox(item, option, value) {
+        let ans = this.state.isCheckBoxSelected
         return (
             <CheckBox
                 containerStyle={{
@@ -36,48 +52,43 @@ class CheckBoxQuestion extends Component {
                     borderWidth: 0
                 }}
                 checkedColor={'#1A5566'}
-                title={'options'}
+                title={value}
                 size={24}
-                checked={true}
+                checked={ans[option] == option}
+                onPress={() => this.onChnageCheckBox(item, option)}
             />
         )
     }
-    RenderMCQ(item) {
-        console.log('ite', item)
+    RenderMCQ(item, questionNo) {
         return (
-            <TouchableOpacity key={item.index} style={{ borderRadius: 5, marginTop: 15, flex: 1, backgroundColor: '#FFF' }}>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ width: 25, height: 25, marginLeft: 5, marginTop: 5, backgroundColor: '#0AC4BA', borderRadius: 100, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ color: '#FFF' }}>1</Text>
-                    </View>
-                    <Text style={{ fontSize: 14, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '800' }}>{item.item.question}</Text>
-                </View>
-                <View>
-
-                    {item.item.optiona ? <View>
-                        {this.RenderCheckBox(item.item)}
+            <View style={{ borderRadius: 5, marginTop: 15, flex: 1, backgroundColor: '#FFF' }}>
+                <View style={{ padding: 5 }}>
+                    {item.optiona ? <View>
+                        {this.RenderCheckBox(item, 'optiona', item.optiona)}
                     </View> : null}
-                    {item.item.optionb ? <View>
-                        {this.RenderCheckBox(item.item)}
+                    {item.optionb ? <View>
+                        {this.RenderCheckBox(item, 'optionb', item.optionb)}
                     </View> : null}
-                    {item.item.optionc ? <View>
-                        {this.RenderCheckBox(item.item)}
+                    {item.optionc ? <View>
+                        {this.RenderCheckBox(item, 'optionc', item.optionc)}
                     </View> : null}
-                    {item.item.optiond ? <View>
-                        {this.RenderCheckBox(item.item)}
+                    {item.optiond ? <View>
+                        {this.RenderCheckBox(item, 'optiond', item.optiond)}
                     </View> : null}
-                    {item.item.optione ? <View>
-                        {this.RenderCheckBox(item.item)}
+                    {item.optione ? <View>
+                        {this.RenderCheckBox(item, 'optione', item.optione)}
                     </View> : null}
 
                 </View>
-            </TouchableOpacity>
+            </View>
         )
     }
     render() {
+        const { data, questionNo } = this.props
         return (
-                    <View style={{ margin: 10 }}>
-                    </View>
+            <View style={{ margin: 10 }}>
+                {this.RenderMCQ(data, questionNo)}
+            </View>
         );
     }
 }

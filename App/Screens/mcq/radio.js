@@ -17,30 +17,70 @@ class RadioQuestion extends Component {
     constructor() {
         super();
         this.state = {
-            loading: true,
+            selectedRadio: '',
+            selectedIndex: -1
         };
     }
-    onSelect() {
-
+    onSelect(index, value) {
+        console.log(index, value)
+        this.setState({ selectedIndex: index })
+        this.props.onChangeRadio(value)
     }
-    renderRadioQ() {
-        if (this.state.RadioQuestion.length > 0) {
-            firstOptionQ = this.state.RadioQuestion.map((item, index) => {
-                return (<RadioButton value={item.value} key={index}
-                    style={{ padding: 5, margin: 0 }}
-                >
-                    <Text
-                        style={[styles.customStyle, {
-                            paddingLeft: 10,
-                            paddingRight: 30,
-                            color: '#000',
-                        }]}
-                    >{(item.label).trim()}</Text>
-                </RadioButton>)
-            })
+    componentDidMount() {
+        console.log('11')
+        this.setState({ selectedIndex: -1 })
+    }
+    shouldComponentUpdate(nextState, nextProps) {
+        if (nextProps.questionNo && this.props.questionNo) {
+            if (nextProps.questionNo != this.props.questionNo || nextProps.data != this.props.data) {
+                this.setState({ selectedIndex: -1 })
+                console.log('122')
+                return true
+            }
         }
+        return true
+    }
+    componentWillReceiveProps(nextProps){
+        this.setState({ selectedIndex: -1 })
+        console.log(nextProps.questionNo,this.props.questionNo)
+    }
+    RenderRadio(item, option, label) {
+        return (
+            <RadioButton value={option}
+                style={{ padding: 5, margin: 0 }}
+            >
+                <Text
+                    style={[styles.customStyle, {
+                        paddingLeft: 10,
+                        paddingRight: 30,
+                        color: '#000',
+                    }]}
+                >{label.trim()}</Text>
+            </RadioButton>
+        )
+    }
+    renderRadioQ(item, questionNo) {
+        let radioButton = []
+        if (item.optiona) {
+            radioButton.push(this.RenderRadio(item, 'optiona', item.optiona))
+        }
+        if (item.optionb) {
+            radioButton.push(this.RenderRadio(item, 'optionb', item.optionb))
+        }
+        if (item.optionc) {
+            radioButton.push(this.RenderRadio(item, 'optionc', item.optionc))
+        }
+        if (item.optiond) {
+            radioButton.push(this.RenderRadio(item, 'optiond', item.optiond))
+        }
+        if (item.optione) {
+            radioButton.push(this.RenderRadio(item, 'optione', item.optione))
+        }
+        return radioButton;
     }
     render() {
+        const { data, questionNo } = this.props
+        const { selectedIndex } = this.state
         return (
             <View style={{ margin: 10 }}>
                 <RadioGroup
@@ -51,11 +91,10 @@ class RadioQuestion extends Component {
                         marginRight: 20,
                         paddingRight: 20
                     }}
-                // selectedIndex={this.findIndex()}
+                    selectedIndex={selectedIndex}
                 >
-                    {this.renderRadioQ()}
+                    {this.renderRadioQ(data, questionNo)}
                 </RadioGroup>
-
             </View>
         );
     }

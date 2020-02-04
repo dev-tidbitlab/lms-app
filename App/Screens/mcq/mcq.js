@@ -9,16 +9,18 @@ import {
     ScrollView,
     StatusBar,
     Dimensions,
-    FlatList
+    RefreshControl
 } from "react-native";
 import { Avatar, ProgressBar, Colors } from 'react-native-paper';
 import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button, Title } from 'native-base';
 import { withNavigation, withNavigationFocus } from 'react-navigation';
 import Ionicons from "react-native-vector-icons/Ionicons";
 const ScreenWidth = Dimensions.get('window').width
-import { GET } from '../../service/index'
+import { GET, POST } from '../../service/index'
 import { CheckBox } from 'react-native-elements';
 import ReviewRatingModalComponent from '../reviewRating/rating'
+import RadioQuestionComponenets from './radio'
+import CheckBoxQuestionComponenets from './checkbox'
 class MCQs extends Component {
     constructor() {
         super();
@@ -27,7 +29,12 @@ class MCQs extends Component {
             MCQList: [],
             ReviewRatingModal: false,
             course_id: '',
-            QuestionType: null
+            QuestionType: null,
+            MCQData: {},
+            questionNo: 0,
+            isActiveButton: true,
+            Answers: [],
+            QuestionID: ''
         };
     }
 
@@ -35,41 +42,24 @@ class MCQs extends Component {
         this.props.navigation.goBack();
     }
     FilterRadioMCQs(MCQ) {
-        let mcqFormatting = [{ options: [] }]
         if (MCQ.isMultiSelect) {
-            this.setState({ QuestionType: 'radio' })
-        } else {
             this.setState({ QuestionType: 'checkbox' })
+        } else {
+            this.setState({ QuestionType: 'radio' })
         }
-        for (let key in MCQ) {
-            console.log("User " + MCQ[key] + " is #" + key)
-
-        }
-        // if (MCQ.optiona) {
-        //     mcqFormatting[i].options.push(MCQ.optiona)
-        // }
-        // if (MCQ.optionb) {
-        //     mcqFormatting[i].options.push(MCQ.optionb)
-        // }
-        // if (MCQ.optionc) {
-        //     mcqFormatting[i].options.push(MCQ.optionc)
-        // }
-        // if (MCQ.optiond) {
-        //     mcqFormatting[i].options.push(MCQ.optiond)
-        // }
-        // if (MCQ.optione) {
-        //     mcqFormatting[i].options.push(MCQ.optione)
-        // }
-        // });
-        console.log('mcqFormatting', mcqFormatting)
+        this.setState({ MCQData: MCQ })
     }
     getInitialMCQs(course_id) {
         GET('coursejourney/student/mcq/' + course_id + '/loadMcq').then(response => {
-            console.log('response==>> mcq', response)
+            console.log('response==>> mcq==', response)
             if (response.success) {
-                // this.setState({ MCQList: response.data })
                 if (response.data.mcq) {
+                    this.setState({ questionNo: response.data.questionNo })
                     this.FilterRadioMCQs(response.data.mcq)
+                } else {
+                    if (response.data.latestOn == "result") {
+                        this.props.navigation.navigate('TestResult')
+                    }
                 }
             } else {
 
@@ -88,60 +78,51 @@ class MCQs extends Component {
         this.setState({ course_id: course_id })
         this.getInitialMCQs(course_id)
     }
+    _onRefresh() {
+        const { course_id } = this.state
+        this.setState({ loading: true })
+        this.getInitialMCQs(course_id)
+    }
+    getNextQuestion() {
+        const { course_id, MCQData, Answers } = this.state
+        this.setState({ loading: true, isActiveButton: true })
+        POST('coursejourney/student/mcq/' + course_id + '/' + MCQData._id, JSON.stringify({ submittedAnswers: Answers })).then(response => {
+            console.log(response, 'res')
+            if (response.success) {
+                this.getInitialMCQs(course_id)
+            }
+        }).catch(function (error) {
+            if (error) {
+                console.log('error==>>', error)
+                this.setState({ loading: false, isActiveButton: false })
+            }
+        })
+    }
     ReviewRatingModalView() {
         this.setState({ ReviewRatingModal: true })
     }
     toggleBottomNavigationView() {
         this.setState({ ReviewRatingModal: false })
     }
-    RenderCheckBox(item) {
-        return (
-            <CheckBox
-                containerStyle={{
-                    backgroundColor: '#FFF',
-                    borderWidth: 0
-                }}
-                checkedColor={'#1A5566'}
-                title={'options'}
-                size={24}
-                checked={true}
-            />
-        )
+    onChangeOptions(v) {
+        console.log(v)
+        if (v) {
+            if (v.length > 0) {
+                this.setState({ isActiveButton: false })
+            } else {
+                this.setState({ isActiveButton: true })
+            }
+        }
+        this.setState({ Answers: v })
     }
-    RenderMCQ(item) {
-        console.log('ite', item)
-        return (
-            <TouchableOpacity key={item.index} style={{ borderRadius: 5, marginTop: 15, flex: 1, backgroundColor: '#FFF' }}>
-                <View style={{ flexDirection: 'row' }}>
-                    <View style={{ width: 25, height: 25, marginLeft: 5, marginTop: 5, backgroundColor: '#0AC4BA', borderRadius: 100, justifyContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ color: '#FFF' }}>1</Text>
-                    </View>
-                    <Text style={{ fontSize: 14, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '800' }}>{item.item.question}</Text>
-                </View>
-                <View>
-
-                    {item.item.optiona ? <View>
-                        {this.RenderCheckBox(item.item)}
-                    </View> : null}
-                    {item.item.optionb ? <View>
-                        {this.RenderCheckBox(item.item)}
-                    </View> : null}
-                    {item.item.optionc ? <View>
-                        {this.RenderCheckBox(item.item)}
-                    </View> : null}
-                    {item.item.optiond ? <View>
-                        {this.RenderCheckBox(item.item)}
-                    </View> : null}
-                    {item.item.optione ? <View>
-                        {this.RenderCheckBox(item.item)}
-                    </View> : null}
-
-                </View>
-            </TouchableOpacity>
-        )
+    onChangeRadio(v) {
+        if (v) {
+            this.setState({ isActiveButton: false })
+            this.setState({ Answers: [v] })
+        }
     }
     render() {
-        const {QuestionType} = this.state
+        const { QuestionType, MCQData, questionNo, isActiveButton } = this.state
         return (
             <Container style={{ backgroundColor: '#F4F4F6' }}>
                 <Header style={{ backgroundColor: '#1A5566' }}>
@@ -162,38 +143,32 @@ class MCQs extends Component {
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
                     horizontal={false}
+                    refreshControl={
+                        <RefreshControl
+                            colors={['#1A5566']}
+                            progressBackgroundColor="#FFF"
+                            refreshing={this.state.loading}
+                            onRefresh={() => this._onRefresh()}
+                        />
+                    }
                 >
                     <View style={{ margin: 10 }}>
-                        {this.state.loading ? <View style={{ marginTop: 10 }}>
-                            <ActivityIndicator size="small" color="#1A5566" />
-                        </View> : null}
-
                         <View>
-                            <Text style={{ fontSize: 18, color: '#000', fontWeight: '900' }}>MCQ Question will display here</Text>
+                            <Text style={{ fontSize: 18, color: '#000', fontWeight: '900' }}>Note: Answer once submitted will not be changed later.</Text>
                         </View>
-                        <TouchableOpacity style={{ marginTop: 30, backgroundColor: '#AAA', padding: 5 }} onPress={() => this.ReviewRatingModalView()}>
-                            <Text>Review Rating</Text>
-                        </TouchableOpacity>
-                        <View>
-                            <FlatList
-                                data={this.state.MCQList}
-                                renderItem={item => this.RenderMCQ(item)}
-                                keyExtractor={item => item._id}
-                            />
+                        <View style={{ flexDirection: 'row' }}>
+                            <View style={{ width: 25, height: 25, marginLeft: 5, marginTop: 5, marginRight: 10, backgroundColor: '#0AC4BA', borderRadius: 100, justifyContent: 'center', alignItems: 'center' }}>
+                                <Text style={{ color: '#FFF', textAlign: 'center' }}>{questionNo}</Text>
+                            </View>
+                            <Text style={{ fontSize: 14, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '800' }}>{MCQData.question}</Text>
                         </View>
-
+                        {QuestionType == 'radio' ? <RadioQuestionComponenets onChangeRadio={(v) => this.onChangeRadio(v)} data={MCQData} questionNo={questionNo} /> : null}
+                        {QuestionType == 'checkbox' ? <CheckBoxQuestionComponenets onChangeOptions={(v) => this.onChangeOptions(v)} data={MCQData} questionNo={questionNo} /> : null}
+                        <View disabled={isActiveButton} style={{ alignItems: 'flex-end', padding: 20 }}>
+                            <Ionicons onPress={() => this.getNextQuestion()} color={isActiveButton ? "#BBB" : "#1A5566"} name="ios-arrow-dropright-circle" size={48} />
+                        </View>
                     </View>
                 </ScrollView>
-                <View style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 50, backgroundColor: '#FFF' }}>
-                    <View style={{ flexDirection: 'row', flex: 1, justifyContent: 'space-around' }}>
-                        <TouchableOpacity>
-                            <Ionicons color="#1A5566" name="ios-arrow-dropleft-circle" size={48} />
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Ionicons color="#1A5566" name="ios-arrow-dropright-circle" size={48} />
-                        </TouchableOpacity>
-                    </View>
-                </View>
                 <ReviewRatingModalComponent toggleBottomNavigationView={() => this.toggleBottomNavigationView()} ReviewRatingModal={this.state.ReviewRatingModal} />
             </Container>
         );
