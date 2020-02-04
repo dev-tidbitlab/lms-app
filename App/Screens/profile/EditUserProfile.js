@@ -37,6 +37,7 @@ class EditUserProfile extends Component {
                 passcode: '',
                 country: ''
             },
+            Loader: false,
             ValidationArray: {
                 firstName: false,
                 lastName: false,
@@ -124,18 +125,23 @@ class EditUserProfile extends Component {
                 })
                 // this.props.UploadUserPicAction({ props: this.props, data: formData })
                 console.log('hh==>>', formData)
-                this.props.Loading(true)
+                // this.props.Loading(true)
+                this.setState({ Loader: true })
                 FormPostAPI('auth/reguser/update', formData).then(response => {
-                    console.log(response, 'ttt')
+                    console.log(response, 'ttt==>>')
                     if (response.success) {
                         this.props.navigation.navigate('StudentProfile')
                         this.props.GetUserInfo(this.props)
-                        this.props.LoadingStop(false)
+                        this.setState({ Loader: false })
+                        // this.props.LoadingStop(false)
                     } else {
-                        this.props.LoadingStop(false)
+                        this.setState({ Loader: false })
+                        // this.props.LoadingStop(false)
                     }
                 }).catch(function (error) {
-                    this.props.LoadingStop(false)
+                    console.log('error', error)
+                    this.setState({ Loader: false })
+                    // this.props.LoadingStop(false)
                 })
             }
         })
@@ -268,6 +274,7 @@ class EditUserProfile extends Component {
                             </View>
                         </View>
                         <Progress DialogLoader={this.props.loading} title={'Please wait...'} />
+                        <Progress DialogLoader={this.state.Loader} title={'Please wait...'} />
                     </View>
                 </ScrollView>
                 {this.props.ErrorToaster.toast ? <ErrorToaster message={this.props.ErrorToaster.message} /> : null}

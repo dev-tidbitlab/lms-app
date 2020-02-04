@@ -57,6 +57,7 @@ class MyOrderFilters extends Component {
             query = query + '&endingCreatedAt=' + endingCreatedAt
         }
         console.log(query)
+        this._toggleBottomNavigationView()
         this.props.ApplyFilter(query)
     }
     ratingCompleted(rating) {

@@ -1,6 +1,11 @@
 #Internal package file, do not edit.
+<<<<<<< HEAD
 #Mon Jan 27 18:33:02 IST 2020
 60.set=NATIVE_RESOURCE
+=======
+#Tue Jan 28 10:34:09 IST 2020
+60.set=ASSET
+>>>>>>> 3a28981b24d9e1ade20f06b064bb0b0889e3c6cf
 52.set=NATIVE_RESOURCE
 53.base=/home/tidbit/Music/lms-app/android/app/build/intermediates/transforms/mergeJniLibs/debug/0
 44.set=NATIVE_RESOURCE

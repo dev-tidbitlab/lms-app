@@ -9,7 +9,8 @@ import {
     ScrollView,
     StatusBar,
     Dimensions,
-    ActivityIndicator
+    ActivityIndicator,
+    RefreshControl
 } from "react-native";
 import { Avatar, ProgressBar } from 'react-native-paper';
 import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button, Title } from 'native-base';
@@ -24,6 +25,10 @@ class Dashboard extends Component {
     };
     GoBack() {
         this.props.navigation.goBack();
+    }
+    _onRefresh() {
+        this.props.MyCertificates(this.props)
+        this.props.StudentRecentlyCoursesList(this.props)
     }
     componentDidMount() {
         Dimensions.addEventListener('change', () => {
@@ -58,6 +63,14 @@ class Dashboard extends Component {
                 showsHorizontalScrollIndicator={false}
                 showsVerticalScrollIndicator={false}
                 horizontal={false}
+                refreshControl={
+                    <RefreshControl
+                        colors={['#1A5566']}
+                        progressBackgroundColor="#FFF"
+                        refreshing={this.props.loading}
+                        onRefresh={() => this._onRefresh()}
+                    />
+                }
             >
                 <View style={{ margin: 10 }}>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
@@ -65,24 +78,24 @@ class Dashboard extends Component {
                             <View style={{ backgroundColor: '#EEE', borderRadius: 100, width: 80, height: 80, justifyContent: "center", alignItems: 'center' }}>
                                 <Image resizeMode={'stretch'} width={60} height={60} source={require('../../../Images/course64.png')} />
                             </View>
-                            <Text style={{ fontSize: 16, fontWeight: '600', marginTop:5 }}>Total Courses</Text>
-                            <Text style={{marginTop: 5}}>{this.props.StudentCertificates ? this.props.StudentCertificates.totalCourses : 0}</Text>
+                            <Text style={{ fontSize: 16, fontWeight: '600', marginTop: 5 }}>Total Courses</Text>
+                            <Text style={{ marginTop: 5 }}>{this.props.StudentCertificates ? this.props.StudentCertificates.totalCourses : 0}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={{ width: 150, height: 150, backgroundColor: '#FFF', marginTop: 10, marginRight: 10, marginBottom: 15, marginLeft: 10, justifyContent: 'center', alignItems: 'center', borderRadius: 5 }}>
                             <View style={{ backgroundColor: '#EEE', borderRadius: 100, width: 80, height: 80, justifyContent: "center", alignItems: 'center' }}>
                                 <Image resizeMode={'stretch'} source={require('../../../Images/certificate64.png')} />
                             </View>
-                            <Text style={{ fontSize: 16, fontWeight: '600', marginTop:5 }}>Certifications</Text>
-                            <Text style={{marginTop: 5}}>{this.props.StudentCertificates ? this.props.StudentCertificates.totalCertificates : 0}</Text>
+                            <Text style={{ fontSize: 16, fontWeight: '600', marginTop: 5 }}>Certifications</Text>
+                            <Text style={{ marginTop: 5 }}>{this.props.StudentCertificates ? this.props.StudentCertificates.totalCertificates : 0}</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{ marginLeft: 10 }}>
                         <Text style={{ fontSize: 18, color: '#000', fontWeight: '600' }}>My recently courses</Text>
                     </View>
-                    {this.props.loading ?
+                    {/* {this.props.loading ?
                         <View style={{ marginTop: 10, position: 'absolute', left: 0, right: 0, zIndex: 100 }}>
                             <ActivityIndicator size="large" color="yellow" />
-                        </View> : null}
+                        </View> : null} */}
                     {this.props.StudentRecentlyCourseList.length > 0 ? <View>
                         {this.props.StudentRecentlyCourseList.map((v, i) => {
                             return (

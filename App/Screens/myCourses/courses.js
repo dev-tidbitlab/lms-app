@@ -12,6 +12,7 @@ import {
     ActivityIndicator,
     TextInput,
     Picker,
+    RefreshControl
 } from "react-native";
 import { BottomSheet } from 'react-native-btr';
 import { Avatar, ProgressBar, Colors } from 'react-native-paper';
@@ -50,6 +51,9 @@ class MyCourses extends Component {
         console.log('vvv', v)
         this.props.StudentCoursesList({ props: this.props, search: v })
     }
+    _onRefresh(){
+        this.props.StudentCoursesList(this.props)
+    }
     componentDidUpdate(prevProps) {
         if (prevProps.isFocused !== this.props.isFocused) {
             console.log(prevProps.isFocused, this.props.isFocused)
@@ -82,11 +86,12 @@ class MyCourses extends Component {
                 query = query + '?courseCompleted=' + true
             }
         }
-        this.props.StudentCoursesList({ props: this.props, query: query})
+        this.props.StudentCoursesList({ props: this.props, query: query })
         this.setState({ visible: false });
     }
     render() {
         console.log('mooo===>>>', this.props.StudentCourseList)
+        const { courseStarted, courseCompleted } = this.props.StudentCourseList
         let ScreenWidth = this.state.ScreenWidth
         return (
             <Container style={{ backgroundColor: '#F4F4F6' }}>
@@ -126,25 +131,35 @@ class MyCourses extends Component {
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
                     horizontal={false}
+                    refreshControl={
+                        <RefreshControl
+                            colors={['#1A5566']}
+                            progressBackgroundColor="#FFF"
+                            refreshing={this.props.loading}
+                            onRefresh={() => this._onRefresh()}
+                        />
+                    }
                 >
                     <View style={{ margin: 10 }}>
                         <View style={{ marginLeft: 10 }}>
                             <Text style={{ fontSize: 18, color: '#000', fontWeight: '600' }}>My Courses</Text>
                         </View>
-                        {this.props.loading ? <View style={{ marginTop: 10, position: 'absolute', zIndex: 1000, left: 0, right: 0 }}>
+                        {/* {this.props.loading ? <View style={{ marginTop: 10, position: 'absolute', zIndex: 1000, left: 0, right: 0 }}>
                             <ActivityIndicator size="large" color="yellow" />
                         </View>
-                            : null}
+                            : null} */}
                         {this.props.StudentCourseList.length > 0 ? <View>
                             {this.props.StudentCourseList.map((v, i) => {
                                 return (
-                                    <TouchableOpacity key={i} onPress={() => this.ViewCourseDetails(v)} style={{ flexDirection: 'row', borderRadius: 5, marginRight: 10, marginLeft: 10, marginTop: 15, flex: 1, backgroundColor: '#FFF' }}>
-                                        <View style={{ marginLeft: 5, marginTop: 5 }}>
+                                    <TouchableOpacity key={i}  style={{ flexDirection: 'row', borderRadius: 5, marginRight: 10, marginLeft: 10, marginTop: 15, flex: 1, backgroundColor: '#FFF' }}>
+                                        <TouchableOpacity onPress={() => this.ViewCourseDetails(v)} style={{ marginLeft: 5, marginTop: 5 }}>
                                             <Image style={{ width: 100, height: 100, borderRadius: 5 }} source={{ uri: v.courseId != undefined && v.courseId != null ? v.courseId.courseImage : null }} />
                                             <TouchableOpacity onPress={() => this.ViewCourseDetails(v)} style={{ marginTop: 15, bottom: 5, padding: 6, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
-                                                <Text style={{ fontSize: 12, color: '#FFF' }}>Start Course</Text>
+                                                {v.courseStarted == false ? <Text style={{ fontSize: 12, color: '#FFF' }}>Start Course</Text> : null}
+                                                {v.courseStarted == true ? <Text style={{ fontSize: 12, color: '#FFF' }}>Resume Course</Text> : null}
+                                                {v.courseCompleted == true ? <Text style={{ fontSize: 12, color: '#FFF' }}>Review Course</Text> : null}
                                             </TouchableOpacity>
-                                        </View>
+                                        </TouchableOpacity>
                                         <View style={{ flex: 1, marginRight: 10, marginLeft: 10 }}>
                                             <Text style={{ fontSize: 14, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '400' }}>{v.courseId ? v.courseId.courseName : ''}</Text>
                                             <Text numberOfLines={2} style={{ fontSize: 12, color: '#000', paddingBottom: 5 }}>{v.courseId ? v.courseId.description : ''}</Text>

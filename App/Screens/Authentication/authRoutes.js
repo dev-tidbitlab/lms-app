@@ -7,7 +7,6 @@ import { Animated, Easing, Platform } from 'react-native';
 import AppSplashScreen from './splash'
 import AppLoginScreen from './login'
 import AppRegisterScreen from './register'
-import AppAuthManiScreen from './index'
 import ForgotPassword from './forgotPassword'
 let SlideFromRight = (index, position, width) => {
     const translateX = position.interpolate({
@@ -45,8 +44,6 @@ const AuthStack = createStackNavigator(
         AppLoginScreen: { screen: AppLoginScreen },
         ForgotPassword: { screen: ForgotPassword },
         AppRegisterScreen: { screen: AppRegisterScreen },
-        AppAuthManiScreen: { screen: AppAuthManiScreen }
-
     },
     {
         initialRouteName: 'AppSplashScreen',
