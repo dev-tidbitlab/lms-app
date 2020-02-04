@@ -1,4 +1,9 @@
+<<<<<<< HEAD
+#Mon Jan 27 18:33:01 IST 2020
+base.0=/home/tidbit/Music/lms-app/android/app/build/intermediates/transforms/dexMerger/debug/0
+=======
 #Tue Jan 28 10:34:08 IST 2020
 base.0=/Users/tsm101/Desktop/lms-app/android/app/build/intermediates/transforms/dexMerger/debug/0
+>>>>>>> 3a28981b24d9e1ade20f06b064bb0b0889e3c6cf
 path.0=classes.dex
 renamed.0=classes.dex
