@@ -51,7 +51,7 @@ class MyCourses extends Component {
         console.log('vvv', v)
         this.props.StudentCoursesList({ props: this.props, search: v })
     }
-    _onRefresh(){
+    _onRefresh() {
         this.props.StudentCoursesList(this.props)
     }
     componentDidUpdate(prevProps) {
@@ -151,13 +151,13 @@ class MyCourses extends Component {
                         {this.props.StudentCourseList.length > 0 ? <View>
                             {this.props.StudentCourseList.map((v, i) => {
                                 return (
-                                    <TouchableOpacity key={i}  style={{ flexDirection: 'row', borderRadius: 5, marginRight: 10, marginLeft: 10, marginTop: 15, flex: 1, backgroundColor: '#FFF' }}>
+                                    <TouchableOpacity key={i} style={{ flexDirection: 'row', borderRadius: 5, marginRight: 10, marginLeft: 10, marginTop: 15, flex: 1, backgroundColor: '#FFF' }}>
                                         <TouchableOpacity onPress={() => this.ViewCourseDetails(v)} style={{ marginLeft: 5, marginTop: 5 }}>
                                             <Image style={{ width: 100, height: 100, borderRadius: 5 }} source={{ uri: v.courseId != undefined && v.courseId != null ? v.courseId.courseImage : null }} />
                                             <TouchableOpacity onPress={() => this.ViewCourseDetails(v)} style={{ marginTop: 15, bottom: 5, padding: 6, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
                                                 {v.courseStarted == false ? <Text style={{ fontSize: 12, color: '#FFF' }}>Start Course</Text> : null}
-                                                {v.courseStarted == true ? <Text style={{ fontSize: 12, color: '#FFF' }}>Resume Course</Text> : null}
-                                                {v.courseCompleted == true ? <Text style={{ fontSize: 12, color: '#FFF' }}>Review Course</Text> : null}
+                                                {v.courseStarted == true && v.courseCompleted == false? <Text style={{ fontSize: 12, color: '#FFF' }}>Resume Course</Text> : null}
+                                                {v.courseCompleted == true && v.courseStarted == true ? <Text style={{ fontSize: 12, color: '#FFF' }}>Review Course</Text> : null}
                                             </TouchableOpacity>
                                         </TouchableOpacity>
                                         <View style={{ flex: 1, marginRight: 10, marginLeft: 10 }}>

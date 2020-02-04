@@ -8,6 +8,7 @@ import ViewCourseDetails from './viewCourseDetails'
 import TestVideo from './testVideo'
 import MCQTest from '../mcq/mcq'
 import StartMCQ from '../mcq/mcqStart'
+import StartMyTestAndGiveANS from '../mcq/mcq'
 let SlideFromRight = (index, position, width) => {
     const translateX = position.interpolate({
         inputRange: [index - 1, index],
@@ -42,7 +43,8 @@ const CourseStack = createStackNavigator(
         StudentCourses: { screen: MyCourses },
         ViewCourseDetails: { screen: ViewCourseDetails },
         StudentMCQTest: { screen: MCQTest },
-        StartMCQ: { screen: StartMCQ }
+        StartMCQ: { screen: StartMCQ },
+        StartMyTestAndGiveANS: { screen: StartMyTestAndGiveANS }
     },
     {
         initialRouteName: 'StudentCourses',

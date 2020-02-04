@@ -10,7 +10,8 @@ import {
     ScrollView,
     StatusBar,
     Dimensions,
-    FlatList
+    FlatList,
+    RefreshControl
 } from "react-native";
 import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button, Title } from 'native-base';
 import { withNavigation, withNavigationFocus } from 'react-navigation';
@@ -35,6 +36,8 @@ class StartMCQ extends Component {
                 // this.setState({ MCQList: response.data })
                 if (response.data.mcq) {
                     this.setState({ NoOfQuestions: response.data.count })
+                } else {
+                    this.setState({ NoOfQuestions: 0 })
                 }
             } else {
 
@@ -52,6 +55,13 @@ class StartMCQ extends Component {
         const course_id = navigation.getParam('course_id', '');
         this.setState({ course_id: course_id })
         this.getInitialMCQs(course_id)
+    }
+    _onRefresh() {
+        const { course_id } = this.state
+        this.getInitialMCQs(course_id)
+    }
+    StartMyTest() {
+        this.props.navigation.navigate('StartMyTestAndGiveANS')
     }
     render() {
         const { NoOfQuestions } = this.state
@@ -71,18 +81,30 @@ class StartMCQ extends Component {
                 </Header>
                 <StatusBar backgroundColor="#1A5566" barStyle="light-content" />
                 <ScrollView
-                    contentContainerStyle={{ backgroundColor: '#F00', flex: 1 }}
+                    contentContainerStyle={{ backgroundColor: '#F4F4F6', flex: 1 }}
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
                     horizontal={false}
+                    refreshControl={
+                        <RefreshControl
+                            colors={['#1A5566']}
+                            progressBackgroundColor="#FFF"
+                            refreshing={this.state.loading}
+                            onRefresh={() => this._onRefresh()}
+                        />
+                    }
                 >
-                    <View style={{ margin: 10 }}>
-                        {this.state.loading ? <View style={{ marginTop: 10 }}>
-                            <ActivityIndicator size="small" color="#1A5566" />
-                        </View> : null}
+                    <View style={{ margin: 10, flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                             <Image width="80" height="80" source={require('../../Images/empty_tests.png')} />
-                            <Text>{NoOfQuestions}</Text>
+                            <View style={{ marginTop: 20, marginBottom: 20 }}>
+                                <Text style={{ fontSize: 16, fontWeight: '500', color: '#222' }}>The test contains {NoOfQuestions} questions</Text>
+                            </View>
+                            <View>
+                                <TouchableOpacity onPress={() => this.StartMyTest()} style={{ bottom: 5, paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
+                                    <Text style={{ fontSize: 12, color: '#FFF' }}>Start Test</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                 </ScrollView>

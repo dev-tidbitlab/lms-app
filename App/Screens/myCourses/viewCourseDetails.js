@@ -280,6 +280,7 @@ class ViewCourseDetails extends Component {
         this.props.navigation.navigate('StudentCourses');
     }
     StartMCQ() {
+        this.setState({ paused: true })
         this.props.navigation.navigate('StartMCQ', {
             course_id: this.state.course_id
         })
@@ -470,14 +471,14 @@ class ViewCourseDetails extends Component {
                         {VideoLoading ? <View style={{ alignItems: 'center', justifyContent: 'center', width: CurrentWidth, height: CurrentHieght }}>
                             <ActivityIndicator size={64} color="yellow" />
                         </View> : null}
-                        {MyCourseCompleted ? <View style={{ zIndex: 1000, alignItems: 'center', justifyContent: 'center', width: CurrentWidth, height: CurrentHieght, backgroundColor:'#222' }}>
+                        {MyCourseCompleted ? <View style={{ zIndex: 1000, alignItems: 'center', justifyContent: 'center', width: CurrentWidth, height: CurrentHieght, backgroundColor: '#222' }}>
                             <View style={{ zIndex: 1300, position: 'absolute', left: 5, top: 5, background: 'transparent', backgroundColor: "transparent" }}>
                                 <Ripple onPress={() => this.GoBack()} rippleCentered={true} rippleOpacity={1} rippleSize={100} rippleDuration={600} rippleContainerBorderRadius={100} rippleColor={'#1A5566'}>
                                     <MaterialIcons style={{ padding: 10, background: 'transparent', backgroundColor: "transparent" }} name="arrow-back" size={24} color="#FFF" />
                                 </Ripple>
                             </View>
                             <Text style={{ color: '#FFF', fontWeight: '600', fontSize: 16 }}>Course Completed!</Text>
-                            <TouchableOpacity onPress={() => this.PlayAgain()} style={{backgroundColor:'#1A5566', marginTop: 10, borderRadius: 5}}>
+                            <TouchableOpacity onPress={() => this.PlayAgain()} style={{ backgroundColor: '#1A5566', marginTop: 10, borderRadius: 5 }}>
                                 <Text style={{ color: '#FFF', fontWeight: '600', fontSize: 14, padding: 5 }}>Play Again</Text>
                             </TouchableOpacity>
                         </View> : null}
