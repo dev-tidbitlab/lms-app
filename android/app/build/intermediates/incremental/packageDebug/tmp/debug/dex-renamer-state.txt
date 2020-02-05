@@ -1,4 +1,4 @@
-#Tue Feb 04 14:42:40 IST 2020
-base.0=/home/tidbit/Music/lms-app/android/app/build/intermediates/transforms/dexMerger/debug/0
-path.0=classes.dex
+#Wed Feb 05 22:36:18 IST 2020
+base.0=/Users/sandeep/Desktop/lms-app/android/app/build/intermediates/transforms/dexMerger/debug/0
 renamed.0=classes.dex
+path.0=classes.dex

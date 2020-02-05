@@ -60,6 +60,15 @@
         <service android:name="io.invertase.firebase.messaging.RNFirebaseBackgroundMessagingService" />
 
         <provider
+            android:name="com.imagepicker.FileProvider"
+            android:authorities="com.international.fertility.academy.lms.provider"
+            android:exported="false"
+            android:grantUriPermissions="true" >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+        <provider
             android:name="com.RNFetchBlob.Utils.FileProvider"
             android:authorities="com.international.fertility.academy.lms.provider"
             android:exported="false"
@@ -82,16 +91,6 @@
                 android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
                 android:value="com.google.firebase.components.ComponentRegistrar" />
         </service>
-
-        <provider
-            android:name="com.imagepicker.FileProvider"
-            android:authorities="com.international.fertility.academy.lms.provider"
-            android:exported="false"
-            android:grantUriPermissions="true" >
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths" />
-        </provider>
         <!--
              FirebaseMessagingService performs security checks at runtime,
              but set to not exported to explicitly avoid allowing another app to call it.

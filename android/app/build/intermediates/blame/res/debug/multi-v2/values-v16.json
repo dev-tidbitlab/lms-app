@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/tidbit/Music/lms-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v16/values-v16.xml",
+            "outputFile": "/Users/sandeep/Desktop/lms-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "/home/tidbit/.gradle/caches/transforms-2/files-2.1/9e15df44e21ce3966cba350fa5b06ba3/res/values-v16/values-v16.xml",
+                    "source": "/Users/sandeep/.gradle/caches/transforms-2/files-2.1/bfa30c37e83e7d7960564d8531f9a96a/res/values-v16/values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "/home/tidbit/.gradle/caches/transforms-2/files-2.1/2cb2ba71d30f2066288f2215f07887ac/res/values-v16/values-v16.xml",
+                    "source": "/Users/sandeep/.gradle/caches/transforms-2/files-2.1/a90f099a68c30d0a94b9f3c642a54b10/res/values-v16/values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/tidbit/Music/lms-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-watch-v21/values-watch-v21.xml",
+            "outputFile": "/Users/sandeep/Desktop/lms-app/android/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-watch-v21/values-watch-v21.xml",
             "map": [
                 {
-                    "source": "/home/tidbit/.gradle/caches/transforms-2/files-2.1/9e15df44e21ce3966cba350fa5b06ba3/res/values-watch-v21/values-watch-v21.xml",
+                    "source": "/Users/sandeep/.gradle/caches/transforms-2/files-2.1/bfa30c37e83e7d7960564d8531f9a96a/res/values-watch-v21/values-watch-v21.xml",
                     "from": {
                         "startLines": "2,6,10",
                         "startColumns": "4,4,4",

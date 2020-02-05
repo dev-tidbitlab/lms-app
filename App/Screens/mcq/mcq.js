@@ -158,13 +158,13 @@ class MCQs extends Component {
                 >
                     <View style={{ margin: 10 }}>
                         <View style={{margin: 10}}>
-                            <Text style={{ fontSize: 18, color: '#000', fontWeight: '900' }}>Note: Answer once submitted will not be changed later.</Text>
+                            <Text style={{ fontSize: 16, color: '#D54534', fontWeight: '400', paddingBottom: 10}}>Note: Answer once submitted will not be changed later.</Text>
                         </View>
-                        {QuestionType?<View style={{ flexDirection: 'row' }}>
-                            <View style={{ width: 25, height: 25, marginLeft: 5, marginTop: 5, marginRight: 10, backgroundColor: '#0AC4BA', borderRadius: 100, justifyContent: 'center', alignItems: 'center' }}>
+                        {QuestionType?<View style={{ flexDirection: 'row', marginLeft: 5 }}>
+                            <View style={{ width: 25, height: 25, marginLeft: 5, marginTop: 5, marginRight: 10, backgroundColor: '#4FAE62', borderRadius: 100, justifyContent: 'center', alignItems: 'center' }}>
                                 <Text style={{ color: '#FFF', textAlign: 'center' }}>{questionNo}</Text>
                             </View>
-                            <Text style={{ fontSize: 14, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '800' }}>{MCQData.question}</Text>
+                            <Text style={{ fontSize: 14, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '500' }}>{MCQData.question}</Text>
                         </View>:null}
                         {QuestionType == 'radio' ? <RadioQuestionComponenets onChangeRadio={(v) => this.onChangeRadio(v)} data={MCQData} questionNo={questionNo} /> : null}
                         {QuestionType == 'checkbox' ? <CheckBoxQuestionComponenets onChangeOptions={(v) => this.onChangeOptions(v)} data={MCQData} questionNo={questionNo} /> : null}
