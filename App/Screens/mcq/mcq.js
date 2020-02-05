@@ -58,7 +58,9 @@ class MCQs extends Component {
                     this.FilterRadioMCQs(response.data.mcq)
                 } else {
                     if (response.data.latestOn == "result") {
-                        this.props.navigation.navigate('TestResult')
+                        this.props.navigation.navigate('TestResult', {
+                            course_id: this.state.course_id
+                        })
                     }
                 }
             } else {
@@ -89,7 +91,9 @@ class MCQs extends Component {
         POST('coursejourney/student/mcq/' + course_id + '/' + MCQData._id, JSON.stringify({ submittedAnswers: Answers })).then(response => {
             console.log(response, 'res')
             if (response.success) {
-                this.getInitialMCQs(course_id)
+                this.setState({ QuestionType: null }, () => {
+                    this.getInitialMCQs(course_id)
+                })
             }
         }).catch(function (error) {
             if (error) {
@@ -153,15 +157,15 @@ class MCQs extends Component {
                     }
                 >
                     <View style={{ margin: 10 }}>
-                        <View>
+                        <View style={{margin: 10}}>
                             <Text style={{ fontSize: 18, color: '#000', fontWeight: '900' }}>Note: Answer once submitted will not be changed later.</Text>
                         </View>
-                        <View style={{ flexDirection: 'row' }}>
+                        {QuestionType?<View style={{ flexDirection: 'row' }}>
                             <View style={{ width: 25, height: 25, marginLeft: 5, marginTop: 5, marginRight: 10, backgroundColor: '#0AC4BA', borderRadius: 100, justifyContent: 'center', alignItems: 'center' }}>
                                 <Text style={{ color: '#FFF', textAlign: 'center' }}>{questionNo}</Text>
                             </View>
                             <Text style={{ fontSize: 14, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '800' }}>{MCQData.question}</Text>
-                        </View>
+                        </View>:null}
                         {QuestionType == 'radio' ? <RadioQuestionComponenets onChangeRadio={(v) => this.onChangeRadio(v)} data={MCQData} questionNo={questionNo} /> : null}
                         {QuestionType == 'checkbox' ? <CheckBoxQuestionComponenets onChangeOptions={(v) => this.onChangeOptions(v)} data={MCQData} questionNo={questionNo} /> : null}
                         <View disabled={isActiveButton} style={{ alignItems: 'flex-end', padding: 20 }}>

@@ -66,13 +66,22 @@ class ViewCourseDetails extends Component {
         console.log(this.state.course_id, video_id)
         GET('coursejourney/student/' + course_id + '/' + video_id).then(response => {
             console.log('coursejourney==>>', response)
-            this.GetCourseDEtails(course_id)()
+            if (response.success) {
+                if (response.data) {
+                    if (response.data.progress >= 100) {
+                        this.setState({ isCourseCompleted: true })
+                    } else {
+                        this.setState({ isCourseCompleted: false })
+                    }
+                }
+            }
+            // this.GetCourseDEtails(course_id)()
         }).catch(function (error) {
         })
     }
     GetCourseDEtails(course_id) {
         GET('studentdashboard/student/listCourseDetails/' + course_id).then(response => {
-            console.log('GetCourseDEtails==>>', response)
+            console.log('GetCourseDEtails==>>===========', response)
             if (response.success) {
                 if (response.courseDetails) {
                     if (response.courseDetails.progress >= 100) {

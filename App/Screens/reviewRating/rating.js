@@ -28,6 +28,8 @@ class ReviewRating extends Component {
             Rating: 0,
             CourseRating: 0
         };
+        this.rating = ''
+        this.review = ''
     }
 
     onFilterValueChange() {
@@ -36,14 +38,13 @@ class ReviewRating extends Component {
     _toggleBottomNavigationView() {
         console.log('22')
         let app = this
-        if (app.props.toggleBottomNavigationView(false)) {
-            app.props.toggleBottomNavigationView(false)
-        }
+        this.props.SaveReviewAndRating({ rating: this.rating, review: this.review })
+        // if (app.props.toggleBottomNavigationView(false)) {
+        //     app.props.toggleBottomNavigationView(false)
+        // }
     }
     ratingCompleted(rating) {
-        let app = this
-        console.log("Rating is: " + rating)
-        // app.setState({ Rating: rating })
+        this.rating = rating
     }
     render() {
         return (
@@ -67,14 +68,14 @@ class ReviewRating extends Component {
                     </Text>
                     </View>
                     <View style={{ flex: 1, width: '100%' }}>
-                        <View style={{padding: 12}}>
-                            <AirbnbRating defaultRating={0} size={20}  count={5} showRating={false} onFinishRating={rating => this.ratingCompleted(rating)} />
+                        <View style={{ padding: 12 }}>
+                            <AirbnbRating defaultRating={0} size={20} count={5} showRating={false} onFinishRating={rating => this.ratingCompleted(rating)} />
                         </View>
-                        <View style={{ padding: 5, borderTopWidth: 1, borderColor: '#EEE', height: 100}}>
-                            <TextInput style={{textAlignVertical:'top'}} numberOfLines={10} multiline={true} placeholder="Write a review" />
+                        <View style={{ padding: 5, borderTopWidth: 1, borderColor: '#EEE', height: 100 }}>
+                            <TextInput onChangeText={(v) => this.review = v} style={{ textAlignVertical: 'top' }} numberOfLines={10} multiline={true} placeholder="Write a review" />
                         </View>
-                        <TouchableOpacity onPress={()=>this._toggleBottomNavigationView()} style={{ height:50, bottom:0,left:0, right:0,position:'absolute', alignItems:'center', justifyContent:'center', backgroundColor:'#1A5566'}}>
-                            <Text style={{color:'#FFF', fontSize:16}}>SAVE</Text>
+                        <TouchableOpacity onPress={() => this._toggleBottomNavigationView()} style={{ height: 50, bottom: 0, left: 0, right: 0, position: 'absolute', alignItems: 'center', justifyContent: 'center', backgroundColor: '#1A5566' }}>
+                            <Text style={{ color: '#FFF', fontSize: 16 }}>SAVE</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

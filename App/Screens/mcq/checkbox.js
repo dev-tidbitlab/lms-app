@@ -19,14 +19,18 @@ class CheckBoxQuestion extends Component {
         this.setState({ isCheckBoxSelected: {}, SelectedAns: [] })
     }
     shouldComponentUpdate(nextState, nextProps) {
-        if (nextProps.questionNo && this.props.questionNo) {
-            if (nextProps.questionNo != this.props.questionNo && nextProps.data != this.props.data) {
+        if ((nextProps.questionNo && this.props.questionNo) || (nextProps.data && this.props.data)) {
+            if (nextProps.questionNo != this.props.questionNo || nextProps.data != this.props.data) {
                 this.setState({ isCheckBoxSelected: {}, SelectedAns: [] })
+                console.log('45')
                 return true
             }
+            console.log('456')
+            return true
         }
         return true
     }
+
     onChnageCheckBox(item, option) {
         let { SelectedAns } = this.state
         let index = SelectedAns.indexOf(option)
@@ -61,7 +65,7 @@ class CheckBoxQuestion extends Component {
     }
     RenderMCQ(item, questionNo) {
         return (
-            <View style={{ borderRadius: 5, marginTop: 15, flex: 1, backgroundColor: '#FFF' }}>
+            <View style={{ borderRadius: 5, flex: 1, backgroundColor: '#FFF' }}>
                 <View style={{ padding: 5 }}>
                     {item.optiona ? <View>
                         {this.RenderCheckBox(item, 'optiona', item.optiona)}
@@ -78,7 +82,6 @@ class CheckBoxQuestion extends Component {
                     {item.optione ? <View>
                         {this.RenderCheckBox(item, 'optione', item.optione)}
                     </View> : null}
-
                 </View>
             </View>
         )
@@ -86,7 +89,7 @@ class CheckBoxQuestion extends Component {
     render() {
         const { data, questionNo } = this.props
         return (
-            <View style={{ margin: 10 }}>
+            <View>
                 {this.RenderMCQ(data, questionNo)}
             </View>
         );

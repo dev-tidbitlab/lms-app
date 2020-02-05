@@ -32,18 +32,21 @@ class RadioQuestion extends Component {
     }
     shouldComponentUpdate(nextState, nextProps) {
         if (nextProps.questionNo && this.props.questionNo) {
+            this.setState({ selectedIndex: -1 })
             if (nextProps.questionNo != this.props.questionNo || nextProps.data != this.props.data) {
                 this.setState({ selectedIndex: -1 })
                 console.log('122')
                 return true
             }
+            console.log('155')
+            return true;
         }
         return true
     }
-    componentWillReceiveProps(nextProps){
-        this.setState({ selectedIndex: -1 })
-        console.log(nextProps.questionNo,this.props.questionNo)
-    }
+    // componentWillReceiveProps(nextProps){
+    //     this.setState({ selectedIndex: -1 })
+    //     console.log(nextProps.questionNo,this.props.questionNo)
+    // }
     RenderRadio(item, option, label) {
         return (
             <RadioButton value={option}
