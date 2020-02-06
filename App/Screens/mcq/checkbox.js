@@ -52,7 +52,7 @@ class CheckBoxQuestion extends Component {
         return (
             <CheckBox
                 containerStyle={{
-                    backgroundColor: '#FFF',
+                    backgroundColor: 'transparent',
                     borderWidth: 0
                 }}
                 checkedColor={'#1A5566'}
@@ -65,8 +65,8 @@ class CheckBoxQuestion extends Component {
     }
     RenderMCQ(item, questionNo) {
         return (
-            <View style={{ borderRadius: 5, flex: 1, backgroundColor: '#FFF' }}>
-                <View style={{ padding: 5 }}>
+            <View style={{ borderRadius: 5, flex: 1 }}>
+                <View>
                     {item.optiona ? <View>
                         {this.RenderCheckBox(item, 'optiona', item.optiona)}
                     </View> : null}

@@ -20,6 +20,8 @@ import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 // @react-native-community/slider
 import com.reactnativecommunity.slider.ReactSliderPackage;
+// lottie-react-native
+import com.airbnb.android.react.lottie.LottiePackage;
 // react-native-firebase
 import io.invertase.firebase.RNFirebasePackage;
 // react-native-gesture-handler
@@ -84,6 +86,7 @@ public class PackageList {
       new AsyncStoragePackage(),
       new NetInfoPackage(),
       new ReactSliderPackage(),
+      new LottiePackage(),
       new RNFirebasePackage(),
       new RNGestureHandlerPackage(),
       new ImagePickerPackage(),

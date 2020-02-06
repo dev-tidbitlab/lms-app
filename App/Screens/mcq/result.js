@@ -16,6 +16,8 @@ import ReviewRatingModalComponent from '../reviewRating/rating'
 import Ionicons from "react-native-vector-icons/Ionicons";
 import RNFetchBlob from 'rn-fetch-blob'
 import { GET, POST } from '../../service/index'
+import LottieView from 'lottie-react-native';
+
 class TestResult extends Component {
     constructor() {
         super();
@@ -26,7 +28,8 @@ class TestResult extends Component {
             CourseDetails: {},
             ReviewRatingModal: false,
             isDownloaded: 0,
-            isCompleted: 0
+            isCompleted: 0,
+            MyResult: 0
         };
     }
     getInitialMCQs(course_id) {
@@ -34,16 +37,19 @@ class TestResult extends Component {
             console.log('response==>> mcq==re', response)
             if (response.success) {
                 if (response.data.latestOn == "result") {
+                    if (response.data.testResult.isPass) {
+                        this.setState({ MyResult: 1 })
+                        if (!response.data.courseDetail.courseCompleted) {
+                            this.setState({ isCompleted: 1 })
+                        } else {
+                            this.setState({ isCompleted: 2 })
+                        }
+                    } else {
+                        this.setState({ MyResult: 2 })
+                    }
                     this.setState({ Result: response.data.testResult, CourseDetails: response.data.courseDetail })
                 }
-                if (!response.data.courseDetail.courseCompleted) {
-                    this.setState({ isCompleted: 1 })
-                } else {
-                    this.setState({ isCompleted: 2 })
-                }
-            } else {
-
-            }
+            } 
             this.setState({ loading: false })
         }).catch(function (error) {
             if (error) {
@@ -79,7 +85,6 @@ class TestResult extends Component {
         })
     }
     ReviewAndRatingModal() {
-        const { CourseDetails } = this.state
         this.setState({ ReviewRatingModal: true })
     }
     toggleBottomNavigationView() {
@@ -134,8 +139,11 @@ class TestResult extends Component {
                 app.setState({ isDownloaded: 2 })
             })
     }
+    ReviewTest(){
+
+    }
     render() {
-        const { Result, CourseDetails, isCompleted } = this.state
+        const { Result, CourseDetails, isCompleted, MyResult } = this.state
         return (
             <Container style={{ backgroundColor: '#F4F4F6' }}>
                 <Header style={{ backgroundColor: '#1A5566' }}>
@@ -166,27 +174,42 @@ class TestResult extends Component {
                     }
                 >
                     <View style={{ margin: 10 }}>
-                        <Text>Test result</Text>
-                        <Text>{Result.percentage}</Text>
-                        <Text>{Result.isPass ? 'PassedI' : 'Failed'}</Text>
-                        {Result.isPass == false ? <TouchableOpacity onPress={() => this.RetryAgain()} style={{ bottom: 5, paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
-                            <Text style={{ fonSize: 12, color: '#FFF' }}>ReTake Test Again</Text>
-                        </TouchableOpacity> : null}
-                        {Result.isPass == true ? <TouchableOpacity onPress={() => this.RetryAgain()} style={{ bottom: 5, paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
+                        <View style={{ width: '100%', alignItems: 'center' }}>
+                            <View style={{ width: 200, height: 200 }}>
+                                {MyResult == 1 ? <LottieView source={require('./433-checked-done.json')} autoPlay loop={true} /> : null}
+                                {MyResult == 2 ? <LottieView style={{ width: 200, height: 200 }} source={require('./14651-error-animation.json')} autoPlay loop={true} /> : null}
+                            </View>
+                            <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                {MyResult == 1 ? <Text style={{ fontSize: 24, color: '#4FAE62', fontWeight:'600' }}>Congratulations!</Text> : null}
+                                {MyResult == 2 ? <Text style={{ fontSize: 24, color: '#D54534', fontWeight:'600' }}>Oops! You failed!</Text> : null}
+                                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingTop: 10 }}>
+                                    {MyResult == 1 ? <Text>You have passed test with </Text> : null}
+                                    {MyResult == 2 ? <Text>You have failed test with </Text> : null}
+                                    {MyResult == 1 ? <Text style={{ fontSize: 18, color: '#4FAE62', fontWeight: '600' }}>{Result.percentage}%</Text> : null}
+                                    {MyResult == 2 ? <Text style={{ fontSize: 18, color: '#D54534', fontWeight: '600' }}>{Result.percentage}%</Text> : null}
+                                </View>
+                            </View>
+                        </View>
+                        {MyResult == 2 ?
+                            <View style={{ alignItems: 'center', marginTop: 20 }}><TouchableOpacity onPress={() => this.RetryAgain()} style={{ width: 130, paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
+                                <Text style={{ fonSize: 12, color: '#FFF' }}>Take Test Again</Text>
+                            </TouchableOpacity></View> : null}
+
+                        {isCompleted == 2 && MyResult == 1 ? <View style={{ alignItems: 'center', marginTop: 20 }}><TouchableOpacity onPress={() => this.DownloadResourses(CourseDetails.certificateUrl)} style={{ width: 180, flexDirection: 'row', paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
+                            <MaterialIcons name="file-download" size={18} color={'#FFF'}/>
+                            <Text style={{color: 'white', fonSize: 12, }}>Download Certificate</Text>
+                        </TouchableOpacity></View> : null}
+                        {isCompleted == 1 && MyResult == 1 ? <View style={{ alignItems: 'center', marginTop: 20 }}><TouchableOpacity onPress={() => this.ReviewAndRatingModal()} style={{ width: 180, flexDirection: 'row', paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
+                            <Text style={{color: 'white', fonSize: 12, }}>Give Review & Rating</Text>
+                        </TouchableOpacity></View> : null}
+                        {MyResult == 1 ? <View style={{ alignItems: 'center', marginTop: 20 }}><TouchableOpacity onPress={() => this.ReviewTest()} style={{ width: 100, paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
                             <Text style={{ fonSize: 12, color: '#FFF' }}>Review Test</Text>
-                        </TouchableOpacity> : null}
-                        {isCompleted == 2 && Result.isPass == true ? <TouchableOpacity onPress={() => this.DownloadResourses(CourseDetails.certificateUrl)} style={{ flexDirection: 'row', alignItems: 'center', padding: 5, backgroundColor: '#BBB' }}>
-                            <MaterialIcons name="file-download" size={36} />
-                            <Text>Download Certificate</Text>
-                        </TouchableOpacity> : null}
-                        {isCompleted == 1 && Result.isPass == true ? <TouchableOpacity onPress={() => this.ReviewAndRatingModal()} style={{ flexDirection: 'row', alignItems: 'center', padding: 5, backgroundColor: '#BBB' }}>
-                            <Text>Give Review & Rating</Text>
-                        </TouchableOpacity> : null}
+                        </TouchableOpacity></View> : null}
                     </View>
                 </ScrollView>
                 <ReviewRatingModalComponent SaveReviewAndRating={(v) => this.SaveReviewAndRating(v)} toggleBottomNavigationView={() => this.toggleBottomNavigationView()} ReviewRatingModal={this.state.ReviewRatingModal} />
                 {this.state.isDownloaded != 0 ? <SnackBar
-                    style={{ backgroundColor: this.state.isDownloaded == 2 ? 'green' : '#222' }}
+                    style={{ backgroundColor: this.state.isDownloaded == 2 ? '#4FAE62' : '#222' }}
                     numberOfLines={2}
                     actionTextStyle={{ color: '#FFF' }}
                     actionText={'OK'}

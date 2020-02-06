@@ -5,6 +5,7 @@ INJECTED from /home/tidbit/Music/lms-app/android/app/src/main/AndroidManifest.xm
 INJECTED from /home/tidbit/Music/lms-app/android/app/src/main/AndroidManifest.xml:1:1-42:12
 INJECTED from /home/tidbit/Music/lms-app/android/app/src/main/AndroidManifest.xml:1:1-42:12
 MERGED from /home/tidbit/Music/lms-app/android/app/src/main/AndroidManifest.xml:1:1-42:12
+MERGED from [:lottie-react-native] /home/tidbit/Music/lms-app/node_modules/lottie-react-native/src/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-image-picker] /home/tidbit/Music/lms-app/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-21:12
 MERGED from [:@react-native-community_netinfo] /home/tidbit/Music/lms-app/node_modules/@react-native-community/netinfo/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-12:12
 MERGED from [:rn-fetch-blob] /home/tidbit/Music/lms-app/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-47:12
@@ -17,6 +18,7 @@ MERGED from [:react-native-gesture-handler] /home/tidbit/Music/lms-app/node_modu
 MERGED from [:react-native-reanimated] /home/tidbit/Music/lms-app/node_modules/react-native-reanimated/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-vector-icons] /home/tidbit/Music/lms-app/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [com.facebook.react:react-native:0.61.4] /home/tidbit/.gradle/caches/transforms-2/files-2.1/08799766d41f583b569c28309cac7bfa/AndroidManifest.xml:2:1-13:12
+MERGED from [com.airbnb.android:lottie:3.0.7] /home/tidbit/.gradle/caches/transforms-2/files-2.1/4bd339df57ec0be118b204e03644105d/AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat:1.0.2] /home/tidbit/.gradle/caches/transforms-2/files-2.1/9e15df44e21ce3966cba350fa5b06ba3/AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.firebase:firebase-messaging:19.0.1] /home/tidbit/.gradle/caches/transforms-2/files-2.1/84de3f2ddff2a5a3b49937282b19ea0f/AndroidManifest.xml:17:1-37:12
 MERGED from [com.google.firebase:firebase-core:17.0.1] /home/tidbit/.gradle/caches/transforms-2/files-2.1/c491b58b2c1de9f9ce659f4ad1935948/AndroidManifest.xml:2:1-9:12
@@ -98,6 +100,8 @@ INJECTED from /home/tidbit/Music/lms-app/android/app/src/debug/AndroidManifest.x
 		ADDED from /home/tidbit/Music/lms-app/android/app/src/main/AndroidManifest.xml:1:11-69
 uses-permission#android.permission.INTERNET
 ADDED from /home/tidbit/Music/lms-app/android/app/src/main/AndroidManifest.xml:4:5-67
+MERGED from [:lottie-react-native] /home/tidbit/Music/lms-app/node_modules/lottie-react-native/src/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:9:5-67
+MERGED from [:lottie-react-native] /home/tidbit/Music/lms-app/node_modules/lottie-react-native/src/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:9:5-67
 MERGED from [:rn-fetch-blob] /home/tidbit/Music/lms-app/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:5-67
 MERGED from [:rn-fetch-blob] /home/tidbit/Music/lms-app/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:5-67
 MERGED from [:react-native-firebase] /home/tidbit/Music/lms-app/node_modules/react-native-firebase/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-67
@@ -164,6 +168,8 @@ MERGED from [:react-native-firebase] /home/tidbit/Music/lms-app/node_modules/rea
 MERGED from [:react-native-firebase] /home/tidbit/Music/lms-app/node_modules/react-native-firebase/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:5-21:19
 MERGED from [com.facebook.react:react-native:0.61.4] /home/tidbit/.gradle/caches/transforms-2/files-2.1/08799766d41f583b569c28309cac7bfa/AndroidManifest.xml:11:5-20
 MERGED from [com.facebook.react:react-native:0.61.4] /home/tidbit/.gradle/caches/transforms-2/files-2.1/08799766d41f583b569c28309cac7bfa/AndroidManifest.xml:11:5-20
+MERGED from [com.airbnb.android:lottie:3.0.7] /home/tidbit/.gradle/caches/transforms-2/files-2.1/4bd339df57ec0be118b204e03644105d/AndroidManifest.xml:9:5-20
+MERGED from [com.airbnb.android:lottie:3.0.7] /home/tidbit/.gradle/caches/transforms-2/files-2.1/4bd339df57ec0be118b204e03644105d/AndroidManifest.xml:9:5-20
 MERGED from [com.google.firebase:firebase-messaging:19.0.1] /home/tidbit/.gradle/caches/transforms-2/files-2.1/84de3f2ddff2a5a3b49937282b19ea0f/AndroidManifest.xml:22:5-35:19
 MERGED from [com.google.firebase:firebase-messaging:19.0.1] /home/tidbit/.gradle/caches/transforms-2/files-2.1/84de3f2ddff2a5a3b49937282b19ea0f/AndroidManifest.xml:22:5-35:19
 MERGED from [com.google.firebase:firebase-core:17.0.1] /home/tidbit/.gradle/caches/transforms-2/files-2.1/c491b58b2c1de9f9ce659f4ad1935948/AndroidManifest.xml:7:5-20
@@ -288,6 +294,8 @@ uses-sdk
 INJECTED from /home/tidbit/Music/lms-app/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /home/tidbit/Music/lms-app/android/app/src/main/AndroidManifest.xml
 INJECTED from /home/tidbit/Music/lms-app/android/app/src/main/AndroidManifest.xml
+MERGED from [:lottie-react-native] /home/tidbit/Music/lms-app/node_modules/lottie-react-native/src/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:lottie-react-native] /home/tidbit/Music/lms-app/node_modules/lottie-react-native/src/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-image-picker] /home/tidbit/Music/lms-app/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-image-picker] /home/tidbit/Music/lms-app/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:@react-native-community_netinfo] /home/tidbit/Music/lms-app/node_modules/@react-native-community/netinfo/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
@@ -312,6 +320,8 @@ MERGED from [:react-native-vector-icons] /home/tidbit/Music/lms-app/node_modules
 MERGED from [:react-native-vector-icons] /home/tidbit/Music/lms-app/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [com.facebook.react:react-native:0.61.4] /home/tidbit/.gradle/caches/transforms-2/files-2.1/08799766d41f583b569c28309cac7bfa/AndroidManifest.xml:7:5-9:41
 MERGED from [com.facebook.react:react-native:0.61.4] /home/tidbit/.gradle/caches/transforms-2/files-2.1/08799766d41f583b569c28309cac7bfa/AndroidManifest.xml:7:5-9:41
+MERGED from [com.airbnb.android:lottie:3.0.7] /home/tidbit/.gradle/caches/transforms-2/files-2.1/4bd339df57ec0be118b204e03644105d/AndroidManifest.xml:5:5-7:41
+MERGED from [com.airbnb.android:lottie:3.0.7] /home/tidbit/.gradle/caches/transforms-2/files-2.1/4bd339df57ec0be118b204e03644105d/AndroidManifest.xml:5:5-7:41
 MERGED from [androidx.appcompat:appcompat:1.0.2] /home/tidbit/.gradle/caches/transforms-2/files-2.1/9e15df44e21ce3966cba350fa5b06ba3/AndroidManifest.xml:20:5-44
 MERGED from [androidx.appcompat:appcompat:1.0.2] /home/tidbit/.gradle/caches/transforms-2/files-2.1/9e15df44e21ce3966cba350fa5b06ba3/AndroidManifest.xml:20:5-44
 MERGED from [com.google.firebase:firebase-messaging:19.0.1] /home/tidbit/.gradle/caches/transforms-2/files-2.1/84de3f2ddff2a5a3b49937282b19ea0f/AndroidManifest.xml:20:5-44

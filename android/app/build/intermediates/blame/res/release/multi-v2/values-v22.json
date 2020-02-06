@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/tsm101/Desktop/lms-app/android/app/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-v22/values-v22.xml",
+            "outputFile": "/Users/sandeep/Desktop/lms-app/android/app/build/intermediates/incremental/mergeReleaseResources/merged.dir/values-v22/values-v22.xml",
             "map": [
                 {
-                    "source": "/Users/tsm101/.gradle/caches/transforms-2/files-2.1/08bdd86b6186765387482ada1e856f07/res/values-v22/values-v22.xml",
+                    "source": "/Users/sandeep/.gradle/caches/transforms-2/files-2.1/bfa30c37e83e7d7960564d8531f9a96a/res/values-v22/values-v22.xml",
                     "from": {
                         "startLines": "2,3,4,9",
                         "startColumns": "4,4,4,4",

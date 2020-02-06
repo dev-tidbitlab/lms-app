@@ -590,7 +590,7 @@ class ViewCourseDetails extends Component {
                         </View>
                     </ScrollView>
                     {this.state.isDownloaded != 0 ? <SnackBar
-                        style={{ backgroundColor: this.state.isDownloaded == 2 ? 'green' : '#222' }}
+                        style={{ backgroundColor: this.state.isDownloaded == 2 ? '#4FAE62' : '#222' }}
                         numberOfLines={2}
                         actionTextStyle={{ color: '#FFF' }}
                         actionText={'OK'}

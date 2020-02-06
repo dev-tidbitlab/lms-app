@@ -87,7 +87,7 @@ class RadioQuestion extends Component {
         return (
             <View style={{ margin: 10 }}>
                 <RadioGroup
-                    color='#62CC54'
+                    color='#1A5566'
                     onSelect={(index, value) => this.onSelect(index, value)}
                     style={{
                         width: '100%',

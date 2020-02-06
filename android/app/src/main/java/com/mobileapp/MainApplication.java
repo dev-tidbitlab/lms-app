@@ -7,6 +7,7 @@ import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
 import com.github.yamill.orientation.OrientationPackage;
 import com.reactnativecommunity.netinfo.NetInfoPackage;
 import android.content.Context;
+import com.airbnb.android.react.lottie.LottiePackage;
 import com.RNFetchBlob.RNFetchBlobPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import com.facebook.react.PackageList;

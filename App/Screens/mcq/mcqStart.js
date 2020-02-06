@@ -74,6 +74,13 @@ class StartMCQ extends Component {
             course_id: this.state.course_id
         })
     }
+    componentDidUpdate(prevProps) {
+        if (prevProps.isFocused !== this.props.isFocused) {
+            const { course_id } = this.state
+            this.setState({ loading: true })
+            this.getInitialMCQs(course_id)
+        }
+    }
     render() {
         const { NoOfQuestions, CourseTestCompleted } = this.state
         return (
