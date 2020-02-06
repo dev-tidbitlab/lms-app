@@ -1,19 +1,15 @@
 import React, { Component } from "react";
 import {
     View,
-    Platform,
     StyleSheet,
     TouchableOpacity,
-    ActivityIndicator,
     Text,
     ScrollView,
     StatusBar,
-    Dimensions,
     RefreshControl
 } from "react-native";
-import { Avatar, ProgressBar, Colors } from 'react-native-paper';
-import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button, Title } from 'native-base';
-import { withNavigation, withNavigationFocus } from 'react-navigation';
+import { Container, Header, Left, Body, Right, Button } from 'native-base';
+import { withNavigationFocus } from 'react-navigation';
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import SnackBar from '../../Components/snackBar/index'
 import ReviewRatingModalComponent from '../reviewRating/rating'
@@ -84,7 +80,6 @@ class TestResult extends Component {
     }
     ReviewAndRatingModal() {
         const { CourseDetails } = this.state
-        // this.DownloadResourses(CourseDetails.certificateUrl)
         this.setState({ ReviewRatingModal: true })
     }
     toggleBottomNavigationView() {
