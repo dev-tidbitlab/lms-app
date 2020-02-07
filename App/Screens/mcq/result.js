@@ -49,7 +49,7 @@ class TestResult extends Component {
                     }
                     this.setState({ Result: response.data.testResult, CourseDetails: response.data.courseDetail })
                 }
-            } 
+            }
             this.setState({ loading: false })
         }).catch(function (error) {
             if (error) {
@@ -139,8 +139,14 @@ class TestResult extends Component {
                 app.setState({ isDownloaded: 2 })
             })
     }
-    ReviewTest(){
-
+    ReviewTest() {
+        this.props.navigation.navigate('ReviewTest', {
+            course_id: this.state.course_id
+        })
+    }
+    _onRefresh() {
+        this.setState({ loading: true })
+        this.getInitialMCQs(this.state.course_id)
     }
     render() {
         const { Result, CourseDetails, isCompleted, MyResult } = this.state
@@ -180,8 +186,8 @@ class TestResult extends Component {
                                 {MyResult == 2 ? <LottieView style={{ width: 200, height: 200 }} source={require('./14651-error-animation.json')} autoPlay loop={true} /> : null}
                             </View>
                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                {MyResult == 1 ? <Text style={{ fontSize: 24, color: '#4FAE62', fontWeight:'600' }}>Congratulations!</Text> : null}
-                                {MyResult == 2 ? <Text style={{ fontSize: 24, color: '#D54534', fontWeight:'600' }}>Oops! You failed!</Text> : null}
+                                {MyResult == 1 ? <Text style={{ fontSize: 24, color: '#4FAE62', fontWeight: '600' }}>Congratulations!</Text> : null}
+                                {MyResult == 2 ? <Text style={{ fontSize: 24, color: '#D54534', fontWeight: '600' }}>Oops! You failed!</Text> : null}
                                 <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingTop: 10 }}>
                                     {MyResult == 1 ? <Text>You have passed test with </Text> : null}
                                     {MyResult == 2 ? <Text>You have failed test with </Text> : null}
@@ -196,11 +202,11 @@ class TestResult extends Component {
                             </TouchableOpacity></View> : null}
 
                         {isCompleted == 2 && MyResult == 1 ? <View style={{ alignItems: 'center', marginTop: 20 }}><TouchableOpacity onPress={() => this.DownloadResourses(CourseDetails.certificateUrl)} style={{ width: 180, flexDirection: 'row', paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
-                            <MaterialIcons name="file-download" size={18} color={'#FFF'}/>
-                            <Text style={{color: 'white', fonSize: 12, }}>Download Certificate</Text>
+                            <MaterialIcons name="file-download" size={18} color={'#FFF'} />
+                            <Text style={{ color: 'white', fonSize: 12, }}>Download Certificate</Text>
                         </TouchableOpacity></View> : null}
                         {isCompleted == 1 && MyResult == 1 ? <View style={{ alignItems: 'center', marginTop: 20 }}><TouchableOpacity onPress={() => this.ReviewAndRatingModal()} style={{ width: 180, flexDirection: 'row', paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
-                            <Text style={{color: 'white', fonSize: 12, }}>Give Review & Rating</Text>
+                            <Text style={{ color: 'white', fonSize: 12, }}>Give Review & Rating</Text>
                         </TouchableOpacity></View> : null}
                         {MyResult == 1 ? <View style={{ alignItems: 'center', marginTop: 20 }}><TouchableOpacity onPress={() => this.ReviewTest()} style={{ width: 100, paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
                             <Text style={{ fonSize: 12, color: '#FFF' }}>Review Test</Text>

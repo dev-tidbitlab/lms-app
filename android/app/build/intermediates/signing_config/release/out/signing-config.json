@@ -1,1 +1,1 @@
-{"mName":"release","mStoreFile":"/Users/sandeep/Desktop/lms-app/android/app/my-release-key.keystore","mStorePassword":"mobileapp","mKeyAlias":"my-key-alias","mKeyPassword":"mobileapp","mStoreType":"pkcs12","mV1SigningEnabled":true,"mV2SigningEnabled":true}
+{"mName":"release","mStoreFile":"/Users/tsm101/Desktop/lms-app/android/app/my-release-key.keystore","mStorePassword":"mobileapp","mKeyAlias":"my-key-alias","mKeyPassword":"mobileapp","mStoreType":"jks","mV1SigningEnabled":true,"mV2SigningEnabled":true}

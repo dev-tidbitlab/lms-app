@@ -80,6 +80,13 @@ class MCQs extends Component {
         this.setState({ course_id: course_id })
         this.getInitialMCQs(course_id)
     }
+    componentDidUpdate(prevProps) {
+        if (prevProps.isFocused !== this.props.isFocused) {
+            const { course_id } = this.state
+            this.setState({ loading: true })
+            this.getInitialMCQs(course_id)
+        }
+    }
     _onRefresh() {
         const { course_id } = this.state
         this.setState({ loading: true })
