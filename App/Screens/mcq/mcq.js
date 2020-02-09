@@ -163,11 +163,11 @@ class MCQs extends Component {
                         />
                     }
                 >
-                    <View style={{ margin: 10 }}>
+                    <View style={{ padding: 10 }}>
                         <View style={{margin: 10}}>
                             <Text style={{ fontSize: 16, color: '#D54534', fontWeight: '400', paddingBottom: 10}}>Note: Answer once submitted will not be changed later.</Text>
                         </View>
-                        {QuestionType?<View style={{ flexDirection: 'row', marginLeft: 5 }}>
+                        {QuestionType?<View style={{ flexDirection: 'row', paddingLeft: 10, paddingRight:10}}>
                             <View style={{ width: 25, height: 25, marginLeft: 5, marginTop: 5, marginRight: 10, backgroundColor: '#4FAE62', borderRadius: 100, justifyContent: 'center', alignItems: 'center' }}>
                                 <Text style={{ color: '#FFF', textAlign: 'center' }}>{questionNo}</Text>
                             </View>
@@ -176,7 +176,7 @@ class MCQs extends Component {
                         {QuestionType == 'radio' ? <RadioQuestionComponenets onChangeRadio={(v) => this.onChangeRadio(v)} data={MCQData} questionNo={questionNo} /> : null}
                         {QuestionType == 'checkbox' ? <CheckBoxQuestionComponenets onChangeOptions={(v) => this.onChangeOptions(v)} data={MCQData} questionNo={questionNo} /> : null}
                         <View disabled={isActiveButton} style={{ alignItems: 'flex-end', padding: 20 }}>
-                            <Ionicons onPress={() => this.getNextQuestion()} color={isActiveButton ? "#BBB" : "#1A5566"} name="ios-arrow-dropright-circle" size={48} />
+                            <Ionicons onPress={() => this.getNextQuestion()} color={isActiveButton ? "#BBB" : "#1A5566"} name="ios-arrow-dropright-circle" size={56} />
                         </View>
                     </View>
                 </ScrollView>

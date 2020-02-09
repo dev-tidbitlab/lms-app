@@ -65,7 +65,10 @@ class TestResult extends Component {
         this.getInitialMCQs(course_id)
     }
     GoBack() {
-        this.props.navigation.navigate('StudentCourses');
+        this.props.navigation.navigate('StartMCQ', {
+            course_id: this.state.course_id
+        })
+        // this.props.navigation.navigate('StudentCourses');
     }
     RetryAgain() {
         this.setState({ loading: true })
@@ -159,7 +162,7 @@ class TestResult extends Component {
                         </Button>
                     </Left>
                     <Body style={{ flex: 2, alignItems: 'center' }}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFF' }}>MCQ Test</Text>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFF' }}>MCQ Test Result</Text>
                     </Body>
                     <Right>
                     </Right>
@@ -208,7 +211,7 @@ class TestResult extends Component {
                         {isCompleted == 1 && MyResult == 1 ? <View style={{ alignItems: 'center', marginTop: 20 }}><TouchableOpacity onPress={() => this.ReviewAndRatingModal()} style={{ width: 180, flexDirection: 'row', paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
                             <Text style={{ color: 'white', fonSize: 12, }}>Give Review & Rating</Text>
                         </TouchableOpacity></View> : null}
-                        {MyResult == 1 ? <View style={{ alignItems: 'center', marginTop: 20 }}><TouchableOpacity onPress={() => this.ReviewTest()} style={{ width: 100, paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
+                        {MyResult == 2 ? <View style={{ alignItems: 'center', marginTop: 20 }}><TouchableOpacity onPress={() => this.ReviewTest()} style={{ width: 100, paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
                             <Text style={{ fonSize: 12, color: '#FFF' }}>Review Test</Text>
                         </TouchableOpacity></View> : null}
                     </View>
@@ -217,6 +220,7 @@ class TestResult extends Component {
                 {this.state.isDownloaded != 0 ? <SnackBar
                     style={{ backgroundColor: this.state.isDownloaded == 2 ? '#4FAE62' : '#222' }}
                     numberOfLines={2}
+                    duration={0}
                     actionTextStyle={{ color: '#FFF' }}
                     actionText={'OK'}
                     text={this.state.isDownloaded == 1 ? 'Download Started!' : 'Download Completed!'}

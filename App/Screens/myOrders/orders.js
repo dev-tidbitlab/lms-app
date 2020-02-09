@@ -39,7 +39,7 @@ class MyOrders extends Component {
     ViewCourseDetails() {
         this.props.navigation.navigate('ViewCourseDetails');
     }
-    _onRefresh(){
+    _onRefresh() {
         this.props.StudentOrderList(this.props)
     }
     componentDidMount() {
@@ -124,31 +124,32 @@ class MyOrders extends Component {
                         <View style={{ marginLeft: 10 }}>
                             <Text style={{ fontSize: 18, color: '#000', fontWeight: '600' }}>My Orders List</Text>
                         </View>
-                        {/* {this.props.loading ? <View style={{ marginTop: 10, position: 'absolute', zIndex: 1000, left: 0, right: 0 }}>
-                            <ActivityIndicator size="large" color="yellow" />
-                        </View> : null} */}
                         {this.props.StudentOrdersList.length > 0 ? <View>
                             {this.props.StudentOrdersList.map((v, i) => {
                                 return (
-                                    <TouchableOpacity key={i} style={{ flexDirection: 'row', borderRadius: 5, marginRight: 10, marginLeft: 10, marginTop: 15, flex: 1, backgroundColor: '#FFF', padding:5 }}>
-                                        <View>
+                                    <View key={i} style={{ borderRadius: 5, marginRight: 10, marginLeft: 10, marginTop: 15, flex: 1, backgroundColor: '#FFF', padding: 5 }}>
+                                        <View style={{ flex: 1, flexDirection: 'row' }}>
                                             <View style={{ width: 50, height: 50, marginLeft: 5, marginTop: 5, backgroundColor: '#0AC4BA', borderRadius: 100, justifyContent: 'center', alignItems: 'center' }}>
                                                 <MaterialIcons name="payment" size={32} color="#FFF" />
                                             </View>
-                                            <Text style={{ fontSize: 12, color: '#AAA', paddingTop: 5, paddingLeft: 5, paddingBottom: 5 }}>{this.DatedFormatting(v.actionTimestamp)}</Text>
-                                        </View>
-                                        <View style={{ flex: 1, marginRight: 10, marginLeft: 5 }}>
-                                            <View style={{ flexDirection: 'row', width: '100%' }}>
-                                                <Text style={{ fontSize: 14, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '600', marginRight: 60 }}>{v.course.courseName}</Text>
-                                                <View style={{ position: 'absolute', flexDirection: 'row', right: 5, top: 5, alignItems: 'center', justifyContent: 'center' }}>
-                                                    <FontAwesome name="rupee" size={16} color="#AAA" />
-                                                    <Text style={{ fontSize: 14, color: '#AAA' }}>{v.amount}</Text>
+                                            <View style={{ flex: 1, marginRight: 10, marginLeft: 10 }}>
+                                                <View style={{ flexDirection: 'row', width: '100%' }}>
+                                                    <Text style={{ fontSize: 14, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '600', marginRight: 60 }}>{v.course.courseName}</Text>
+                                                    <View style={{ position: 'absolute', flexDirection: 'row', right: 5, top: 5, alignItems: 'center', justifyContent: 'center' }}>
+                                                        <FontAwesome name="rupee" size={16} color="#AAA" />
+                                                        <Text style={{ fontSize: 14, color: '#AAA' }}>{v.amount}</Text>
+                                                    </View>
                                                 </View>
+                                                <Text style={{ fontSize: 12, color: '#AAA', paddingBottom: 5, marginBottom: 5 }}>Transaction No. {v.transactionId}</Text>
                                             </View>
-                                            <Text style={{ fontSize: 12, color: '#AAA', paddingBottom: 5, marginBottom: 15 }}>Transaction No. {v.transactionId}</Text>
                                         </View>
-                                        <Text style={{ fontSize: 12, color: '#AAA', position: 'absolute', bottom: 5, right: 15 }}>Payment mode: {v.modeOfPayment}</Text>
-                                    </TouchableOpacity>
+                                        <View style={{ flex: 1 }}>
+                                            <View style={{ justifyContent: 'space-between', flexDirection: 'row', padding: 5 }}>
+                                                <Text style={{ fontSize: 12, color: '#AAA' }}>{this.DatedFormatting(v.actionTimestamp)}</Text>
+                                                <Text style={{ fontSize: 12, color: '#AAA' }}>Payment mode: {v.modeOfPayment}</Text>
+                                            </View>
+                                        </View>
+                                    </View>
                                 )
                             })}
                         </View> : null}

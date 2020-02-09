@@ -90,14 +90,16 @@ function* LogoutThisUser(props) {
             toast: false
         }
     });
-    yield put({ type: "LOADER_STOP", payload: false });
+    yield put({ type: "LOADER_START", payload: false });
     try {
         const json = yield GET(props.payload.API)
         console.log('josin logout', json)
         logout(props.payload.props)
+        yield put({ type: "LOADER_STOP", payload: false });
     }
     catch (error) {
         logout(props.payload.props)
+        yield put({ type: "LOADER_STOP", payload: false });
     }
 }
 

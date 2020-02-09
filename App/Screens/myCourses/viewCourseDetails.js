@@ -7,6 +7,7 @@ import {
     AppState,
     ActivityIndicator, Text, StatusBar, View, ScrollView, Dimensions, PermissionsAndroid, Platform
 } from 'react-native';
+import {Button} from 'native-base'
 import Video from 'react-native-video';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Orientation from 'react-native-orientation';
@@ -40,7 +41,7 @@ class ViewCourseDetails extends Component {
             CurrentVideo: {},
             StudentCourseDetails: [],
             isDownloaded: 0,
-            CurrentVideoDetail: { videoName: '', videoUrl: null, description: '', attachedFiles: [] },
+            CurrentVideoDetail: { videoName: '', videoUrl: null, description: '', attachedFiles: [], courseId: null },
             collapsed: true,
             CourseData: {},
             CurrentVideoIndex: 0,
@@ -289,7 +290,7 @@ class ViewCourseDetails extends Component {
         this.props.navigation.navigate('StudentCourses');
     }
     StartMCQ() {
-        this.setState({ paused: true })
+        this.setState({ paused: true, VideoLoading: false})
         this.props.navigation.navigate('StartMCQ', {
             course_id: this.state.course_id
         })
@@ -534,7 +535,11 @@ class ViewCourseDetails extends Component {
                     <View style={{ marginLeft: 10, marginRight: 10, marginBottom: 5 }}>
                         <View style={{ marginLeft: 10 }}>
                             <TouchableOpacity onPress={() => this.toggleExpanded()}>
-                                <Text style={{ fontSize: 14, color: '#000', paddingBottom: 5, paddingTop: 5, marginTop: 10, fontWeight: '600' }}>{CurrentVideoDetail ? CurrentVideoDetail.videoName : null}</Text>
+                                <Text style={{ fontSize: 14, color: '#000', paddingTop: 5, marginTop: 10, fontWeight: '600' }}>{CurrentVideoDetail ? CurrentVideoDetail.videoName : null}</Text>
+                                {CurrentVideoDetail.courseId ? <View style={{ flexDirection: 'row', marginBottom: 5 }}>
+                                    <Text style={{ fontSize: 12, color: '#AAA', fontWeight: '400' }}>{CurrentVideoDetail.courseId ? (CurrentVideoDetail.courseId.instructor ? CurrentVideoDetail.courseId.instructor + (CurrentVideoDetail.courseId.coInstructor ? ' || ' : null) : null) : null}</Text>
+                                    <Text style={{ fontSize: 12, color: '#AAA', fontWeight: '400' }}>{CurrentVideoDetail.courseId ? (CurrentVideoDetail.courseId.coInstructor ? CurrentVideoDetail.courseId.coInstructor : null) : null}</Text>
+                                </View> : null}
                             </TouchableOpacity>
                             <TouchableOpacity style={{ position: 'absolute', right: 2, paddingTop: 5 }} onPress={() => this.toggleExpanded()}>
                                 <MaterialIcons color="#AAA" name={!this.state.collapsed ? "arrow-drop-up" : 'arrow-drop-down'} size={36} />
@@ -545,8 +550,9 @@ class ViewCourseDetails extends Component {
                                     {CurrentVideoDetail.attachedFiles.length > 0 ?
                                         CurrentVideoDetail.attachedFiles.map((val, j) => {
                                             return (
-                                                <TouchableOpacity key={j} style={{ paddingTop: 10 }} onPress={() => this.DownloadResourses(val)}>
-                                                    <Text style={{ textDecorationLine: 'underline' }}>Download {j + 1}</Text>
+                                                <TouchableOpacity key={j} style={{ flexDirection: 'row', alignItems: 'center' }} onPress={() => this.DownloadResourses(val)}>
+                                                    <MaterialIcons name="file-download" size={14} color={'#222'} />
+                                                    <Text style={{ textDecorationLine: 'underline', paddingLeft: 5 }}>Download {j + 1}</Text>
                                                 </TouchableOpacity>
                                             )
                                         }) : null}
@@ -557,9 +563,9 @@ class ViewCourseDetails extends Component {
                     <View style={{ margin: 10 }}>
                         <View style={{ marginLeft: 10, flexDirection: 'row' }}>
                             <Text style={{ fontSize: 18, color: '#000', fontWeight: '600' }}>Course Videos</Text>
-                            {isCourseCompleted == true ? <TouchableOpacity onPress={() => this.StartMCQ()} style={{ position: 'absolute', right: 10, padding: 6, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
-                                <Text style={{ fontSize: 12, color: '#FFF' }}>Take MCQ Test</Text>
-                            </TouchableOpacity> : null}
+                            {isCourseCompleted == true ?<Button onPress={() => this.StartMCQ()} small full style={{ position: 'absolute', right: 10, padding: 6, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
+                                <Text style={{ color: 'white', fontSize: 12 }}>Take MCQ Test</Text>
+                            </Button>:null}
                         </View>
                     </View>
                     <ScrollView
@@ -575,13 +581,13 @@ class ViewCourseDetails extends Component {
                             {this.state.StudentCourseDetails.length > 0 ? <View>
                                 {this.state.StudentCourseDetails.map((v, i) => {
                                     return (
-                                        <TouchableOpacity key={i} onPress={() => this.FilterCourseVideo(v, i)} key={i} style={{ flexDirection: 'row', borderRadius: 5, marginRight: 10, marginLeft: 10, marginTop: 10, flex: 1, backgroundColor: CurrentVideoIndex == i ? '#EEE' : '#FFF' }}>
+                                        <TouchableOpacity key={i} onPress={() => this.FilterCourseVideo(v, i)} key={i} style={{ flexDirection: 'row', borderRadius: 5, marginRight: 10, marginLeft: 10, marginTop: 10, flex: 1, backgroundColor: CurrentVideoIndex == i ? '#1A5566' : '#FFF' }}>
                                             <View style={{ marginLeft: 5, marginTop: 5, marginBottom: 5 }}>
-                                                <Image style={{ width: 60, height: 60, borderRadius: 5 }} source={{ uri: 'https://image.tmdb.org/t/p/w342/zfE0R94v1E8cuKAerbskfD3VfUt.jpg' }} />
+                                                <Image style={{ width: 60, height: 60, borderRadius: 5 }} source={{ uri: v.thumbnailUrl ? v.thumbnailUrl : null }} />
                                             </View>
                                             <View style={{ flex: 1, marginRight: 10, marginLeft: 10, padding: 5 }}>
-                                                <Text style={{ fontSize: 14, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '600' }}>{v.videoName}</Text>
-                                                <Text numberOfLines={2} style={{ fontSize: 12, color: '#AAA', fontWeight: '500', paddingBottom: 5 }}>{v.description}</Text>
+                                                <Text style={{ fontSize: 14, color: CurrentVideoIndex == i ? '#FFF' : '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '600' }}>{v.videoName}</Text>
+                                                <Text numberOfLines={2} style={{ fontSize: 12, color: CurrentVideoIndex == i ? '#FFF' : '#AAA', fontWeight: '500', paddingBottom: 5 }}>{v.description}</Text>
                                             </View>
                                         </TouchableOpacity>
                                     )
@@ -592,6 +598,7 @@ class ViewCourseDetails extends Component {
                     {this.state.isDownloaded != 0 ? <SnackBar
                         style={{ backgroundColor: this.state.isDownloaded == 2 ? '#4FAE62' : '#222' }}
                         numberOfLines={2}
+                        duration={0}
                         actionTextStyle={{ color: '#FFF' }}
                         actionText={'OK'}
                         text={this.state.isDownloaded == 1 ? 'Download Started!' : 'Download Completed!'}

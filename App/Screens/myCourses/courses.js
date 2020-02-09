@@ -144,22 +144,18 @@ class MyCourses extends Component {
                         <View style={{ marginLeft: 10 }}>
                             <Text style={{ fontSize: 18, color: '#000', fontWeight: '600' }}>My Courses</Text>
                         </View>
-                        {/* {this.props.loading ? <View style={{ marginTop: 10, position: 'absolute', zIndex: 1000, left: 0, right: 0 }}>
-                            <ActivityIndicator size="large" color="yellow" />
-                        </View>
-                            : null} */}
                         {this.props.StudentCourseList.length > 0 ? <View>
                             {this.props.StudentCourseList.map((v, i) => {
                                 return (
-                                    <TouchableOpacity key={i} style={{ flexDirection: 'row', borderRadius: 5, marginRight: 10, marginLeft: 10, marginTop: 15, flex: 1, backgroundColor: '#FFF' }}>
-                                        <TouchableOpacity onPress={() => this.ViewCourseDetails(v)} style={{ marginLeft: 5, marginTop: 5 }}>
+                                    <View key={i} style={{ flexDirection: 'row', borderRadius: 5, marginRight: 10, marginLeft: 10, marginTop: 15, flex: 1, backgroundColor: '#FFF' }}>
+                                        <View onPress={() => this.ViewCourseDetails(v)} style={{ marginLeft: 5, marginTop: 5 }}>
                                             <Image style={{ width: 100, height: 100, borderRadius: 5 }} source={{ uri: v.courseId != undefined && v.courseId != null ? v.courseId.courseImage : null }} />
-                                            <TouchableOpacity onPress={() => this.ViewCourseDetails(v)} style={{ marginTop: 15, bottom: 5, padding: 6, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
-                                                {v.courseStarted == false ? <Text style={{ fontSize: 12, color: '#FFF' }}>Start Course</Text> : null}
-                                                {v.courseStarted == true && v.courseCompleted == false? <Text style={{ fontSize: 12, color: '#FFF' }}>Resume Course</Text> : null}
-                                                {v.courseCompleted == true && v.courseStarted == true ? <Text style={{ fontSize: 12, color: '#FFF' }}>Review Course</Text> : null}
-                                            </TouchableOpacity>
-                                        </TouchableOpacity>
+                                            <Button onPress={() => this.ViewCourseDetails(v)} small full style={{ backgroundColor: '#1A5566', marginTop: 10, borderRadius: 5 }}>
+                                                {v.courseStarted == false ? <Text style={{ color: 'white', fontSize: 12 }}>Start Course</Text> : null}
+                                                {v.courseStarted == true && v.courseCompleted == false ? <Text style={{ color: 'white', fontSize: 12 }}>Resume Course</Text> : null}
+                                                {v.courseCompleted == true && v.courseStarted == true ? <Text style={{ color: 'white', fontSize: 12 }}>Review Course</Text> : null}
+                                            </Button>
+                                        </View>
                                         <View style={{ flex: 1, marginRight: 10, marginLeft: 10 }}>
                                             <Text style={{ fontSize: 14, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '400' }}>{v.courseId ? v.courseId.courseName : ''}</Text>
                                             <Text numberOfLines={2} style={{ fontSize: 12, color: '#000', paddingBottom: 5 }}>{v.courseId ? v.courseId.description : ''}</Text>
@@ -169,7 +165,7 @@ class MyCourses extends Component {
                                             <ProgressBar style={{ backgroundColor: '#CCC', marginBottom: 5 }} progress={v.progress ? v.progress / 100 : 0} color={'#1A5566'} />
                                             <Text style={{ fontSize: 12, color: '#AAA', paddingBottom: 10 }}>{v.progress ? v.progress : 0}% complete</Text>
                                         </View>
-                                    </TouchableOpacity>
+                                    </View>
                                 )
                             })}
                         </View> : null

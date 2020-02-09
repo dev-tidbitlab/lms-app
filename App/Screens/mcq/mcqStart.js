@@ -41,6 +41,8 @@ class StartMCQ extends Component {
                     this.setState({ NoOfQuestions: 0 })
                     if (response.data.latestOn == "result") {
                         this.setState({ CourseTestCompleted: 1 })
+                    } else{
+                        this.setState({ CourseTestCompleted: 3 })
                     }
                 }
             } else {
@@ -115,17 +117,29 @@ class StartMCQ extends Component {
                     <View style={{ margin: 10, flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                             <Image width="80" height="80" source={require('../../Images/empty_tests.png')} />
-                            <View style={{ marginTop: 20, marginBottom: 20 }}>
+                            {CourseTestCompleted == 2 ? <View style={{marginTop: 15}}>
+                                <Text style={{ fontSize: 16,textAlign: 'center', color: '#D54534', fontWeight: '400', paddingBottom: 10 }}>Note: Answer once submitted will not be changed later.</Text>
+                            </View> : null}
+                            {CourseTestCompleted == 3 ? <View style={{marginTop: 15}}>
+                                <Text style={{ fontSize: 16,textAlign: 'center', color: '#D54534', fontWeight: '400', paddingBottom: 10 }}>There is no MCQ test for this course.</Text>
+                            </View> : null}
+                            <View style={{ marginTop: 10, marginBottom: 20 }}>
                                 {CourseTestCompleted == 2 ? <Text style={{ fontSize: 16, fontWeight: '500', color: '#222' }}>The test contains {NoOfQuestions} questions</Text> : null}
-                                {CourseTestCompleted == 1 ? <Text style={{ fontSize: 16, fontWeight: '500', color: '#222' }}>You have completed course mcq test.</Text> : null}
+                                {CourseTestCompleted == 1 ? <Text style={{ fontSize: 16, fontWeight: '500', color: '#222' }}>You have completed mcq test.</Text> : null}
                             </View>
                             <View>
-                                {CourseTestCompleted == 2 ? <TouchableOpacity onPress={() => this.StartMyTest()} style={{ bottom: 5, paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
+                                {/* {CourseTestCompleted == 2 ? <TouchableOpacity onPress={() => this.StartMyTest()} style={{ bottom: 5, paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
                                     <Text style={{ fontSize: 12, color: '#FFF' }}>Start Test</Text>
-                                </TouchableOpacity> : null}
-                                {CourseTestCompleted == 1 ? <TouchableOpacity onPress={() => this.SeeYourResult()} style={{ bottom: 5, paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
+                                </TouchableOpacity> : null} */}
+                                {CourseTestCompleted == 2 ? <Button onPress={() => this.StartMyTest()} small full style={{ marginBottom: 10, backgroundColor: '#1A5566', paddingLeft: 10, paddingRight: 10, borderRadius: 5 }}>
+                                    <Text style={{ color: 'white', fontSize: 12 }}>Start Test</Text>
+                                </Button> : null}
+                                {CourseTestCompleted == 1 ? <Button onPress={() => this.SeeYourResult()} small full style={{ marginBottom: 10, backgroundColor: '#1A5566', paddingLeft: 10, paddingRight: 10, borderRadius: 5 }}>
+                                    <Text style={{ color: 'white', fontSize: 12 }}>View Test Result</Text>
+                                </Button> : null}
+                                {/* {CourseTestCompleted == 1 ? <TouchableOpacity onPress={() => this.SeeYourResult()} style={{ bottom: 5, paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
                                     <Text style={{ fonSize: 12, color: '#FFF' }}>View Test Result</Text>
-                                </TouchableOpacity> : null}
+                                </TouchableOpacity> : null} */}
                             </View>
                         </View>
                     </View>

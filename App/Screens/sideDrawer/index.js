@@ -6,6 +6,8 @@ import { Avatar } from 'react-native-paper';
 import { logoutUser } from '../../Reducers/actions'
 import { connect } from 'react-redux';
 import FIcon from 'react-native-vector-icons/Feather'
+import { Progress } from '../ProgressDialog/index'
+
 let colors = { PRIMARY: '#1A5566' }
 var OnClickCheck = 0
 let SideBarRoutes = [
@@ -142,6 +144,7 @@ class SideMenu extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
+                {/* <Progress DialogLoader={this.props.loading} title={'Authenticating'} /> */}
             </ScrollView>
         );
     }
@@ -149,6 +152,7 @@ class SideMenu extends Component {
 const mapStateToProps = (state) => {
     console.log(state, 'state sidebar11')
     return {
+        loading: state.authReducer.loading,
         UserInfo: state.authReducer.UserInfo,
     };
 };

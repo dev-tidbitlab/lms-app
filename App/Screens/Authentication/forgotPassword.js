@@ -46,6 +46,9 @@ class ForgotPasswordScreen extends Component {
         return (
             <ScrollView contentContainerStyle={{ flex: 1, height: '100%' }}>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <View style={{ justifyContent: 'center', alignItems: 'center', alignContent: 'center', }}>
+                        <Image style={{ height: 150, width: 150, justifyContent: 'center', alignItems: 'center', alignContent: 'center', resizeMode: 'contain', }} source={require('../../Images/logo.png')} />
+                    </View>
                     <Ionicons
                         onPress={() => this.GoBackToHome()}
                         name={Platform.OS === 'android' ? "md-arrow-back" : "ios-arrow-round-back"}
