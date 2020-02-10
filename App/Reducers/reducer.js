@@ -7,8 +7,12 @@ const INITIAL_STATE = {
         message: '',
         toast: false
     },
+    SuccessToaster: {
+        message: '',
+        toast: false
+    },
     StudentCourseList: [],
-    StudentRecentlyCourseList:[],
+    StudentRecentlyCourseList: [],
     StudentCourseDetails: {},
     StudentOrdersList: [],
     StudentCertificatesList: { totalCertificates: 0, totalCourses: 0 }
@@ -42,6 +46,16 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 loading: false
             };
+        case 'SUCCESS_TOAST_SHOW':
+            return {
+                ...state,
+                SuccessToaster: action.payload
+            };
+        case 'SUCCESS_TOAST_HIDE':
+            return {
+                ...state,
+                SuccessToaster: action.payload
+            };
         case 'ERROR_TOAST_SHOW':
             return {
                 ...state,
@@ -52,6 +66,7 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 ErrorToaster: action.payload
             };
+
         case 'STUDENT_COURSES_LIST_DATA':
             return {
                 ...state,
@@ -72,12 +87,12 @@ const AuthReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 StudentCertificatesList: action.payload
             };
-            case 'STUDENT_RECENTLY_COURSES_LIST_DATA':
+        case 'STUDENT_RECENTLY_COURSES_LIST_DATA':
             return {
                 ...state,
                 StudentRecentlyCourseList: action.payload
             };
-            
+
         default:
             return state;
     };

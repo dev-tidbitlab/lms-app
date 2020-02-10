@@ -9,6 +9,7 @@ import StudentProfile from '../profile/index'
 import UserListScreen from './index'
 import ResetPassword from '../sideDrawer/resetPassword'
 import StudentOrders from '../myOrders/orderRoutes'
+import StudentCertificates from '../certificates/myCertificates'
 let SlideFromRight = (index, position, width) => {
     const translateX = position.interpolate({
         inputRange: [index - 1, index],
@@ -45,7 +46,8 @@ const HomeStack = createStackNavigator(
         UserListScreen: { screen: UserListScreen },
         ResetPassword: { screen: ResetPassword },
         StudentProfile: { screen: StudentProfile },
-        StudentOrders: { screen: StudentOrders }
+        StudentOrders: { screen: StudentOrders },
+        StudentCertificates: { screen: StudentCertificates }
     },
     {
         initialRouteName: 'UserListScreen',

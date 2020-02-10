@@ -53,6 +53,9 @@ class Dashboard extends Component {
     ViewMyCourses() {
         this.props.navigation.navigate('StudentCourses')
     }
+    MyCertificates(){
+        this.props.navigation.navigate('StudentCertificates')
+    }
     render() {
         let ScreenWidth = this.state.ScreenWidth
         console.log('fefwfwf', this.props.StudentRecentlyCourseList)
@@ -81,7 +84,7 @@ class Dashboard extends Component {
                             <Text style={{ fontSize: 16, fontWeight: '600', marginTop: 5 }}>Total Courses</Text>
                             <Text style={{ marginTop: 5 }}>{this.props.StudentCertificates ? this.props.StudentCertificates.totalCourses : 0}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={{ width: 150, height: 150, backgroundColor: '#FFF', marginTop: 10, marginRight: 10, marginBottom: 15, marginLeft: 10, justifyContent: 'center', alignItems: 'center', borderRadius: 5 }}>
+                        <TouchableOpacity onPress={()=>this.MyCertificates()} style={{ width: 150, height: 150, backgroundColor: '#FFF', marginTop: 10, marginRight: 10, marginBottom: 15, marginLeft: 10, justifyContent: 'center', alignItems: 'center', borderRadius: 5 }}>
                             <View style={{ backgroundColor: '#EEE', borderRadius: 100, width: 80, height: 80, justifyContent: "center", alignItems: 'center' }}>
                                 <Image resizeMode={'stretch'} source={require('../../../Images/certificate64.png')} />
                             </View>

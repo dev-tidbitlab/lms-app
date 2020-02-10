@@ -82,6 +82,16 @@ function* HideToaster() {
     });
 }
 
+function* HideSuccessToast() {
+    yield put({
+        type: "SUCCESS_TOAST_HIDE", payload: {
+            message: '',
+            toast: false
+        }
+    });
+}
+
+
 function* LogoutThisUser(props) {
     console.log('logout', props)
     yield put({
@@ -107,17 +117,22 @@ function* ForgotPasswordMethod(props) {
     console.log('params==>>>forgot', props)
     try {
         yield put({ type: "LOADER_START", payload: true });
-        const json = yield POST('forgotPass', props.payload.data)
+        const json = yield POST('forgotPass', JSON.stringify(props.payload))
         console.log('login -user', json)
         if (json.success == false) {
             yield put({
                 type: "ERROR_TOAST_SHOW", payload: {
-                    message: json.errors.error,
+                    message: json.message,
                     toast: true
                 }
             });
         } else {
-
+            yield put({
+                type: "SUCCESS_TOAST_SHOW", payload: {
+                    message: json.message,
+                    toast: true
+                }
+            });
         }
         yield put({ type: "LOADER_STOP", payload: false });
     }
@@ -327,6 +342,9 @@ function* loginAction() {
 function* HideErrorToaster() {
     yield takeLatest('ERROR_TOASTER', HideToaster)
 }
+function* HideSuccessToaster() {
+    yield takeLatest('SUCCESS_TOASTER', HideSuccessToast)
+}
 
 function* LogoutUser() {
     yield takeLatest('LOGOUT_USER', LogoutThisUser)
@@ -369,6 +387,7 @@ export default function* rootSaga() {
         isUserLoggedIn(),
         loginAction(),
         HideErrorToaster(),
+        HideSuccessToaster(),
         LogoutUser(),
         // SaveUserInfo(),
         ForgotPassword(),

@@ -10,6 +10,7 @@ import { withNavigation } from 'react-navigation'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { SuccessToasterHide } from '../../Reducers/actions'
 class SuccessAlert extends Component {
     constructor() {
         super();
@@ -37,6 +38,7 @@ class SuccessAlert extends Component {
                 toValue: 70,
                 duration: 200
             }).start()
+        this.props.SuccessToasterHide()
     }
     closeToast() {
         setTimeout(() => {
@@ -46,6 +48,7 @@ class SuccessAlert extends Component {
                     toValue: 70,
                     duration: 350
                 }).start()
+            this.props.SuccessToasterHide()
         }, 10000)
     }
     render() {
@@ -85,8 +88,12 @@ const mapStateToProps = (state) => {
         loading: state.authReducer.loading,
     };
 };
-
-export default withNavigation(connect(mapStateToProps)(SuccessAlert));
+const mapDispatchToProps = (dispatch) => {
+    return {
+        SuccessToasterHide: () => dispatch(SuccessToasterHide()),
+    };
+};
+export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(SuccessAlert));
 const styles = StyleSheet.create({
     linearGradient: {
         flex: 1

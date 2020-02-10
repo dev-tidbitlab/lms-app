@@ -30,7 +30,8 @@ class MyCourses extends Component {
         ScreenWidth: Dimensions.get('window').width,
         CourseArray: [{}, {}, {}, {}, {}, {}, {}, {}, {}],
         selected: "",
-        visible: false
+        visible: false,
+        search: null
     };
     GoBack() {
         this.props.navigation.navigate('UserListScreen');
@@ -49,7 +50,12 @@ class MyCourses extends Component {
     }
     onTextChange(v) {
         console.log('vvv', v)
-        this.props.StudentCoursesList({ props: this.props, search: v })
+        this.setState({ search: v })
+        // this.props.StudentCoursesList({ props: this.props, search: v })
+    }
+    onSubmitSearch() {
+        const { search } = this.state
+        this.props.StudentCoursesList({ props: this.props, search: search })
     }
     _onRefresh() {
         this.props.StudentCoursesList(this.props)
@@ -116,6 +122,7 @@ class MyCourses extends Component {
                                 width: '100%',
                                 backgroundColor: '#FFF'
                             }}
+                            onSubmitEditing={() => this.onSubmitSearch()}
                             onChangeText={v => this.onTextChange(v)}
                         />
                     </Body>
@@ -150,7 +157,7 @@ class MyCourses extends Component {
                                     <View key={i} style={{ flexDirection: 'row', borderRadius: 5, marginRight: 10, marginLeft: 10, marginTop: 15, flex: 1, backgroundColor: '#FFF' }}>
                                         <View onPress={() => this.ViewCourseDetails(v)} style={{ marginLeft: 5, marginTop: 5 }}>
                                             <Image style={{ width: 100, height: 100, borderRadius: 5 }} source={{ uri: v.courseId != undefined && v.courseId != null ? v.courseId.courseImage : null }} />
-                                            <Button onPress={() => this.ViewCourseDetails(v)} small full style={{ backgroundColor: '#1A5566', marginTop: 10, borderRadius: 5 }}>
+                                            <Button onPress={() => this.ViewCourseDetails(v)} small full style={{ backgroundColor: '#1A5566', marginTop: 10, borderRadius: 5, marginBottom: 5 }}>
                                                 {v.courseStarted == false ? <Text style={{ color: 'white', fontSize: 12 }}>Start Course</Text> : null}
                                                 {v.courseStarted == true && v.courseCompleted == false ? <Text style={{ color: 'white', fontSize: 12 }}>Resume Course</Text> : null}
                                                 {v.courseCompleted == true && v.courseStarted == true ? <Text style={{ color: 'white', fontSize: 12 }}>Review Course</Text> : null}

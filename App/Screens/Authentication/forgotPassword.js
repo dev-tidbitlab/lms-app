@@ -18,6 +18,7 @@ import firebase from 'react-native-firebase';
 import { Progress } from '../ProgressDialog/index'
 import Ionicons from "react-native-vector-icons/Ionicons";
 import ErrorToaster from '../../Components/alerts/error'
+import SuccessToaster from '../../Components/alerts/success'
 import { ForgotPasswordAction } from '../../Reducers/actions'
 class ForgotPasswordScreen extends Component {
     state = {
@@ -44,9 +45,9 @@ class ForgotPasswordScreen extends Component {
     render() {
         let EmailValidation = this.state.EmailValidation
         return (
-            <ScrollView contentContainerStyle={{ flex: 1, height: '100%' }}>
+            <ScrollView contentContainerStyle={{ flex: 1, height: '100%', backgroundColor: '#f1f2f7' }}>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <View style={{ justifyContent: 'center', alignItems: 'center', alignContent: 'center', }}>
+                    <View style={{ justifyContent: 'center', alignItems: 'center', alignContent: 'center', }}>
                         <Image style={{ height: 150, width: 150, justifyContent: 'center', alignItems: 'center', alignContent: 'center', resizeMode: 'contain', }} source={require('../../Images/logo.png')} />
                     </View>
                     <Ionicons
@@ -75,7 +76,7 @@ class ForgotPasswordScreen extends Component {
 
                     <Progress DialogLoader={this.props.loading} title={'Please wait...'} />
                     {this.props.ErrorToaster.toast ? <ErrorToaster message={this.props.ErrorToaster.message} /> : null}
-
+                    {this.props.SuccessToaster.toast?<SuccessToaster message={this.props.SuccessToaster.message}/>:null}
                 </View>
             </ScrollView>
         );
@@ -86,6 +87,7 @@ const mapStateToProps = (state) => {
     return {
         loading: state.authReducer.loading,
         ErrorToaster: state.authReducer.ErrorToaster,
+        SuccessToaster: state.authReducer.SuccessToaster
     };
 };
 const mapDispatchToProps = (dispatch) => {

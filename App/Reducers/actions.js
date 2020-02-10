@@ -29,6 +29,9 @@ export const loginAction = (payload) => ({
 export const ErrorToasterHide = () => ({
     type: 'ERROR_TOASTER'
 });
+export const SuccessToasterHide = () => ({
+    type: 'SUCCESS_TOASTER'
+});
 export const DisplayToaster = () => ({
     type: 'DISPLAY_TOASTER'
 });

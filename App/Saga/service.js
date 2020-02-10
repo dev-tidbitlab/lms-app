@@ -29,6 +29,7 @@ export const GETAPI = (url) => {
         })
 };
 export const POST = (url, Body) => {
+    console.log(APIURL + url, Body)
     return fetch(APIURL + url, {
         method: 'POST',
         headers: {
