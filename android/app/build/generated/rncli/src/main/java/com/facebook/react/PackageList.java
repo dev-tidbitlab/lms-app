@@ -30,6 +30,8 @@ import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.imagepicker.ImagePickerPackage;
 // react-native-orientation
 import com.github.yamill.orientation.OrientationPackage;
+// react-native-pdf
+import org.wonday.pdf.RCTPdfView;
 // react-native-reanimated
 import com.swmansion.reanimated.ReanimatedPackage;
 // react-native-vector-icons
@@ -91,6 +93,7 @@ public class PackageList {
       new RNGestureHandlerPackage(),
       new ImagePickerPackage(),
       new OrientationPackage(),
+      new RCTPdfView(),
       new ReanimatedPackage(),
       new VectorIconsPackage(),
       new ReactVideoPackage(),
