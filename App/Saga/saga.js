@@ -294,7 +294,7 @@ function* StudentCertificatesListAPICall(props) {
         const json = yield GETAPI('studentdashboard/student/listCertificates')
         console.log('listCertificates', json)
         if (json.success) {
-            yield put({ type: "STUDENT_CERTIFICATES_LIST", payload: { totalCertificates: json.totalCertificates, totalCourses: json.totalCourses } });
+            yield put({ type: "STUDENT_CERTIFICATES_LIST", payload: { totalCertificates: json.totalCertificates, totalCourses: json.totalCourses, certificates: json.data } });
         }
     }
     catch (error) {
@@ -374,6 +374,7 @@ function* StudentOrdersList() {
 function* StudentCertificates() {
     yield takeLatest('STUDENT_CERTIFICATES', StudentCertificatesListAPICall)
 }
+
 function* LoaderStart() {
     yield put({ type: "LOADER_START", payload: true });
 }
@@ -400,6 +401,6 @@ export default function* rootSaga() {
         StudentCertificates(),
         GetUserInfo(),
         LoaderStart(),
-        LoaderStop()
+        LoaderStop(),
     ]);
 }

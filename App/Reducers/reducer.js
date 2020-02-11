@@ -15,7 +15,7 @@ const INITIAL_STATE = {
     StudentRecentlyCourseList: [],
     StudentCourseDetails: {},
     StudentOrdersList: [],
-    StudentCertificatesList: { totalCertificates: 0, totalCourses: 0 }
+    StudentCertificatesList: { totalCertificates: 0, totalCourses: 0, certificates:[] }
 };
 
 const AuthReducer = (state = INITIAL_STATE, action) => {
