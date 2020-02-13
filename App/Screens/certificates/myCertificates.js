@@ -104,8 +104,7 @@ class StudentCertificates extends Component {
                                 return (
                                     <View key={i} style={{ flexDirection: 'row', borderRadius: 5, marginRight: 10, marginLeft: 10, marginTop: 15, flex: 1, backgroundColor: '#FFF' }}>
                                         <View style={{ marginLeft: 5, marginTop: 5 }}>
-                                            <Image style={{ width: 100, height: 100, borderRadius: 5 }} source={{ uri: v.courseId != undefined && v.courseId != null ? v.courseId.courseImage : null }} />
-
+                                            <Image style={{ width: 100, height: 100, borderRadius: 5 }} source={require('../../Images/certificateImg.png')} />
                                         </View>
                                         <View style={{ flex: 1, marginRight: 10, marginLeft: 10 }}>
                                             <Text style={{ fontSize: 14, color: '#000', paddingBottom: 10, paddingTop: 5, fontWeight: '400' }}>{v.courseId ? v.courseId.courseName : ''}</Text>
