@@ -95,6 +95,7 @@ class MyOrderFilters extends Component {
     }
     componentDidMount() {
         console.log('2222')
+        query = ''
     }
     render() {
         let ActiveArray = this.state.ActiveArray

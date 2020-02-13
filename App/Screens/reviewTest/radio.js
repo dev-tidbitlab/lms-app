@@ -45,7 +45,8 @@ class RadioQuestion extends Component {
                     style={[styles.customStyle, {
                         paddingLeft: 10,
                         paddingRight: 30,
-                        color: submitIndex == optionIndex ? (index == submitIndex ? 'green' : 'red') : '#000',
+                        // color: submitIndex == optionIndex ? (index == submitIndex ? 'green' : 'red') : '#000',
+                        // color:'#222'
                     }]}
                 >{label.trim()}</Text>
             </RadioButton>
@@ -88,7 +89,8 @@ class RadioQuestion extends Component {
             <View style={{ margin: 10 }}>
                 <RadioGroup
                     color='#1A5566'
-                    activeColor={this.getWrongIndex(data) == -1 ? 'green' : 'red'}
+                    // activeColor={this.getWrongIndex(data) == -1 ? 'green' : 'red'}
+                    activeColor={'#1A5566'}
                     style={{
                         width: '100%',
                         marginRight: 20,

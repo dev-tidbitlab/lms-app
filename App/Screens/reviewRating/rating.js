@@ -1,32 +1,20 @@
 import React, { Component } from "react";
 import {
     View,
-    Platform,
     StyleSheet,
     TouchableOpacity,
-    ActivityIndicator,
     Text,
-    ScrollView,
-    StatusBar,
-    Dimensions,
     TextInput
 } from "react-native";
 import { BottomSheet } from 'react-native-btr';
-import { Avatar, ProgressBar, Colors } from 'react-native-paper';
-import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button, Title } from 'native-base';
-import { withNavigation, withNavigationFocus } from 'react-navigation';
-import Ionicons from "react-native-vector-icons/Ionicons";
-const ScreenWidth = Dimensions.get('window').width
-import { CheckBox } from 'react-native-elements';
+import { withNavigationFocus } from 'react-navigation';
 import { Rating, AirbnbRating } from 'react-native-ratings';
+
 class ReviewRating extends Component {
     constructor() {
         super();
         this.state = {
-            loading: true,
-            MCQList: [],
-            Rating: 0,
-            CourseRating: 0
+            isFocused: true
         };
         this.rating = ''
         this.review = ''
@@ -36,17 +24,18 @@ class ReviewRating extends Component {
 
     }
     _toggleBottomNavigationView() {
-        console.log('22')
         let app = this
         this.props.SaveReviewAndRating({ rating: this.rating, review: this.review })
         // if (app.props.toggleBottomNavigationView(false)) {
-        //     app.props.toggleBottomNavigationView(false)
+            // app.props.toggleBottomNavigationView(false)
         // }
     }
     ratingCompleted(rating) {
         this.rating = rating
+        this.setState({ isFocused: false })
     }
     render() {
+        const { isFocused } = this.state
         return (
             <BottomSheet
                 visible={this.props.ReviewRatingModal}
@@ -74,7 +63,7 @@ class ReviewRating extends Component {
                         <View style={{ padding: 5, borderTopWidth: 1, borderColor: '#EEE', height: 100 }}>
                             <TextInput onChangeText={(v) => this.review = v} style={{ textAlignVertical: 'top' }} numberOfLines={10} multiline={true} placeholder="Write a review" />
                         </View>
-                        <TouchableOpacity onPress={() => this._toggleBottomNavigationView()} style={{ height: 50, bottom: 0, left: 0, right: 0, position: 'absolute', alignItems: 'center', justifyContent: 'center', backgroundColor: '#1A5566' }}>
+                        <TouchableOpacity disabled={isFocused} onPress={() => this._toggleBottomNavigationView()} style={{ height: 50, bottom: 0, left: 0, right: 0, position: 'absolute', alignItems: 'center', justifyContent: 'center', backgroundColor: isFocused ? '#BBB' : '#1A5566' }}>
                             <Text style={{ color: '#FFF', fontSize: 16 }}>SAVE</Text>
                         </TouchableOpacity>
                     </View>

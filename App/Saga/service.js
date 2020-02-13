@@ -22,7 +22,28 @@ export const GETAPI = (url) => {
             'Content-Type': 'application/json'
         },
         credentials: 'include'
-    }).then((response) => response.json())
+    }).then(response => {
+        console.log('9999',response)
+        return response.json()
+    })
+        .then((responseData) => {
+            console.log('responseData===>>>', responseData)
+            return responseData
+        })
+};
+export const GETRCENTAPI = (url) => {
+    console.log('APIURL + url==>>API', APIURL + url)
+    return fetch(APIURL + url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        credentials: 'include'
+    }).then(response => {
+        console.log('9999',response)
+        return response.json()
+    })
         .then((responseData) => {
             console.log('responseData===>>>', responseData)
             return responseData

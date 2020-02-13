@@ -16,26 +16,43 @@ import { Avatar, ProgressBar } from 'react-native-paper';
 import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button, Title } from 'native-base';
 import { withNavigation, withNavigationFocus } from 'react-navigation';
 import { connect } from 'react-redux';
+import { GET } from '../../../service/index'
 import { StudentRecentlyCoursesList, MyCertificates } from '../../../Reducers/actions'
 // var ScreenWidth = Dimensions.get('window').width
 class Dashboard extends Component {
     state = {
         ScreenWidth: Dimensions.get('window').width,
-        CourseArray: [{}, {}, {}]
+        CourseArray: [{}, {}, {}],
+        MyStudentRecentlyCourseList: [],
+        loading: true
     };
     GoBack() {
         this.props.navigation.goBack();
     }
     _onRefresh() {
         this.props.MyCertificates(this.props)
-        this.props.StudentRecentlyCoursesList(this.props)
+        this.MyStudentRecentlyCoursesList()
     }
     componentDidMount() {
         Dimensions.addEventListener('change', () => {
             this.getOrientation();
         });
         this.props.MyCertificates(this.props)
-        this.props.StudentRecentlyCoursesList(this.props)
+        this.MyStudentRecentlyCoursesList()
+    }
+    MyStudentRecentlyCoursesList(course_id) {
+        this.setState({ loading: true })
+        GET('studentdashboard/student/listRecentCourse').then(response => {
+            console.log('response==>> mcq==', response)
+            if (response.success) {
+                this.setState({ MyStudentRecentlyCourseList: response.data })
+            }
+            this.setState({ loading: false })
+        }).catch(function (error) {
+            if (error) {
+                this.setState({ loading: false })
+            }
+        })
     }
     componentDidUpdate(prevProps) {
         if (prevProps.isFocused !== this.props.isFocused) {
@@ -53,13 +70,11 @@ class Dashboard extends Component {
     ViewMyCourses() {
         this.props.navigation.navigate('StudentCourses')
     }
-    MyCertificates(){
+    MyCertificates() {
         this.props.navigation.navigate('StudentCertificates')
     }
     render() {
-        let ScreenWidth = this.state.ScreenWidth
-        console.log('fefwfwf', this.props.StudentRecentlyCourseList)
-        const { progress } = this.props.StudentRecentlyCourseList
+        const { MyStudentRecentlyCourseList, loading } = this.state
         return (
             <ScrollView
                 contentContainerStyle={{ backgroundColor: '#F4F4F6' }}
@@ -70,7 +85,7 @@ class Dashboard extends Component {
                     <RefreshControl
                         colors={['#1A5566']}
                         progressBackgroundColor="#FFF"
-                        refreshing={this.props.loading}
+                        refreshing={loading}
                         onRefresh={() => this._onRefresh()}
                     />
                 }
@@ -84,7 +99,7 @@ class Dashboard extends Component {
                             <Text style={{ fontSize: 16, fontWeight: '600', marginTop: 5 }}>Total Courses</Text>
                             <Text style={{ marginTop: 5 }}>{this.props.StudentCertificates ? this.props.StudentCertificates.totalCourses : 0}</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={()=>this.MyCertificates()} style={{ width: 150, height: 150, backgroundColor: '#FFF', marginTop: 10, marginRight: 10, marginBottom: 15, marginLeft: 10, justifyContent: 'center', alignItems: 'center', borderRadius: 5 }}>
+                        <TouchableOpacity onPress={() => this.MyCertificates()} style={{ width: 150, height: 150, backgroundColor: '#FFF', marginTop: 10, marginRight: 10, marginBottom: 15, marginLeft: 10, justifyContent: 'center', alignItems: 'center', borderRadius: 5 }}>
                             <View style={{ backgroundColor: '#EEE', borderRadius: 100, width: 80, height: 80, justifyContent: "center", alignItems: 'center' }}>
                                 <Image resizeMode={'stretch'} source={require('../../../Images/certificate64.png')} />
                             </View>
@@ -95,12 +110,8 @@ class Dashboard extends Component {
                     <View style={{ marginLeft: 10 }}>
                         <Text style={{ fontSize: 18, color: '#000', fontWeight: '600' }}>My recently courses</Text>
                     </View>
-                    {/* {this.props.loading ?
-                        <View style={{ marginTop: 10, position: 'absolute', left: 0, right: 0, zIndex: 100 }}>
-                            <ActivityIndicator size="large" color="yellow" />
-                        </View> : null} */}
-                    {this.props.StudentRecentlyCourseList.length > 0 ? <View>
-                        {this.props.StudentRecentlyCourseList.map((v, i) => {
+                    {MyStudentRecentlyCourseList.length > 0 ? <View>
+                        {MyStudentRecentlyCourseList.map((v, i) => {
                             return (
                                 <View key={i} style={{ flexDirection: 'row', borderRadius: 5, marginRight: 10, marginLeft: 10, marginTop: 15, flex: 1, backgroundColor: '#FFF' }}>
                                     <TouchableOpacity onPress={() => this.ViewCourseDetails(v)} style={{ marginLeft: 5, marginTop: 5, marginBottom: 5 }}>

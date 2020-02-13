@@ -1,5 +1,5 @@
 import { put, takeLatest, call, all } from 'redux-saga/effects';
-import { GET, POST, FormPostAPI, GETAPI } from './service'
+import { GET, POST, FormPostAPI, GETAPI, GETRCENTAPI } from './service'
 import { logout, goHomeScreen, ViewUserProfile } from './auth'
 function* CheckUserLoggedIn(props) {
     console.log('params==>>>0000', props)
@@ -233,7 +233,7 @@ function* StudentRecentlyCoursesListAPICall(props) {
     yield put({ type: "LOADER_START", payload: true });
     console.log('1')
     try {
-        const json = yield GETAPI('studentdashboard/student/listRecentCourse')
+        const json = yield GETRCENTAPI('studentdashboard/student/listRecentCourse')
         console.log('12', json)
         yield put({ type: "LOADER_STOP", payload: false });
         console.log('user/reguser/listRecentCourse', json)

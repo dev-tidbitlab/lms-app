@@ -59,20 +59,24 @@ class MyOrders extends Component {
     }
     onTextChange(v) {
         console.log('vvv', v)
-        const { query } = this.state
         this.setState({ search: v })
-        this.props.StudentOrderList({ props: this.props, search: v, query: query })
+    }
+    onSubmitEditing() {
+        const { query, search } = this.state
+        console.log(query, search, 'vvv===>>>>>>>')
+        this.props.StudentOrderList({ props: this.props, search: search, query: query })
     }
     ApplyFilter(v) {
-        console.log(v, 'vvv')
+        console.log('vvv===>>>>>>>++++++++++', v)
         this.setState({ query: v })
-        this.props.StudentOrderList({ props: this.props, query: v })
+        const { search } = this.state
+        this.props.StudentOrderList({ props: this.props, search: search, query: v })
     }
     DatedFormatting(date) {
         return moment(date).format("DD") + '-' + moment(date).format("MMM") + '-' + moment(date).format("YYYY")
     }
     render() {
-        let ScreenWidth = this.state.ScreenWidth
+        const { FilterModal } = this.state
         return (
             <Container style={{ backgroundColor: '#F4F4F6' }}>
                 <Header style={{ backgroundColor: '#1A5566' }}>
@@ -96,6 +100,7 @@ class MyOrders extends Component {
                                 width: '100%',
                                 backgroundColor: '#FFF'
                             }}
+                            onSubmitEditing={() => this.onSubmitEditing()}
                             onChangeText={v => this.onTextChange(v)}
                         />
                     </Body>
@@ -155,7 +160,7 @@ class MyOrders extends Component {
                         </View> : null}
                     </View>
                 </ScrollView>
-                <OrdersFilter ApplyFilter={(v) => this.ApplyFilter(v)} toggleBottomNavigationView={() => this.toggleBottomNavigationView()} FilterModal={this.state.FilterModal} />
+                {FilterModal ? <OrdersFilter ApplyFilter={(v) => this.ApplyFilter(v)} toggleBottomNavigationView={() => this.toggleBottomNavigationView()} FilterModal={FilterModal} /> : null}
             </Container>
         );
     }

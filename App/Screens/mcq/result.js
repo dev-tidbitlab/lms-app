@@ -97,9 +97,10 @@ class TestResult extends Component {
         this.setState({ loading: true })
         POST('coursejourney/student/submitreview', JSON.stringify(DataObject)).then(response => {
             console.log('response==>> mcq==retake', response)
-            if (response.success) {
-                this.toggleBottomNavigationView()
-            }
+            // if (response.success) {
+            //     this.toggleBottomNavigationView()
+            // }
+            this.toggleBottomNavigationView()
             this.getInitialMCQs(this.state.course_id)
             this.setState({ loading: false })
         }).catch(function (error) {
@@ -209,14 +210,14 @@ class TestResult extends Component {
                             <Text style={{ color: 'white', fonSize: 12, }}>Download Certificate</Text>
                         </TouchableOpacity></View> : null}
                         {isCompleted == 1 && MyResult == 1 ? <View style={{ alignItems: 'center', marginTop: 20 }}><TouchableOpacity onPress={() => this.ReviewAndRatingModal()} style={{ width: 180, flexDirection: 'row', paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
-                            <Text style={{ color: 'white', fonSize: 12, }}>Give Review & Rating</Text>
+                            <Text style={{ color: 'white', fonSize: 12, }}>Share Review & Rating</Text>
                         </TouchableOpacity></View> : null}
                         {MyResult == 2 ? <View style={{ alignItems: 'center', marginTop: 20 }}><TouchableOpacity onPress={() => this.ReviewTest()} style={{ width: 100, paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
                             <Text style={{ fonSize: 12, color: '#FFF' }}>Review Test</Text>
                         </TouchableOpacity></View> : null}
                     </View>
                 </ScrollView>
-                <ReviewRatingModalComponent SaveReviewAndRating={(v) => this.SaveReviewAndRating(v)} toggleBottomNavigationView={() => this.toggleBottomNavigationView()} ReviewRatingModal={this.state.ReviewRatingModal} />
+                <ReviewRatingModalComponent SaveReviewAndRating={(v) => this.SaveReviewAndRating(v)} ReviewRatingModal={this.state.ReviewRatingModal} />
                 {this.state.isDownloaded != 0 ? <SnackBar
                     style={{ backgroundColor: this.state.isDownloaded == 2 ? '#4FAE62' : '#222' }}
                     numberOfLines={2}
