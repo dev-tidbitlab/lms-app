@@ -1,4 +1,4 @@
-package com.international.fertility.academy.lms;
+package com.international.fertility.academy;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

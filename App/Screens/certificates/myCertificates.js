@@ -46,7 +46,7 @@ class StudentCertificates extends Component {
             app.setState({ isDownloaded: 1 })
             const { config, fs } = RNFetchBlob
             let DownloadDir = fs.dirs.DownloadDir // this is the pictures directory. You can check the available directories in the wiki.
-            let str = file.courseId.courseName
+            let str = file.courseName
             let fileName = str.replace(/^"(.*)"$/, '$1');
             fileName = fileName + '.pdf'
             console.log('fileName', fileName)
@@ -73,6 +73,7 @@ class StudentCertificates extends Component {
     }
     render() {
         const { MyCourseCertificates } = this.state
+        console.log('MyCourseCertificates', MyCourseCertificates)
         return (
             <Container style={{ backgroundColor: '#F4F4F6' }}>
                 <Header style={{ backgroundColor: '#1A5566' }}>
@@ -107,7 +108,7 @@ class StudentCertificates extends Component {
                                             <Image style={{ width: 100, height: 100, borderRadius: 5 }} source={require('../../Images/certificateImg.png')} />
                                         </View>
                                         <View style={{ flex: 1, marginRight: 10, marginLeft: 10 }}>
-                                            <Text style={{ fontSize: 14, color: '#000', paddingBottom: 10, paddingTop: 5, fontWeight: '400' }}>{v.courseId ? v.courseId.courseName : ''}</Text>
+                                            <Text style={{ fontSize: 14, color: '#000', paddingBottom: 10, paddingTop: 5, fontWeight: '400' }}>{v ? v.courseName : ''}</Text>
                                             <Text style={{ fontSize: 12, color: '#AAA', paddingBottom: 10 }}>Completion Date: {this.DatedFormatting(v.completionDate)}</Text>
                                             <TouchableOpacity onPress={() => this.DownloadMyCertificates(v)} style={{ width: 180, flexDirection: 'row', paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5, marginBottom: 5 }}>
                                                 <MaterialIcons name="file-download" size={18} color={'#FFF'} />

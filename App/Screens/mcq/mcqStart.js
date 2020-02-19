@@ -117,7 +117,7 @@ class StartMCQ extends Component {
                     <View style={{ margin: 10, flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                             <Image width="80" height="80" source={require('../../Images/empty_tests.png')} />
-                            {CourseTestCompleted == 2 ? <View style={{marginTop: 15}}>
+                            {CourseTestCompleted == 2 ? <View style={{marginTop: 15, marginLeft: 10, marginRight: 10}}>
                                 <Text style={{ fontSize: 16,textAlign: 'center', color: '#D54534', fontWeight: '400', paddingBottom: 10 }}>Note: Answer once submitted will not be changed later.</Text>
                             </View> : null}
                             {CourseTestCompleted == 3 ? <View style={{marginTop: 15}}>

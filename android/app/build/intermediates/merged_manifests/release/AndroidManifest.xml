@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.international.fertility.academy.lms"
+    package="com.international.fertility.academy"
     android:versionCode="21"
     android:versionName="2.0.6" >
 
@@ -25,7 +25,7 @@
     <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
 
     <application
-        android:name="com.international.fertility.academy.lms.MainApplication"
+        android:name="com.international.fertility.academy.MainApplication"
         android:allowBackup="false"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:icon="@mipmap/ic_launcher"
@@ -33,7 +33,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.international.fertility.academy.lms.MainActivity"
+            android:name="com.international.fertility.academy.MainActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize" >
@@ -61,7 +61,7 @@
 
         <provider
             android:name="com.imagepicker.FileProvider"
-            android:authorities="com.international.fertility.academy.lms.provider"
+            android:authorities="com.international.fertility.academy.provider"
             android:exported="false"
             android:grantUriPermissions="true" >
             <meta-data
@@ -70,7 +70,7 @@
         </provider>
         <provider
             android:name="com.RNFetchBlob.Utils.FileProvider"
-            android:authorities="com.international.fertility.academy.lms.provider"
+            android:authorities="com.international.fertility.academy.provider"
             android:exported="false"
             android:grantUriPermissions="true" >
             <meta-data
@@ -119,7 +119,7 @@
 
         <provider
             android:name="com.google.firebase.provider.FirebaseInitProvider"
-            android:authorities="com.international.fertility.academy.lms.firebaseinitprovider"
+            android:authorities="com.international.fertility.academy.firebaseinitprovider"
             android:exported="false"
             android:initOrder="100" />
 

@@ -38,6 +38,9 @@ class MyCourses extends Component {
     }
     ViewCourseDetails(v) {
         console.log('ttt')
+        if (v.isExpire == 'No') {
+            return 0;
+        }
         this.props.navigation.navigate('ViewCourseDetails',
             { course_id: v.courseId._id, CourseData: v }
         );
@@ -158,16 +161,17 @@ class MyCourses extends Component {
                                         <View onPress={() => this.ViewCourseDetails(v)} style={{ marginLeft: 5, marginTop: 5 }}>
                                             <Image style={{ width: 100, height: 100, borderRadius: 5 }} source={{ uri: v.courseId != undefined && v.courseId != null ? v.courseId.courseImage : null }} />
                                             <Button onPress={() => this.ViewCourseDetails(v)} small full style={{ backgroundColor: '#1A5566', marginTop: 10, borderRadius: 5, marginBottom: 5 }}>
-                                                {v.courseStarted == false ? <Text style={{ color: 'white', fontSize: 12 }}>Start Course</Text> : null}
-                                                {v.courseStarted == true && v.courseCompleted == false ? <Text style={{ color: 'white', fontSize: 12 }}>Resume Course</Text> : null}
-                                                {v.courseCompleted == true && v.courseStarted == true ? <Text style={{ color: 'white', fontSize: 12 }}>Review Course</Text> : null}
+                                                {v.courseStarted == false && v.isExpire != 'No' ? <Text style={{ color: 'white', fontSize: 12 }}>Start Course</Text> : null}
+                                                {v.courseStarted == true && v.courseCompleted == false && v.isExpire != 'No' ? <Text style={{ color: 'white', fontSize: 12 }}>Resume Course</Text> : null}
+                                                {v.courseCompleted == true && v.courseStarted == true && v.isExpire != 'No' ? <Text style={{ color: 'white', fontSize: 12 }}>Review Course</Text> : null}
+                                                {v.isExpire == 'No' ? <Text style={{ color: 'white', fontSize: 12 }}>Course Expired</Text> : null}
                                             </Button>
                                         </View>
                                         <View style={{ flex: 1, marginRight: 10, marginLeft: 10 }}>
                                             <Text style={{ fontSize: 14, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '400' }}>{v.courseId ? v.courseId.courseName : ''}</Text>
                                             <Text numberOfLines={2} style={{ fontSize: 12, color: '#000', paddingBottom: 5 }}>{v.courseId ? v.courseId.description : ''}</Text>
                                             <Text style={{ fontSize: 12, color: '#AAA', paddingBottom: 5 }}>Assigned Date: {this.DatedFormatting(v.coursePurchasedTimeStamp)}</Text>
-                                            {/* <Text style={{ fontSize: 12, color: '#AAA', paddingBottom: 5 }}>Completion Date: </Text> */}
+                                            <Text style={{ fontSize: 12, color: '#AAA', paddingBottom: 5 }}>Completion Date: {this.DatedFormatting(v.completionDate)}</Text>
                                             <Text style={{ fontSize: 12, color: '#AAA', paddingBottom: 5 }}>Expiration Date: {this.DatedFormatting(v.courseExpiryTimeStamp)}</Text>
                                             <ProgressBar style={{ backgroundColor: '#CCC', marginBottom: 5 }} progress={v.progress ? v.progress / 100 : 0} color={'#1A5566'} />
                                             <Text style={{ fontSize: 12, color: '#AAA', paddingBottom: 10 }}>{v.progress ? v.progress : 0}% complete</Text>

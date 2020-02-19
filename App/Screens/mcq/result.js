@@ -17,7 +17,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import RNFetchBlob from 'rn-fetch-blob'
 import { GET, POST } from '../../service/index'
 import LottieView from 'lottie-react-native';
-
+import moment from 'moment'
 class TestResult extends Component {
     constructor() {
         super();
@@ -186,17 +186,17 @@ class TestResult extends Component {
                     <View style={{ margin: 10 }}>
                         <View style={{ width: '100%', alignItems: 'center' }}>
                             <View style={{ width: 200, height: 200 }}>
-                                {MyResult == 1 ? <LottieView source={require('./433-checked-done.json')} autoPlay loop={true} /> : null}
-                                {MyResult == 2 ? <LottieView style={{ width: 200, height: 200 }} source={require('./14651-error-animation.json')} autoPlay loop={true} /> : null}
+                                {MyResult == 1 ? <LottieView source={require('./433-checked-done.json')} autoPlay loop={false} /> : null}
+                                {MyResult == 2 ? <LottieView style={{ width: 200, height: 200 }} source={require('./14651-error-animation.json')} autoPlay loop={false} /> : null}
                             </View>
                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                                 {MyResult == 1 ? <Text style={{ fontSize: 24, color: '#4FAE62', fontWeight: '600' }}>Congratulations!</Text> : null}
                                 {MyResult == 2 ? <Text style={{ fontSize: 24, color: '#D54534', fontWeight: '600' }}>Oops! You failed!</Text> : null}
-                                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center', paddingTop: 10 }}>
-                                    {MyResult == 1 ? <Text>You have passed test with </Text> : null}
-                                    {MyResult == 2 ? <Text>You have failed test with </Text> : null}
-                                    {MyResult == 1 ? <Text style={{ fontSize: 18, color: '#4FAE62', fontWeight: '600' }}>{Result.percentage}%</Text> : null}
-                                    {MyResult == 2 ? <Text style={{ fontSize: 18, color: '#D54534', fontWeight: '600' }}>{Result.percentage}%</Text> : null}
+                                <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 10, marginLeft: 20, marginRight: 20 }}>
+                                    {MyResult == 1 ? <Text style={{ fontSize: 14, color: '#4FAE62', fontWeight: '500', textAlign: 'center' }}>You completed this test on date {moment(CourseDetails.completionDate).format('DD-MM-YYYY, h:mm A')}</Text> : null}
+                                    {MyResult == 2 ? <Text style={{ fontSize: 14, color: '#D54534', fontWeight: '500', marginBottom: 5, textAlign: 'center' }}>You completed this test on date {moment(CourseDetails.completionDate).format('DD-MM-YYYY, h:mm A')} </Text> : null}
+                                    {MyResult == 1 ? <Text style={{ fontSize: 18, color: '#4FAE62', fontWeight: '600' }}>Your score is {Result.percentage}%</Text> : null}
+                                    {MyResult == 2 ? <Text style={{ fontSize: 18, color: '#D54534', fontWeight: '600' }}>Your score is {Result.percentage}%</Text> : null}
                                 </View>
                             </View>
                         </View>

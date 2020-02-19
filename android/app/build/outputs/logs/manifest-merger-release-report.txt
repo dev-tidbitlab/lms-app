@@ -84,7 +84,7 @@ INJECTED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest
 INJECTED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml:1:1-42:12
 INJECTED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml:1:1-42:12
 	package
-		ADDED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml:2:3-52
+		ADDED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml:2:3-48
 		INJECTED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml
 		INJECTED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml
 	android:versionName
@@ -223,7 +223,7 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] /Users/tsm1
 		ADDED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml:16:7-38
 	android:name
 		ADDED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml:11:7-38
-activity#com.international.fertility.academy.lms.MainActivity
+activity#com.international.fertility.academy.MainActivity
 ADDED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml:17:7-27:18
 	android:label
 		ADDED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml:19:9-41

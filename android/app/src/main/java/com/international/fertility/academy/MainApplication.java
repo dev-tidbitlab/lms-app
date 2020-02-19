@@ -1,4 +1,4 @@
-package com.international.fertility.academy.lms;
+package com.international.fertility.academy;
 
 import android.app.Application;
 import io.invertase.firebase.RNFirebasePackage;

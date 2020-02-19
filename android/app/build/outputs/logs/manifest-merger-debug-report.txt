@@ -5,7 +5,6 @@ INJECTED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest
 INJECTED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml:1:1-42:12
 INJECTED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml:1:1-42:12
 MERGED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml:1:1-42:12
-MERGED from [:react-native-pdf] /Users/tsm101/Desktop/lms-app/node_modules/react-native-pdf/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:lottie-react-native] /Users/tsm101/Desktop/lms-app/node_modules/lottie-react-native/src/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-image-picker] /Users/tsm101/Desktop/lms-app/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-21:12
 MERGED from [:@react-native-community_netinfo] /Users/tsm101/Desktop/lms-app/node_modules/@react-native-community/netinfo/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-12:12
@@ -16,6 +15,7 @@ MERGED from [:@react-native-community_async-storage] /Users/tsm101/Desktop/lms-a
 MERGED from [:@react-native-community_slider] /Users/tsm101/Desktop/lms-app/node_modules/@react-native-community/slider/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-firebase] /Users/tsm101/Desktop/lms-app/node_modules/react-native-firebase/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-23:12
 MERGED from [:react-native-gesture-handler] /Users/tsm101/Desktop/lms-app/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
+MERGED from [:react-native-pdf] /Users/tsm101/Desktop/lms-app/node_modules/react-native-pdf/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-reanimated] /Users/tsm101/Desktop/lms-app/node_modules/react-native-reanimated/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-vector-icons] /Users/tsm101/Desktop/lms-app/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [com.facebook.react:react-native:0.61.4] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/03cb275137499d5416e920d98450726a/AndroidManifest.xml:2:1-13:12
@@ -29,7 +29,6 @@ MERGED from [com.google.firebase:firebase-iid:19.0.1] /Users/tsm101/.gradle/cach
 MERGED from [com.google.firebase:firebase-iid-interop:17.0.0] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/eed2aacd68047062404cc471ba85bb6a/AndroidManifest.xml:2:1-10:12
 MERGED from [com.google.android.gms:play-services-base:17.1.0] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/0e05d34737b404d2731a30b981765f7c/AndroidManifest.xml:17:1-29:12
 MERGED from [org.webkit:android-jsc:r245459] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/3e12e8d442fe83dc5d0c4b5ccc92f31a/AndroidManifest.xml:2:1-11:12
-MERGED from [com.github.barteksc:android-pdf-viewer:3.1.0-beta.1] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/fac064f685d07230b60f9476c4419047/AndroidManifest.xml:2:1-11:12
 MERGED from [com.google.firebase:firebase-common:18.0.0] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/fa7da01801cd2309c01e2bd2c99559ec/AndroidManifest.xml:2:1-19:12
 MERGED from [com.google.android.gms:play-services-tasks:17.0.0] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/cb965b928be00d949e78bc27814dcaba/AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.firebase:firebase-measurement-connector:18.0.0] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/3a1fd6dc91603a47c90cff099bb76d8a/AndroidManifest.xml:17:1-25:12
@@ -41,6 +40,7 @@ MERGED from [com.google.android.gms:play-services-measurement-sdk-api:17.0.0] /U
 MERGED from [com.google.android.gms:play-services-measurement-base:17.0.0] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/372db3bd8862d540546bf5ef04597aca/AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/b28086d1b60f87334e77f27184b6b089/AndroidManifest.xml:17:1-24:12
 MERGED from [com.google.android.gms:play-services-basement:17.0.0] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/1ff42a74fcc44602ce85b65b28b89ebc/AndroidManifest.xml:17:1-28:12
+MERGED from [com.github.barteksc:android-pdf-viewer:3.1.0-beta.1] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/fac064f685d07230b60f9476c4419047/AndroidManifest.xml:2:1-11:12
 MERGED from [com.github.barteksc:pdfium-android:1.9.0] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/39f6c1caa079e40c3964f080d9f7587f/AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/2692e3a4617fad70077affacd0b064b4/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.fragment:fragment:1.0.0] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/16a1dff73d12669b5b7ef466f0b79393/AndroidManifest.xml:17:1-22:12
@@ -85,9 +85,9 @@ INJECTED from /Users/tsm101/Desktop/lms-app/android/app/src/debug/AndroidManifes
 INJECTED from /Users/tsm101/Desktop/lms-app/android/app/src/debug/AndroidManifest.xml:2:1-8:12
 INJECTED from /Users/tsm101/Desktop/lms-app/android/app/src/debug/AndroidManifest.xml:2:1-8:12
 	package
-		ADDED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml:2:3-52
+		ADDED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml:2:3-48
 		INJECTED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml
-		ADDED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml:2:3-52
+		ADDED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml:2:3-48
 		INJECTED from /Users/tsm101/Desktop/lms-app/android/app/src/debug/AndroidManifest.xml
 	android:versionName
 		INJECTED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml
@@ -241,7 +241,7 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] /Users/tsm1
 	android:name
 		ADDED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml:11:7-38
 		ADDED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml:11:7-38
-activity#com.international.fertility.academy.lms.MainActivity
+activity#com.international.fertility.academy.MainActivity
 ADDED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml:17:7-27:18
 	android:label
 		ADDED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml:19:9-41
@@ -297,8 +297,6 @@ uses-sdk
 INJECTED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml
 INJECTED from /Users/tsm101/Desktop/lms-app/android/app/src/main/AndroidManifest.xml
-MERGED from [:react-native-pdf] /Users/tsm101/Desktop/lms-app/node_modules/react-native-pdf/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
-MERGED from [:react-native-pdf] /Users/tsm101/Desktop/lms-app/node_modules/react-native-pdf/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:lottie-react-native] /Users/tsm101/Desktop/lms-app/node_modules/lottie-react-native/src/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:lottie-react-native] /Users/tsm101/Desktop/lms-app/node_modules/lottie-react-native/src/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-image-picker] /Users/tsm101/Desktop/lms-app/node_modules/react-native-image-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
@@ -319,6 +317,8 @@ MERGED from [:react-native-firebase] /Users/tsm101/Desktop/lms-app/node_modules/
 MERGED from [:react-native-firebase] /Users/tsm101/Desktop/lms-app/node_modules/react-native-firebase/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-gesture-handler] /Users/tsm101/Desktop/lms-app/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-gesture-handler] /Users/tsm101/Desktop/lms-app/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-pdf] /Users/tsm101/Desktop/lms-app/node_modules/react-native-pdf/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-pdf] /Users/tsm101/Desktop/lms-app/node_modules/react-native-pdf/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
 MERGED from [:react-native-reanimated] /Users/tsm101/Desktop/lms-app/node_modules/react-native-reanimated/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-reanimated] /Users/tsm101/Desktop/lms-app/node_modules/react-native-reanimated/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-vector-icons] /Users/tsm101/Desktop/lms-app/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
@@ -345,8 +345,6 @@ MERGED from [com.google.android.gms:play-services-base:17.1.0] /Users/tsm101/.gr
 MERGED from [com.google.android.gms:play-services-base:17.1.0] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/0e05d34737b404d2731a30b981765f7c/AndroidManifest.xml:20:5-44
 MERGED from [org.webkit:android-jsc:r245459] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/3e12e8d442fe83dc5d0c4b5ccc92f31a/AndroidManifest.xml:7:5-9:41
 MERGED from [org.webkit:android-jsc:r245459] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/3e12e8d442fe83dc5d0c4b5ccc92f31a/AndroidManifest.xml:7:5-9:41
-MERGED from [com.github.barteksc:android-pdf-viewer:3.1.0-beta.1] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/fac064f685d07230b60f9476c4419047/AndroidManifest.xml:7:5-9:41
-MERGED from [com.github.barteksc:android-pdf-viewer:3.1.0-beta.1] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/fac064f685d07230b60f9476c4419047/AndroidManifest.xml:7:5-9:41
 MERGED from [com.google.firebase:firebase-common:18.0.0] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/fa7da01801cd2309c01e2bd2c99559ec/AndroidManifest.xml:6:5-8:41
 MERGED from [com.google.firebase:firebase-common:18.0.0] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/fa7da01801cd2309c01e2bd2c99559ec/AndroidManifest.xml:6:5-8:41
 MERGED from [com.google.android.gms:play-services-tasks:17.0.0] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/cb965b928be00d949e78bc27814dcaba/AndroidManifest.xml:5:5-44
@@ -369,6 +367,8 @@ MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /Users/
 MERGED from [com.google.android.gms:play-services-ads-identifier:17.0.0] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/b28086d1b60f87334e77f27184b6b089/AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-basement:17.0.0] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/1ff42a74fcc44602ce85b65b28b89ebc/AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-basement:17.0.0] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/1ff42a74fcc44602ce85b65b28b89ebc/AndroidManifest.xml:20:5-44
+MERGED from [com.github.barteksc:android-pdf-viewer:3.1.0-beta.1] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/fac064f685d07230b60f9476c4419047/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.barteksc:android-pdf-viewer:3.1.0-beta.1] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/fac064f685d07230b60f9476c4419047/AndroidManifest.xml:7:5-9:41
 MERGED from [com.github.barteksc:pdfium-android:1.9.0] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/39f6c1caa079e40c3964f080d9f7587f/AndroidManifest.xml:7:5-9:41
 MERGED from [com.github.barteksc:pdfium-android:1.9.0] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/39f6c1caa079e40c3964f080d9f7587f/AndroidManifest.xml:7:5-9:41
 MERGED from [androidx.legacy:legacy-support-v4:1.0.0] /Users/tsm101/.gradle/caches/transforms-2/files-2.1/2692e3a4617fad70077affacd0b064b4/AndroidManifest.xml:20:5-44

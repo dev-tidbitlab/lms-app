@@ -79,11 +79,11 @@ class RadioQuestion extends Component {
         if (data.questionData.correctOption[0] !== data.submittedAnswers[0]) {
             index = Options.indexOf(data.questionData.correctOption[0]);
         }
-        console.log('index', index)
         return index
     }
     render() {
         const { data, questionNo } = this.props
+        console.log(this.props)
         const { selectedIndex } = this.state
         return (
             <View style={{ margin: 10 }}>
@@ -100,6 +100,12 @@ class RadioQuestion extends Component {
                 >
                     {this.renderRadioQ(data.questionData, questionNo, this.getWrongIndex(data), this.getIndex(data.submittedAnswers[0]))}
                 </RadioGroup>
+                {data.questionData.explanation ?
+                    <View style={{ marginTop: 10 }}>
+                        <Text style={{ color: '#222', fontSize: 14 }}>
+                            Explanation: {data.questionData.explanation}
+                        </Text>
+                    </View> : null}
             </View>
         );
     }

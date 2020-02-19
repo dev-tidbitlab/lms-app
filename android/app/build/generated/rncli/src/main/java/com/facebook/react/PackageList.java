@@ -11,8 +11,8 @@ import com.facebook.react.shell.MainReactPackage;
 import java.util.Arrays;
 import java.util.ArrayList;
 
-import com.international.fertility.academy.lms.BuildConfig;
-import com.international.fertility.academy.lms.R;
+import com.international.fertility.academy.BuildConfig;
+import com.international.fertility.academy.R;
 
 // @react-native-community/async-storage
 import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;

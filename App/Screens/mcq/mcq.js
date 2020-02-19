@@ -37,7 +37,8 @@ class MCQs extends Component {
             Answers: [],
             QuestionID: '',
             MCQCompleted: false,
-            ConfirmationModal: false
+            ConfirmationModal: false,
+            TotalQuestions: 0
         };
     }
 
@@ -61,9 +62,9 @@ class MCQs extends Component {
         GET('coursejourney/student/mcq/' + course_id + '/loadMcq').then(response => {
             console.log('response==>> mcq==', response)
             if (response.success) {
-                this.setState({ConfirmationModal: false})
+                this.setState({ ConfirmationModal: false })
                 if (response.data.mcq) {
-                    this.setState({ questionNo: response.data.questionNo })
+                    this.setState({ questionNo: response.data.questionNo, TotalQuestions: response.data.count })
                     this.FilterRadioMCQs(response.data.mcq)
                 } else {
                     if (response.data.latestOn == "result") {
@@ -109,11 +110,11 @@ class MCQs extends Component {
     GoToNextMCQQuestion() {
         const { MCQCompleted } = this.state
         console.log(MCQCompleted)
-        if (MCQCompleted) {
-            this.setState({ ConfirmationModal: true })
-        } else {
-            this.getNextQuestion()
-        }
+        // if (MCQCompleted) {
+        //     this.setState({ ConfirmationModal: true })
+        // } else {
+        this.getNextQuestion()
+        // }
     }
     SubmitTest() {
         this.getNextQuestion()
@@ -166,7 +167,7 @@ class MCQs extends Component {
 
     }
     render() {
-        const { QuestionType, MCQData, questionNo, isActiveButton, ConfirmationModal } = this.state
+        const { QuestionType, MCQData, questionNo, isActiveButton, ConfirmationModal, TotalQuestions } = this.state
         return (
             <Container style={{ backgroundColor: '#F4F4F6' }}>
                 <Header style={{ backgroundColor: '#1A5566' }}>
@@ -176,7 +177,7 @@ class MCQs extends Component {
                         </Button>
                     </Left>
                     <Body style={{ flex: 2, alignItems: 'center' }}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFF' }}>MCQ Test</Text>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFF' }}>MCQ Test ({String(questionNo) + String('/') + String(TotalQuestions)})</Text>
                     </Body>
                     <Right>
                     </Right>
@@ -204,7 +205,7 @@ class MCQs extends Component {
                             <View style={{ width: 25, height: 25, marginLeft: 5, marginTop: 5, marginRight: 10, backgroundColor: '#4FAE62', borderRadius: 100, justifyContent: 'center', alignItems: 'center' }}>
                                 <Text style={{ color: '#FFF', textAlign: 'center' }}>{questionNo}</Text>
                             </View>
-                            <Text style={{ fontSize: 14, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '500' }}>{MCQData.question}</Text>
+                            <Text style={{ fontSize: 14, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '500', marginRight: 10 }}>{MCQData.question}</Text>
                         </View> : null}
                         {QuestionType == 'radio' ? <RadioQuestionComponenets onChangeRadio={(v) => this.onChangeRadio(v)} data={MCQData} questionNo={questionNo} /> : null}
                         {QuestionType == 'checkbox' ? <CheckBoxQuestionComponenets onChangeOptions={(v) => this.onChangeOptions(v)} data={MCQData} questionNo={questionNo} /> : null}

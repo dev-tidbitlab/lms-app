@@ -134,7 +134,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.international.fertility.academy.lms"
+        applicationId "com.international.fertility.academy"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 21

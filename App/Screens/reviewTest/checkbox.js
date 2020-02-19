@@ -76,6 +76,12 @@ class CheckBoxQuestion extends Component {
         return (
             <View>
                 {this.RenderMCQ(data, questionNo)}
+                {data.questionData.explanation ?
+                    <View style={{ marginTop: 5, marginLeft: 10, marginBottom: 10 }}>
+                        <Text style={{ color: '#222', fontSize: 14 }}>
+                            Explanation: {data.questionData.explanation}
+                        </Text>
+                    </View> : null}
             </View>
         );
     }
