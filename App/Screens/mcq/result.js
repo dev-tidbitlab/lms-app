@@ -6,7 +6,8 @@ import {
     Text,
     ScrollView,
     StatusBar,
-    RefreshControl
+    RefreshControl,
+    KeyboardAvoidingView
 } from "react-native";
 import { Container, Header, Left, Body, Right, Button } from 'native-base';
 import { withNavigationFocus } from 'react-navigation';
@@ -15,6 +16,7 @@ import SnackBar from '../../Components/snackBar/index'
 import ReviewRatingModalComponent from '../reviewRating/rating'
 import Ionicons from "react-native-vector-icons/Ionicons";
 import RNFetchBlob from 'rn-fetch-blob'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { GET, POST } from '../../service/index'
 import LottieView from 'lottie-react-native';
 import moment from 'moment'
@@ -110,6 +112,9 @@ class TestResult extends Component {
                 this.setState({ loading: false })
             }
         })
+    }
+    _toggleBottomNavigationViewClose() {
+        this.toggleBottomNavigationView()
     }
     SaveReviewAndRating(v) {
         let DataObject = v
@@ -217,7 +222,9 @@ class TestResult extends Component {
                         </TouchableOpacity></View> : null}
                     </View>
                 </ScrollView>
-                <ReviewRatingModalComponent SaveReviewAndRating={(v) => this.SaveReviewAndRating(v)} ReviewRatingModal={this.state.ReviewRatingModal} />
+                <View style={{ position: 'absolute', bottom: 50 }}>
+                    <ReviewRatingModalComponent SaveReviewAndRating={(v) => this.SaveReviewAndRating(v)} _toggleBottomNavigationViewClose={() => this._toggleBottomNavigationViewClose()} ReviewRatingModal={this.state.ReviewRatingModal} />
+                </View>
                 {this.state.isDownloaded != 0 ? <SnackBar
                     style={{ backgroundColor: this.state.isDownloaded == 2 ? '#4FAE62' : '#222' }}
                     numberOfLines={2}
@@ -227,6 +234,8 @@ class TestResult extends Component {
                     text={this.state.isDownloaded == 1 ? 'Download Started!' : 'Download Completed!'}
                 /> : null}
             </Container>
+
+
         );
     }
 }

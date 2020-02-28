@@ -38,7 +38,7 @@ class MyCourses extends Component {
     }
     ViewCourseDetails(v) {
         console.log('ttt')
-        if (v.isExpire == 'No') {
+        if (v.isExpire == 'Yes') {
             return 0;
         }
         this.props.navigation.navigate('ViewCourseDetails',
@@ -90,7 +90,7 @@ class MyCourses extends Component {
             query = query + '?courseStarted=' + false
         } else {
             if (v == 2) {
-                query = query + '?courseStarted=' + true
+                query = query + '?courseStarted=' + true + '&courseCompleted=' + false
             } else {
                 query = query + '?courseCompleted=' + true
             }
@@ -158,16 +158,16 @@ class MyCourses extends Component {
                             {this.props.StudentCourseList.map((v, i) => {
                                 return (
                                     <View key={i} style={{ flexDirection: 'row', borderRadius: 5, marginRight: 10, marginLeft: 10, marginTop: 15, flex: 1, backgroundColor: '#FFF' }}>
-                                        <View onPress={() => this.ViewCourseDetails(v)} style={{ marginLeft: 5, marginTop: 5 }}>
+                                        <TouchableOpacity disabled={v.isExpire == 'Yes' ? true : false} onPress={() => this.ViewCourseDetails(v)} style={{ marginLeft: 5, marginTop: 5 }}>
                                             <Image style={{ width: 100, height: 100, borderRadius: 5 }} source={{ uri: v.courseId != undefined && v.courseId != null ? v.courseId.courseImage : null }} />
-                                            <Button onPress={() => this.ViewCourseDetails(v)} small full style={{ backgroundColor: '#1A5566', marginTop: 10, borderRadius: 5, marginBottom: 5 }}>
-                                                {v.courseStarted == false && v.isExpire != 'No' ? <Text style={{ color: 'white', fontSize: 12 }}>Start Course</Text> : null}
-                                                {v.courseStarted == true && v.courseCompleted == false && v.isExpire != 'No' ? <Text style={{ color: 'white', fontSize: 12 }}>Resume Course</Text> : null}
-                                                {v.courseCompleted == true && v.courseStarted == true && v.isExpire != 'No' ? <Text style={{ color: 'white', fontSize: 12 }}>Review Course</Text> : null}
-                                                {v.isExpire == 'No' ? <Text style={{ color: 'white', fontSize: 12 }}>Course Expired</Text> : null}
+                                            <Button disabled={v.isExpire == 'Yes' ? true : false} onPress={() => this.ViewCourseDetails(v)} small full style={{ backgroundColor: '#1A5566', marginTop: 10, borderRadius: 5, marginBottom: 5 }}>
+                                                {v.courseStarted == false && v.isExpire != 'Yes' ? <Text style={{ color: 'white', fontSize: 12 }}>Start Course</Text> : null}
+                                                {v.courseStarted == true && v.courseCompleted == false && v.isExpire != 'Yes' ? <Text style={{ color: 'white', fontSize: 12 }}>Resume Course</Text> : null}
+                                                {v.courseCompleted == true && v.courseStarted == true && v.isExpire != 'Yes' ? <Text style={{ color: 'white', fontSize: 12 }}>Review Course</Text> : null}
+                                                {v.isExpire == 'Yes' ? <Text style={{ color: 'white', fontSize: 12 }}>Course Expired</Text> : null}
                                             </Button>
-                                        </View>
-                                        <View style={{ flex: 1, marginRight: 10, marginLeft: 10 }}>
+                                        </TouchableOpacity>
+                                        <TouchableOpacity disabled={v.isExpire == 'Yes' ? true : false} onPress={() => this.ViewCourseDetails(v)} style={{ flex: 1, marginRight: 10, marginLeft: 10 }}>
                                             <Text style={{ fontSize: 14, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '400' }}>{v.courseId ? v.courseId.courseName : ''}</Text>
                                             <Text numberOfLines={2} style={{ fontSize: 12, color: '#000', paddingBottom: 5 }}>{v.courseId ? v.courseId.description : ''}</Text>
                                             <Text style={{ fontSize: 12, color: '#AAA', paddingBottom: 5 }}>Assigned Date: {this.DatedFormatting(v.coursePurchasedTimeStamp)}</Text>
@@ -175,7 +175,7 @@ class MyCourses extends Component {
                                             <Text style={{ fontSize: 12, color: '#AAA', paddingBottom: 5 }}>Expiration Date: {this.DatedFormatting(v.courseExpiryTimeStamp)}</Text>
                                             <ProgressBar style={{ backgroundColor: '#CCC', marginBottom: 5 }} progress={v.progress ? v.progress / 100 : 0} color={'#1A5566'} />
                                             <Text style={{ fontSize: 12, color: '#AAA', paddingBottom: 10 }}>{v.progress ? v.progress : 0}% complete</Text>
-                                        </View>
+                                        </TouchableOpacity>
                                     </View>
                                 )
                             })}

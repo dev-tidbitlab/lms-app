@@ -60,14 +60,14 @@ function getActiveRouteName(navigationState) {
 const AppDrawerNavigator = createDrawerNavigator({
     Home: { screen: HomeBottomTabBar }
 }, {
-        contentComponent: SideDrawer,
-        drawerWidth: width - 80,
-        headerMode: 'none',
-        overlayColor: '00FFFFF',
-        drawerType: 'front',
-        gesturesEnabled: true,
-        transitionConfig: TransitionConfiguration,
-    })
+    contentComponent: SideDrawer,
+    drawerWidth: width - 80,
+    headerMode: 'none',
+    overlayColor: 'rgba(0, 0, 0, 0.7)',
+    drawerType: 'front',
+    gesturesEnabled: true,
+    transitionConfig: TransitionConfiguration,
+})
 const AppSwitchNav = createSwitchNavigator({
     Home: { screen: AppDrawerNavigator },
     IsLoggedIn: { screen: AppSplashScreen }
@@ -80,18 +80,7 @@ const AppSwitchNav = createSwitchNavigator({
 const AppContainer = createAppContainer(AppSwitchNav);
 // export default createAppContainer(AppSwitchNav);
 const AppRouterContainer = () => (
-    <AppContainer
-        onNavigationStateChange={(prevState, currentState, action) => {
-            const currentRouteName = getActiveRouteName(currentState);
-            const previousRouteName = getActiveRouteName(prevState);
-
-            if (previousRouteName !== currentRouteName) {
-                // TrackRoutesChange(previousRouteName, currentRouteName)
-                // TrackChanges = { previousRouteName, currentRouteName }
-                console.log('=============>>>>>>>>>>.', previousRouteName, currentRouteName, action)
-            }
-        }}
-    />
+    <AppContainer />
 );
 
 export default AppRouterContainer

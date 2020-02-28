@@ -1,6 +1,7 @@
 import { APIURL } from '../../env'
+import axios from 'axios'
 export const GET = (url) => {
-    console.log('APIURL + url==>>', APIURL + url)
+    console.log('APIURL + url==>> GET==', APIURL + url)
     return fetch(APIURL + url, {
         method: 'GET',
         headers: {
@@ -12,6 +13,15 @@ export const GET = (url) => {
         .then((responseData) => {
             return responseData
         })
+//    return axios({
+//         method: 'get',
+//         url: APIURL + url,
+//         withCredentials: true
+//     }, { withCredentials: true })
+//         .then(function (response) {
+//             console.log(response,'response')
+//             return response.data
+//         });
 };
 export const POST = (url, Body) => {
     console.log('url, Body', url, Body)

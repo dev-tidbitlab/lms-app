@@ -39,9 +39,11 @@ class CheckBoxQuestion extends Component {
                 disabled={true}
                 containerStyle={{
                     backgroundColor: 'transparent',
-                    borderWidth: 0
+                    borderWidth: 0,
+
                 }}
-                checkedColor={'#1A5566'}
+                textStyle={{color:'#AAA', fontWeight:'400'}}
+                checkedColor={'#AAA'}
                 title={value}
                 size={24}
                 checked={item.submittedAnswers.includes(option)}
@@ -78,7 +80,7 @@ class CheckBoxQuestion extends Component {
                 {this.RenderMCQ(data, questionNo)}
                 {data.questionData.explanation ?
                     <View style={{ marginTop: 5, marginLeft: 10, marginBottom: 10 }}>
-                        <Text style={{ color: '#222', fontSize: 14 }}>
+                        <Text style={{ color: '#222', fontSize: 14, fontWeight:'500' }}>
                             Explanation: {data.questionData.explanation}
                         </Text>
                     </View> : null}

@@ -56,14 +56,11 @@ class SideMenu extends Component {
             BorderColorsArray[id] = colors.PRIMARY
             OnClickCheck = id
         }
-        console.log(route, id, ColorArray, BorderColorsArray)
         this.setState({ ColorArray: ColorArray, BorderColorsArray: BorderColorsArray })
-        console.log(route, id)
         if (route == "Password") {
             this.props.navigation.navigate('ResetPassword')
         } if (route == 'Share') {
             this.props.navigation.closeDrawer();
-            // this.onShare()
         } else {
             this.props.navigation.closeDrawer();
             this.props.navigation.navigate(route)
@@ -73,7 +70,6 @@ class SideMenu extends Component {
         return <View style={styles.line} />
     }
     GoToProfile() {
-        // console.log('pro')
         this.props.navigation.closeDrawer();
         this.props.navigation.navigate('StudentProfile')
     }
@@ -81,37 +77,7 @@ class SideMenu extends Component {
         this.props.logoutUser({ API: 'logout', props: this.props })
     }
     RenderSideBar() {
-        let ColorArray = this.state.ColorArray
-        let BorderColorsArray = this.state.BorderColorsArray
-        // if (this.props.UserInfo) {
-        //     if (this.props.UserInfo.role) {
-        //         if (this.props.UserInfo.role.mobileContainers) {
-        //             this.props.UserInfo.role.mobileContainers.map((item, i) => {
-        //                 if (i > 0) {
-        //                     ColorArray[i] = '#757575'
-        //                     BorderColorsArray[i] = '#FFF'
-        //                 }
-        //             })
-        //         }
-        //     }
-        // }
         let sideRoutes = null
-        // console.log('ffwf=====>>>', this.props.UserInfo)
-        // if (this.props.UserInfo) {
-        //     console.log('11')
-        //     if (this.props.UserInfo.role) {
-        //         console.log('22')
-        //         if (this.props.UserInfo.role.mobileContainers) {
-        //             console.log('33')
-        //             sideRoutes = this.props.UserInfo.role.mobileContainers.map((item, i) => {
-        //                 return (<TouchableOpacity key={i} onPress={() => this.NavigateDrawer(item.name, i)} style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, paddingLeft: 20, borderLeftColor: BorderColorsArray[i], borderLeftWidth: 4 }}>
-        //                     <FIcon name={item.icon} size={24} color={ColorArray[i]} />
-        //                     <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: '400', color: ColorArray[i] }}>{item.name}</Text>
-        //                 </TouchableOpacity>)
-        //             })
-        //         }
-        //     }
-        // }
         if (SideBarRoutes.length > 0) {
             sideRoutes = SideBarRoutes.map((item, i) => {
                 return (<TouchableOpacity key={i} onPress={() => this.NavigateDrawer(item.RouteName, i)} style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, paddingLeft: 20 }}>
@@ -123,15 +89,15 @@ class SideMenu extends Component {
         return sideRoutes;
     }
     render() {
-        let ColorArray = this.state.ColorArray
-        let BorderColorsArray = this.state.BorderColorsArray
-        const { email, firstName, lastName, state, city, country, phoneNumber } = this.props.UserInfo
+        // let { email, firstName, lastName, state, city, country, phoneNumber, profileImage } = { email: '', firstName: '', lastName: '', state: '', city: '', country: '', phoneNumber: '', profileImage: null }
+        // if (this.props.UserInfo) {
+        const { email, firstName, lastName, state, city, country, phoneNumber, profileImage } = this.props.UserInfo
+        // }
         return (
             <ScrollView>
                 <View style={{ flex: 1 }}>
                     <TouchableOpacity onPress={() => this.GoToProfile()} style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: 20 }}>
                         <Avatar.Image size={80} style={{ backgroundColor: '#EEE' }} source={{ uri: this.props.UserInfo.profileImage ? this.props.UserInfo.profileImage : null }} />
-                        {/* <Avatar.Image size={80} source={require('../../Images/33.png')} /> */}
                         <Text style={{ marginTop: 10, fontSize: 18, fontWeight: '700' }}>{firstName ? firstName + ' ' + lastName : null}</Text>
                         <Text style={{ fontSize: 14, fontWeight: '400' }}>{email ? email : null}</Text>
                     </TouchableOpacity>
@@ -144,7 +110,6 @@ class SideMenu extends Component {
                         </TouchableOpacity>
                     </View>
                 </View>
-                {/* <Progress DialogLoader={this.props.loading} title={'Authenticating'} /> */}
             </ScrollView>
         );
     }

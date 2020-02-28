@@ -68,10 +68,10 @@ class ReviewTestScreen extends Component {
             return (
                 <View key={i}>
                     {v.questionData ? <View style={{ flexDirection: 'row', marginLeft: 5, marginRight: 10 }}>
-                        <View style={{ width: 25, height: 25, marginLeft: 5, marginTop: 5, marginRight: 10, backgroundColor: v.isCorrect ? '#4FAE62' : '#D54534', borderRadius: 100, justifyContent: 'center', alignItems: 'center' }}>
+                        <View style={{ width: 25, height: 25, marginLeft: 5, marginTop: 5, marginRight: 5, backgroundColor: v.isCorrect ? '#4FAE62' : '#D54534', borderRadius: 100, justifyContent: 'center', alignItems: 'center' }}>
                             <Text style={{ color: '#FFF', textAlign: 'center' }}>{i + 1}</Text>
                         </View>
-                        <Text style={{ fontSize: 14, color: v.isCorrect ? '#4FAE62' : '#D54534', paddingBottom: 5, paddingTop: 5, fontWeight: '500' }}>{v.questionData.question}</Text>
+                        <Text style={{ fontSize: 16, color: v.isCorrect ? '#4FAE62' : '#D54534', paddingBottom: 5, paddingTop: 5, fontWeight: '600' }}>{v.questionData.question}</Text>
                     </View> : null}
                     {v.questionData.isMultiSelect == false ? <RadioQuestionComponenets data={v} questionNo={i + 1} /> : null}
                     {v.questionData.isMultiSelect == true ? <CheckBoxQuestionComponenets data={v} questionNo={i + 1} /> : null}

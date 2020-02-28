@@ -53,7 +53,10 @@ class UserProfile extends Component {
     }
     render() {
         let EditProfile = this.state.EditProfile
+        // let { email, firstName, lastName, state, city, country, phoneNumber, profileImage } = { email: '', firstName: '', lastName: '', state: '', city: '', country: '', phoneNumber: '', profileImage: null }
+        // if (this.props.UserInfo) {
         const { email, firstName, lastName, state, city, country, phoneNumber, profileImage } = this.props.UserInfo
+        // }
         console.log(this.props.UserInfo, '00000000000')
         return (
             <Container>

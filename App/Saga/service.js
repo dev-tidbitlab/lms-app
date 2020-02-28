@@ -1,6 +1,6 @@
 import { APIURL } from '../../env'
 export const GET = (url) => {
-    console.log('APIURL + url==>>', APIURL + url)
+    console.log('APIURL + url GET==>>', APIURL + url)
     return fetch(APIURL + url, {
         method: 'GET',
         headers: {
@@ -14,7 +14,7 @@ export const GET = (url) => {
         })
 };
 export const GETAPI = (url) => {
-    console.log('APIURL + url==>>API', APIURL + url)
+    console.log('APIURL + url GETAPI==>>API', APIURL + url)
     return fetch(APIURL + url, {
         method: 'GET',
         headers: {
@@ -32,7 +32,7 @@ export const GETAPI = (url) => {
         })
 };
 export const GETRCENTAPI = (url) => {
-    console.log('APIURL + url==>>API', APIURL + url)
+    console.log('APIURL + url GETRCENTAPI==>>API', APIURL + url)
     return fetch(APIURL + url, {
         method: 'GET',
         headers: {

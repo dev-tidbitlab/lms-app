@@ -131,6 +131,8 @@ class MyOrderFilters extends Component {
                                 placeHolderTextStyle={{ color: "#55A2F3" }}
                                 onDateChange={(v) => this.onSetStartDate(v)}
                                 disabled={false}
+                                datePickerBg={{backgroundColor: '#F00'}}
+                                customStyles={{backgroundColor: '#F00' }}
                             />
 
                         </View>

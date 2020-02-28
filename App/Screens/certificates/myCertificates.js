@@ -21,6 +21,8 @@ import { MyCertificates } from '../../Reducers/actions'
 import RNFetchBlob from 'rn-fetch-blob'
 import SnackBar from '../../Components/snackBar/index'
 import { connect } from 'react-redux';
+import { GET } from '../../service/index'
+
 import moment from 'moment'
 class StudentCertificates extends Component {
     state = {
@@ -35,7 +37,25 @@ class StudentCertificates extends Component {
         this.props.navigation.goBack();
     }
     componentDidMount() {
-        this.setState({ MyCourseCertificates: this.props.StudentCertificates.certificates })
+        // this.setState({ MyCourseCertificates: this.props.StudentCertificates.certificates })
+        this.MyCertificatesListMethod()
+    }
+    _onRefresh() {
+        this.MyCertificatesListMethod()
+    }
+    MyCertificatesListMethod() {
+        this.setState({ loading: true })
+        GET('studentdashboard/student/listCertificates').then(response => {
+            console.log('response==>> mcq==', response)
+            if (response.success) {
+                this.setState({ MyCourseCertificates: response.data })
+            }
+            this.setState({ loading: false })
+        }).catch(function (error) {
+            if (error) {
+                this.setState({ loading: false })
+            }
+        })
     }
     DatedFormatting(date) {
         return moment(date).format("DD") + '-' + moment(date).format("MMM") + '-' + moment(date).format("YYYY")
@@ -72,7 +92,7 @@ class StudentCertificates extends Component {
 
     }
     render() {
-        const { MyCourseCertificates } = this.state
+        const { MyCourseCertificates, loading } = this.state
         console.log('MyCourseCertificates', MyCourseCertificates)
         return (
             <Container style={{ backgroundColor: '#F4F4F6' }}>
@@ -95,6 +115,14 @@ class StudentCertificates extends Component {
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
                     horizontal={false}
+                    refreshControl={
+                        <RefreshControl
+                            colors={['#1A5566']}
+                            progressBackgroundColor="#FFF"
+                            refreshing={loading}
+                            onRefresh={() => this._onRefresh()}
+                        />
+                    }
                 >
                     <View style={{ margin: 10 }}>
                         <View style={{ marginLeft: 10 }}>

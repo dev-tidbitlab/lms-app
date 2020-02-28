@@ -19,15 +19,7 @@ class HomeScreen extends Component {
   OpenDrawer() {
     this.props.navigation.openDrawer();
   }
-  componentDidUpdate(prevProps) {
-    if (prevProps.isFocused !== this.props.isFocused) {
-    }
-  }
-  Logout() {
-    let app = this
-  }
   GoToUserInfo(v) {
-    console.log(v, 'v')
     this.props.navigation.navigate('UserInfoScreen')
 
   }
@@ -37,8 +29,6 @@ class HomeScreen extends Component {
         <Header style={{ backgroundColor: '#1A5566' }}>
           <Left style={{ paddingLeft: 5, flex: 1 }}>
             <TouchableOpacity onPress={() => this.OpenDrawer()} style={{ width: 32, height: 32 }}>
-              {/* this.props.UserInfo.success ? this.props.UserInfo.userPic : */}
-              {/* <Avatar.Image onPress={() => this.OpenDrawer()} size={32} source={{ uri:  null }} /> */}
               <Avatar.Image style={{backgroundColor:'#EEE'}} onPress={() => this.OpenDrawer()} size={32} source={{ uri: this.props.UserInfo.profileImage ? this.props.UserInfo.profileImage : null }} />
             </TouchableOpacity>
           </Left>
@@ -55,7 +45,6 @@ class HomeScreen extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  console.log(state, 'state profile==>>')
   return {
     UserInfo: state.authReducer.UserInfo
   };
