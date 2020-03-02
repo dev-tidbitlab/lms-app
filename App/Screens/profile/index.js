@@ -6,6 +6,7 @@ import { Animated, Easing, Platform } from 'react-native';
 
 import StudentProfile from './userProfile'
 import EditUserProfile from './EditUserProfile'
+import ChangePassword from './changePassword'
 let SlideFromRight = (index, position, width) => {
   const translateX = position.interpolate({
     inputRange: [index - 1, index],
@@ -40,6 +41,7 @@ const ProfileStack = createStackNavigator(
   {
     StudentProfile: { screen: StudentProfile },
     EditUserProfile: { screen: EditUserProfile },
+    ChangePassword: { screen: ChangePassword }
   },
   {
     initialRouteName: 'StudentProfile',

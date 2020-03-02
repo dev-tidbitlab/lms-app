@@ -7,7 +7,7 @@ import {
     AppState,
     ActivityIndicator, Text, StatusBar, View, ScrollView, Dimensions, PermissionsAndroid, Platform
 } from 'react-native';
-import {Button} from 'native-base'
+import { Button } from 'native-base'
 import Video from 'react-native-video';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Orientation from 'react-native-orientation';
@@ -290,7 +290,7 @@ class ViewCourseDetails extends Component {
         this.props.navigation.navigate('StudentCourses');
     }
     StartMCQ() {
-        this.setState({ paused: true, VideoLoading: false})
+        this.setState({ paused: true, VideoLoading: false })
         this.props.navigation.navigate('StartMCQ', {
             course_id: this.state.course_id
         })
@@ -563,9 +563,9 @@ class ViewCourseDetails extends Component {
                     <View style={{ margin: 10 }}>
                         <View style={{ marginLeft: 10, flexDirection: 'row' }}>
                             <Text style={{ fontSize: 18, color: '#000', fontWeight: '600' }}>Course Videos</Text>
-                            {isCourseCompleted == true ?<Button onPress={() => this.StartMCQ()} small full style={{ position: 'absolute', right: 10, padding: 6, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
+                            {isCourseCompleted == true ? <Button onPress={() => this.StartMCQ()} small full style={{ position: 'absolute', right: 10, padding: 6, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
                                 <Text style={{ color: 'white', fontSize: 12 }}>Take MCQ Test</Text>
-                            </Button>:null}
+                            </Button> : null}
                         </View>
                     </View>
                     <ScrollView
@@ -583,7 +583,7 @@ class ViewCourseDetails extends Component {
                                     return (
                                         <TouchableOpacity key={i} onPress={() => this.FilterCourseVideo(v, i)} key={i} style={{ flexDirection: 'row', borderRadius: 5, marginRight: 10, marginLeft: 10, marginTop: 10, flex: 1, backgroundColor: CurrentVideoIndex == i ? '#1A5566' : '#FFF' }}>
                                             <View style={{ marginLeft: 5, marginTop: 5, marginBottom: 5 }}>
-                                                <Image style={{ width: 60, height: 60, borderRadius: 5 }} source={{ uri: v.thumbnailUrl ? v.thumbnailUrl : null }} />
+                                                <Image style={{ width: 60, height: 60, borderRadius: 5 }} source={v.thumbnailUrl != undefined && v.thumbnailUrl != null ? { uri: v.thumbnailUrl } : null} />
                                             </View>
                                             <View style={{ flex: 1, marginRight: 10, marginLeft: 10, padding: 5 }}>
                                                 <Text style={{ fontSize: 14, color: CurrentVideoIndex == i ? '#FFF' : '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '600' }}>{v.videoName}</Text>

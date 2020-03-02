@@ -87,10 +87,10 @@ class MyCourses extends Component {
     onFilterValueChange(v) {
         let query = ''
         if (v == 1) {
-            query = query + '?courseStarted=' + false
+            query = query + '?courseStarted=' + false + '&isExpire=No'
         } else {
             if (v == 2) {
-                query = query + '?courseStarted=' + true + '&courseCompleted=' + false
+                query = query + '?courseStarted=' + true + '&courseCompleted=' + false + '&isExpire=No'
             } else {
                 query = query + '?courseCompleted=' + true
             }
@@ -159,7 +159,7 @@ class MyCourses extends Component {
                                 return (
                                     <View key={i} style={{ flexDirection: 'row', borderRadius: 5, marginRight: 10, marginLeft: 10, marginTop: 15, flex: 1, backgroundColor: '#FFF' }}>
                                         <TouchableOpacity disabled={v.isExpire == 'Yes' ? true : false} onPress={() => this.ViewCourseDetails(v)} style={{ marginLeft: 5, marginTop: 5 }}>
-                                            <Image style={{ width: 100, height: 100, borderRadius: 5 }} source={{ uri: v.courseId != undefined && v.courseId != null ? v.courseId.courseImage : null }} />
+                                            <Image style={{ width: 100, height: 100, borderRadius: 5 }} source={v.courseId != undefined && v.courseId != null ? { uri: v.courseId.courseImage } : null} />
                                             <Button disabled={v.isExpire == 'Yes' ? true : false} onPress={() => this.ViewCourseDetails(v)} small full style={{ backgroundColor: '#1A5566', marginTop: 10, borderRadius: 5, marginBottom: 5 }}>
                                                 {v.courseStarted == false && v.isExpire != 'Yes' ? <Text style={{ color: 'white', fontSize: 12 }}>Start Course</Text> : null}
                                                 {v.courseStarted == true && v.courseCompleted == false && v.isExpire != 'Yes' ? <Text style={{ color: 'white', fontSize: 12 }}>Resume Course</Text> : null}

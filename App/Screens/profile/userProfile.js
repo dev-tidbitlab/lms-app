@@ -12,10 +12,11 @@ import {
 } from "react-native";
 import { withNavigation, withNavigationFocus } from 'react-navigation'
 import Icon from 'react-native-vector-icons/Ionicons'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import Entypo from 'react-native-vector-icons/Entypo'
 import { Container, Thumbnail, Header, Picker, Left, Body, Right, Button, Title } from 'native-base';
 import { Avatar } from 'react-native-paper';
 import { connect } from 'react-redux';
+import Menu, { MenuItem, MenuDivider } from 'react-native-material-menu';
 import ImagePicker from 'react-native-image-picker'
 import { UploadUserPicAction, GetUserInfo } from '../../Reducers/actions'
 const width = Dimensions.get('window').width
@@ -24,23 +25,35 @@ class UserProfile extends Component {
     state = {
         EditProfile: false
     }
+    _menu = null;
+
+    setMenuRef = ref => {
+        this._menu = ref;
+    };
+
+    hideMenu = () => {
+        this._menu.hide();
+    };
+
+    showMenu = () => {
+        this._menu.show();
+    };
     GoBack() {
         this.props.navigation.navigate('UserListScreen');
     }
     LoadImage() {
         return 0;
     }
-
+    ChangePassword() {
+        this.hideMenu()
+        this.props.navigation.navigate('ChangePassword')
+    }
     ToggleEditProfile() {
-        console.log('dwdw')
+        this.hideMenu()
         this.props.navigation.navigate('EditUserProfile', {
             UserInfo: this.props.UserInfo
         });
-        // this.setState({ EditProfile: !this.state.EditProfile })
     }
-    // componentDidMount() {
-    //     this.props.GetUserInfo(this.props)
-    // }
     _onRefresh() {
         this.props.GetUserInfo(this.props)
     }
@@ -53,13 +66,10 @@ class UserProfile extends Component {
     }
     render() {
         let EditProfile = this.state.EditProfile
-        // let { email, firstName, lastName, state, city, country, phoneNumber, profileImage } = { email: '', firstName: '', lastName: '', state: '', city: '', country: '', phoneNumber: '', profileImage: null }
-        // if (this.props.UserInfo) {
         const { email, firstName, lastName, state, city, country, phoneNumber, profileImage } = this.props.UserInfo
-        // }
         console.log(this.props.UserInfo, '00000000000')
         return (
-            <Container>
+            <Container style={{ backgroundColor: '#F4F4F6' }}>
                 <Header style={{ backgroundColor: '#1A5566' }}>
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.GoBack()} >
@@ -69,14 +79,25 @@ class UserProfile extends Component {
                     <Body style={{ flex: 2, alignItems: 'center' }}>
                         <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFF' }}>Profile</Text>
                     </Body>
-                    <Right style={{ flex: 1 }}>
+                    {/* <Right style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.ToggleEditProfile()} >
                             <FontAwesome name='edit' size={24} color='#FFF' />
                         </Button>
+                    </Right> */}
+                    <Right style={{ flex: 1 }}>
+                        <Menu
+                            ref={this.setMenuRef}
+                            button={<TouchableOpacity onPress={this.showMenu}><Entypo name="dots-three-vertical" size={20} color="#FFF" /></TouchableOpacity>}
+                        >
+                            <MenuItem onPress={() => this.ToggleEditProfile()}>Edit Profile</MenuItem>
+                            <MenuDivider />
+                            <MenuItem onPress={() => this.ChangePassword()}>Change Password</MenuItem>
+                        </Menu>
                     </Right>
                 </Header>
                 <StatusBar backgroundColor="#1A5566" barStyle="light-content" />
                 <ScrollView
+                contentContainerStyle={{backgroundColor: '#F4F4F6'}}
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
                     horizontal={false}
@@ -90,13 +111,9 @@ class UserProfile extends Component {
                     }
                 >
                     <View style={styles.container}>
-                        <Button style={{ position: 'absolute', left: 20, top: 15 }} transparent onPress={() => this.GoBack()} >
-                            <Icon name={Platform.OS == 'android' ? 'md-arrow-back' : 'ios-arrow-back'} size={24} color="#fff" />
-                        </Button>
                         <View style={{ marginTop: 50 }}>
                             <TouchableOpacity onPress={() => this.LoadImage()} style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                <Avatar.Image style={{ backgroundColor: '#EEE' }} size={110} source={{ uri: profileImage ? profileImage : null }} />
-                                {/* <Avatar.Image size={110} source={require('../../Images/33.png')} /> */}
+                                <Avatar.Image style={{ backgroundColor: '#EEE' }} size={110} source={profileImage ? { uri: profileImage } : null} />
                             </TouchableOpacity>
                         </View>
                         <View style={{ paddingLeft: 20, paddingRight: 20, justifyContent: 'flex-start', alignItems: 'flex-start', marginTop: 30, marginLeft: 20, marginRight: 20 }}>

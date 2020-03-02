@@ -40,13 +40,13 @@ class MyOrders extends Component {
         this.props.navigation.navigate('ViewCourseDetails');
     }
     _onRefresh() {
-        this.props.StudentOrderList(this.props)
+        this.props.StudentOrderList({ props: this.props, query: '&sort=updatedAt' })
     }
     componentDidMount() {
         Dimensions.addEventListener('change', () => {
             this.getOrientation();
         });
-        this.props.StudentOrderList(this.props)
+        this.props.StudentOrderList({ props: this.props, query: '&sort=updatedAt' })
     }
     getOrientation() {
         this.setState({ ScreenWidth: Dimensions.get('window').width })

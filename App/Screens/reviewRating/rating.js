@@ -10,6 +10,7 @@ import {
 import { BottomSheet } from 'react-native-btr';
 import { withNavigationFocus } from 'react-navigation';
 import { Rating, AirbnbRating } from 'react-native-ratings';
+import Feather from 'react-native-vector-icons/Feather'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 class ReviewRating extends Component {
     constructor() {
@@ -41,7 +42,8 @@ class ReviewRating extends Component {
                 onBackdropPress={() => this._toggleBottomNavigationViewClose()}
             >
                 <View style={styles.bottomNavigationView}>
-                    <View
+                <TouchableOpacity
+                    onPress={()=>this._toggleBottomNavigationViewClose()}
                         style={{
                             width: '100%',
                             flexDirection: 'row',
@@ -52,7 +54,8 @@ class ReviewRating extends Component {
                         <Text style={{ textAlign: 'center', fontSize: 20, padding: 10 }}>
                             Review & Rating
                     </Text>
-                    </View>
+                    <Feather style={{position:'absolute', right: 10, top:8}} name="chevron-down" size={32} color={'gray'}/>
+                    </TouchableOpacity>
                     <View style={{ flex: 1, width: '100%' }}>
                         <View style={{ padding: 12 }}>
                             <AirbnbRating defaultRating={0} size={20} count={5} showRating={false} onFinishRating={rating => this.ratingCompleted(rating)} />

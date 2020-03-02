@@ -40,8 +40,8 @@ const TransitionConfiguration = () => {
 }
 const AuthStack = createStackNavigator(
     {
-        AppSplashScreen: { screen: AppSplashScreen },
         AppLoginScreen: { screen: AppLoginScreen },
+        AppSplashScreen: { screen: AppSplashScreen },
         ForgotPassword: { screen: ForgotPassword },
         AppRegisterScreen: { screen: AppRegisterScreen },
     },

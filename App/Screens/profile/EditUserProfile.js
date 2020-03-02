@@ -105,15 +105,12 @@ class EditUserProfile extends Component {
         } else {
             this.props.SaveUserInfoAction({ data: ob, props: this.props })
         }
-        console.log('ob,ob', ob)
 
     }
     LoadImage() {
-        // return 0;
         const options = {
             noData: true,
         }
-        console.log('11111==>>')
         ImagePicker.launchImageLibrary(options, response => {
             console.log(options, response, 'ffd==>>>>')
             if (response.didCancel == undefined) {
@@ -123,9 +120,7 @@ class EditUserProfile extends Component {
                     name: response.fileName,
                     type: response.type
                 })
-                // this.props.UploadUserPicAction({ props: this.props, data: formData })
                 console.log('hh==>>', formData)
-                // this.props.Loading(true)
                 this.setState({ Loader: true })
                 FormPostAPI('auth/reguser/update', formData).then(response => {
                     console.log(response, 'ttt==>>')
@@ -133,21 +128,17 @@ class EditUserProfile extends Component {
                         this.props.navigation.navigate('StudentProfile')
                         this.props.GetUserInfo(this.props)
                         this.setState({ Loader: false })
-                        // this.props.LoadingStop(false)
                     } else {
                         this.setState({ Loader: false })
-                        // this.props.LoadingStop(false)
                     }
                 }).catch(function (error) {
                     console.log('error', error)
                     this.setState({ Loader: false })
-                    // this.props.LoadingStop(false)
                 })
             }
         })
     }
     shouldComponentUpdate(nextState, nextProps) {
-        console.log(this.props, nextProps, 'kkkkkk')
         if (this.state.UserInfo != nextProps.UserInfo) {
             this.setState({ UserInfo: nextProps.UserInfo })
             return true
@@ -156,8 +147,9 @@ class EditUserProfile extends Component {
     }
     render() {
         const { UserInfo, ValidationArray } = this.state
+        const { profileImage } = this.state.UserInfo
         return (
-            <Container>
+            <Container style={{ backgroundColor: '#F4F4F6' }}>
                 <Header style={{ elevation: 0, backgroundColor: '#1A5566' }}>
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.GoBack()} >
@@ -177,13 +169,14 @@ class EditUserProfile extends Component {
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
                     horizontal={false}
+                    contentContainerStyle={{ backgroundColor: '#F4F4F6' }}
                 >
                     <StatusBar backgroundColor="#1A5566" barStyle="light-content" />
                     <View style={styles.container}>
                         <View>
                             <View style={{ marginTop: 50 }}>
                                 <TouchableOpacity onPress={() => this.LoadImage()} style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                                    <Avatar.Image size={110} source={{ uri: this.props.UserInfo.profileImage ? this.props.UserInfo.profileImage : null }} />
+                                    <Avatar.Image size={110} source={profileImage ? { uri: profileImage } : null} />
                                     <FontAwesome style={{ padding: 5, backgroundColor: 'transparent', position: 'absolute', top: (110 / 2) - 20, left: (width / 2) + (110 / 2) - 15 }} name="pencil" size={24} color="#1A5566" />
                                 </TouchableOpacity>
                             </View>

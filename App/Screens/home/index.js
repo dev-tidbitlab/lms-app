@@ -24,12 +24,13 @@ class HomeScreen extends Component {
 
   }
   render() {
+    const { profileImage } = this.props.UserInfo
     return (
       <Container style={{ backgroundColor: '#F4F4F6' }}>
         <Header style={{ backgroundColor: '#1A5566' }}>
           <Left style={{ paddingLeft: 5, flex: 1 }}>
             <TouchableOpacity onPress={() => this.OpenDrawer()} style={{ width: 32, height: 32 }}>
-              <Avatar.Image style={{backgroundColor:'#EEE'}} onPress={() => this.OpenDrawer()} size={32} source={{ uri: this.props.UserInfo.profileImage ? this.props.UserInfo.profileImage : null }} />
+              <Avatar.Image style={{ backgroundColor: '#EEE' }} onPress={() => this.OpenDrawer()} size={32} source={profileImage ? { uri: profileImage } : null} />
             </TouchableOpacity>
           </Left>
           <Body style={{ flex: 2, alignItems: 'center' }}>

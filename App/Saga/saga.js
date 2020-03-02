@@ -207,7 +207,7 @@ function* StudentCoursesListAPICall(props) {
     console.log('StudentCoursesListAPICall', props)
     yield put({ type: "LOADER_START", payload: true });
     console.log('1', props.payload.search)
-    let query = ''
+    let query = '?'
     if (props.payload.search) {
         query = query + '?search=' + props.payload.search
     }

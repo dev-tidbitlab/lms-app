@@ -7,7 +7,8 @@ import {
     ScrollView,
     StatusBar,
     RefreshControl,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    Platform
 } from "react-native";
 import { Container, Header, Left, Body, Right, Button } from 'native-base';
 import { withNavigationFocus } from 'react-navigation';
@@ -19,6 +20,7 @@ import RNFetchBlob from 'rn-fetch-blob'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { GET, POST } from '../../service/index'
 import LottieView from 'lottie-react-native';
+import IOSRating from '../reviewRating/iosRating'
 import moment from 'moment'
 class TestResult extends Component {
     constructor() {
@@ -31,7 +33,8 @@ class TestResult extends Component {
             ReviewRatingModal: false,
             isDownloaded: 0,
             isCompleted: 0,
-            MyResult: 0
+            MyResult: 0,
+            BodyColor: '#F4F4F6'
         };
     }
     getInitialMCQs(course_id) {
@@ -90,18 +93,19 @@ class TestResult extends Component {
         })
     }
     ReviewAndRatingModal() {
-        this.setState({ ReviewRatingModal: true })
+        if (Platform.OS == 'android') {
+            this.setState({ ReviewRatingModal: true })
+        } else {
+            this.setState({ ReviewRatingModal: true, BodyColor: '#DDD' })
+        }
     }
     toggleBottomNavigationView() {
-        this.setState({ ReviewRatingModal: false })
+        this.setState({ ReviewRatingModal: false, BodyColor:'#F4F4F6' })
     }
     SubmitRating(DataObject) {
         this.setState({ loading: true })
         POST('coursejourney/student/submitreview', JSON.stringify(DataObject)).then(response => {
             console.log('response==>> mcq==retake', response)
-            // if (response.success) {
-            //     this.toggleBottomNavigationView()
-            // }
             this.toggleBottomNavigationView()
             this.getInitialMCQs(this.state.course_id)
             this.setState({ loading: false })
@@ -119,31 +123,31 @@ class TestResult extends Component {
     SaveReviewAndRating(v) {
         let DataObject = v
         DataObject.courseId = this.state.course_id
-        console.log(DataObject)
         this.SubmitRating(DataObject)
     }
     DownloadResourses(file) {
         let app = this
         const { config, fs } = RNFetchBlob
         app.setState({ isDownloaded: 1 })
-        let DownloadDir = fs.dirs.DownloadDir // this is the pictures directory. You can check the available directories in the wiki.
-        let fileName = Math.floor(new Date().getTime() + new Date().getSeconds())
-        fileName = JSON.stringify(fileName) + '.pdf'
+        let DownloadDir = Platform.OS=='android'?fs.dirs.DownloadDir: fs.dirs.DocumentDir 
+        let str = file.courseId.courseName
+            let fileName = str.replace(/^"(.*)"$/, '$1');
+            fileName = fileName + '.pdf'
         RNFetchBlob
             .config({
                 addAndroidDownloads: {
                     useDownloadManager: true, // <-- this is the only thing required
                     notification: false,
-                    path: DownloadDir + "/lms/" + 'certificate_' + fileName,
+                    path: DownloadDir + "/lms/" + fileName,
                     description: 'Resourse File',
                     mediaScannable: true,
                     notification: true,
-                    title: 'certificate_' + fileName
+                    title: fileName
                 }
             })
-            .fetch('GET', file)
+            .fetch('GET', file.certificateUrl)
             .then((resp) => {
-
+                console.log(resp)
                 resp.path()
                 app.setState({ isDownloaded: 2 })
             })
@@ -157,10 +161,13 @@ class TestResult extends Component {
         this.setState({ loading: true })
         this.getInitialMCQs(this.state.course_id)
     }
+    CloseIOSRating() {
+        this.setState({ ReviewRatingModal: false })
+    }
     render() {
-        const { Result, CourseDetails, isCompleted, MyResult } = this.state
+        const { Result, CourseDetails, isCompleted, MyResult, BodyColor } = this.state
         return (
-            <Container style={{ backgroundColor: '#F4F4F6' }}>
+            <Container onPress={() => this.CloseIOSRating()} style={{ backgroundColor: BodyColor }}>
                 <Header style={{ backgroundColor: '#1A5566' }}>
                     <Left style={{ flex: 1 }}>
                         <Button transparent onPress={() => this.GoBack()} >
@@ -175,7 +182,7 @@ class TestResult extends Component {
                 </Header>
                 <StatusBar backgroundColor="#1A5566" barStyle="light-content" />
                 <ScrollView
-                    contentContainerStyle={{ backgroundColor: '#F4F4F6' }}
+                    contentContainerStyle={{ backgroundColor: BodyColor }}
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
                     horizontal={false}
@@ -188,7 +195,7 @@ class TestResult extends Component {
                         />
                     }
                 >
-                    <View style={{ margin: 10 }}>
+                    <View onPress={() => this.CloseIOSRating()} style={{ margin: 10 }}>
                         <View style={{ width: '100%', alignItems: 'center' }}>
                             <View style={{ width: 200, height: 200 }}>
                                 {MyResult == 1 ? <LottieView source={require('./433-checked-done.json')} autoPlay loop={false} /> : null}
@@ -210,7 +217,7 @@ class TestResult extends Component {
                                 <Text style={{ fonSize: 12, color: '#FFF' }}>Take Test Again</Text>
                             </TouchableOpacity></View> : null}
 
-                        {isCompleted == 2 && MyResult == 1 ? <View style={{ alignItems: 'center', marginTop: 20 }}><TouchableOpacity onPress={() => this.DownloadResourses(CourseDetails.certificateUrl)} style={{ width: 180, flexDirection: 'row', paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
+                        {isCompleted == 2 && MyResult == 1 ? <View style={{ alignItems: 'center', marginTop: 20 }}><TouchableOpacity onPress={() => this.DownloadResourses(CourseDetails)} style={{ width: 180, flexDirection: 'row', paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
                             <MaterialIcons name="file-download" size={18} color={'#FFF'} />
                             <Text style={{ color: 'white', fonSize: 12, }}>Download Certificate</Text>
                         </TouchableOpacity></View> : null}
@@ -222,9 +229,8 @@ class TestResult extends Component {
                         </TouchableOpacity></View> : null}
                     </View>
                 </ScrollView>
-                <View style={{ position: 'absolute', bottom: 50 }}>
-                    <ReviewRatingModalComponent SaveReviewAndRating={(v) => this.SaveReviewAndRating(v)} _toggleBottomNavigationViewClose={() => this._toggleBottomNavigationViewClose()} ReviewRatingModal={this.state.ReviewRatingModal} />
-                </View>
+                {Platform.OS == 'android' ? <ReviewRatingModalComponent SaveReviewAndRating={(v) => this.SaveReviewAndRating(v)} _toggleBottomNavigationViewClose={() => this._toggleBottomNavigationViewClose()} ReviewRatingModal={this.state.ReviewRatingModal} />
+                    : (this.state.ReviewRatingModal ? <IOSRating onPress={()=>this._toggleBottomNavigationViewClose()} SaveReviewAndRating={(v) => this.SaveReviewAndRating(v)} _toggleBottomNavigationViewClose={() => this._toggleBottomNavigationViewClose()} ReviewRatingModal={this.state.ReviewRatingModal} duration={0} /> : null)}
                 {this.state.isDownloaded != 0 ? <SnackBar
                     style={{ backgroundColor: this.state.isDownloaded == 2 ? '#4FAE62' : '#222' }}
                     numberOfLines={2}
@@ -243,7 +249,7 @@ export default withNavigationFocus(TestResult);
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 1
     },
     BackBottonBG: {
         height: 150,

@@ -89,15 +89,12 @@ class SideMenu extends Component {
         return sideRoutes;
     }
     render() {
-        // let { email, firstName, lastName, state, city, country, phoneNumber, profileImage } = { email: '', firstName: '', lastName: '', state: '', city: '', country: '', phoneNumber: '', profileImage: null }
-        // if (this.props.UserInfo) {
         const { email, firstName, lastName, state, city, country, phoneNumber, profileImage } = this.props.UserInfo
-        // }
         return (
             <ScrollView>
                 <View style={{ flex: 1 }}>
                     <TouchableOpacity onPress={() => this.GoToProfile()} style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: 20 }}>
-                        <Avatar.Image size={80} style={{ backgroundColor: '#EEE' }} source={{ uri: this.props.UserInfo.profileImage ? this.props.UserInfo.profileImage : null }} />
+                        <Avatar.Image size={80} style={{ backgroundColor: '#EEE' }} source={profileImage ? { uri: profileImage } : null} />
                         <Text style={{ marginTop: 10, fontSize: 18, fontWeight: '700' }}>{firstName ? firstName + ' ' + lastName : null}</Text>
                         <Text style={{ fontSize: 14, fontWeight: '400' }}>{email ? email : null}</Text>
                     </TouchableOpacity>

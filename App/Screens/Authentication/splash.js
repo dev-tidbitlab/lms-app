@@ -16,6 +16,7 @@ class AppSplash extends Component {
         }
     }
     RedirectUser() {
+        console.log('sllllllllll====>>>>>>')
         this.props.IsUserLoggedIn(this.props)
     }
     SplashTimer() {

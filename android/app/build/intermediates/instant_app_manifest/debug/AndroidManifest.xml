@@ -3,7 +3,7 @@
     package="com.international.fertility.academy"
     android:targetSandboxVersion="2"
     android:versionCode="21"
-    android:versionName="2.0.6" >
+    android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -34,6 +34,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
+        android:screenOrientation="portrait"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true" >
         <activity
