@@ -22,6 +22,7 @@ let SlideFromRight = (index, position, width) => {
     return { transform: [{ translateX }] }
 };
 
+// For Trabsition
 const TransitionConfiguration = () => {
     return {
         transitionSpec: {
@@ -57,6 +58,7 @@ function getActiveRouteName(navigationState) {
     }
     return route.routeName;
 }
+// DrawerNavigator
 const AppDrawerNavigator = createDrawerNavigator({
     Home: { screen: HomeBottomTabBar }
 }, {

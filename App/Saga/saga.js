@@ -10,6 +10,7 @@ function* CheckUserLoggedIn(props) {
             yield put({ type: "SAVE_USER_INFO", payload: json });
             goHomeScreen(props.payload)
         } else {
+            yield put({ type: "SAVE_USER_INFO", payload: {} });
             if (json.status == 1002) {
                 logout(props.payload)
             } else {
@@ -18,6 +19,7 @@ function* CheckUserLoggedIn(props) {
         }
     }
     catch (error) {
+        yield put({ type: "SAVE_USER_INFO", payload: {} });
         logout(props.payload)
     }
 }
@@ -104,10 +106,13 @@ function* LogoutThisUser(props) {
     try {
         const json = yield GET(props.payload.API)
         console.log('josin logout', json)
+        yield put({ type: "SAVE_USER_INFO", payload: {} });
         logout(props.payload.props)
+        
         yield put({ type: "LOADER_STOP", payload: false });
     }
     catch (error) {
+        yield put({ type: "SAVE_USER_INFO", payload: {} });
         logout(props.payload.props)
         yield put({ type: "LOADER_STOP", payload: false });
     }
@@ -156,6 +161,7 @@ function* UploadUserPic(props) {
         console.log('login -user', json)
         try {
             if (json.status == 1001) {
+                yield put({ type: "SAVE_USER_INFO", payload: {} });
                 logout(props.payload.props)
             } else {
                 yield put({ type: "SAVE_USER_INFO", payload: json.userData });
@@ -310,6 +316,7 @@ function* GetUserInfoOf(props) {
         if (json.success) {
             yield put({ type: "SAVE_USER_INFO", payload: json });
         } else {
+            yield put({ type: "SAVE_USER_INFO", payload: {} });
             if (json.status == 1002) {
                 logout(props.payload)
             } else {

@@ -8,6 +8,7 @@ import AppSplashScreen from './splash'
 import AppLoginScreen from './login'
 import AppRegisterScreen from './register'
 import ForgotPassword from './forgotPassword'
+import EcommerceScreen from '../ecommerce/ecommerceScreen'
 let SlideFromRight = (index, position, width) => {
     const translateX = position.interpolate({
         inputRange: [index - 1, index],
@@ -40,10 +41,11 @@ const TransitionConfiguration = () => {
 }
 const AuthStack = createStackNavigator(
     {
+        EcommerceScreen: { screen: EcommerceScreen },
         AppLoginScreen: { screen: AppLoginScreen },
-        AppSplashScreen: { screen: AppSplashScreen },
         ForgotPassword: { screen: ForgotPassword },
         AppRegisterScreen: { screen: AppRegisterScreen },
+        AppSplashScreen: { screen: AppSplashScreen },
     },
     {
         initialRouteName: 'AppSplashScreen',

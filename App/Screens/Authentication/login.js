@@ -17,6 +17,7 @@ import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux';
 import { loginAction } from '../../Reducers/actions'
 import firebase from 'react-native-firebase';
+import Ionicons from "react-native-vector-icons/Ionicons";
 import { Progress } from '../ProgressDialog/index'
 import ErrorToaster from '../../Components/alerts/error'
 import { Formik } from 'formik';
@@ -190,6 +191,9 @@ class LoginScreen extends Component {
         ValidationArray.password = false
         this.setState({ Password: v, ValidationArray: ValidationArray })
     }
+    GoBackToHome() {
+        this.props.navigation.goBack()
+    }
 
     render() {
         let ValidationArray = this.state.ValidationArray
@@ -199,6 +203,13 @@ class LoginScreen extends Component {
                     <View style={{ justifyContent: 'center', alignItems: 'center', alignContent: 'center', }}>
                         <Image style={{ height: 150, width: 150, justifyContent: 'center', alignItems: 'center', alignContent: 'center', resizeMode: 'contain', }} source={require('../../Images/logo.png')} />
                     </View>
+                    <Ionicons
+                        onPress={() => this.GoBackToHome()}
+                        name={Platform.OS === 'android' ? "md-arrow-back" : "ios-arrow-round-back"}
+                        color='#1A5566'
+                        size={32}
+                        style={{ backgroundColor: 'transparent', position: 'absolute', padding: 10, left: 10, top: 10 }}
+                    />
                     <View style={styles.MainView3}>
                         <TextInput
                             error={ValidationArray.email}

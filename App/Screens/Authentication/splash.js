@@ -19,11 +19,15 @@ class AppSplash extends Component {
         console.log('sllllllllll====>>>>>>')
         this.props.IsUserLoggedIn(this.props)
     }
+    componentDidMount(){
+        console.log('sllllllllll====>>>>>>nhiiii')
+        this.SplashTimer()
+    }
     SplashTimer() {
         let app = this
         setTimeout(function () {
             app.RedirectUser()
-        }, 3000);
+        }, 4000);
     }
     render() {
         return (
@@ -32,22 +36,17 @@ class AppSplash extends Component {
                 <View style={{ backgroundColor: '#f1f2f7', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <Image width="200" height="300" source={require('../../Images/logo.png')} />
                 </View>
-                {this.SplashTimer()}
+                {/* {this.SplashTimer()} */}
             </View>
         );
     }
 }
-const mapStateToProps = (state) => {
-    return {
-        isLoggingIn: state.authReducer.isLoggingIn,
-    };
-};
 const mapDispatchToProps = (dispatch) => {
     return {
         IsUserLoggedIn: (payload) => dispatch(IsUserLoggedIn(payload)),
     };
 };
-export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(AppSplash))
+export default withNavigation(connect(null, mapDispatchToProps)(AppSplash))
 const styles = StyleSheet.create({
     linearGradient: {
         flex: 1

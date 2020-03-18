@@ -20,6 +20,12 @@ let SideBarRoutes = [
     {
         icon: "book",
         iconType: "Feather",
+        name: "All Courses",
+        RouteName: 'LMSAllCourses'
+    },
+    {
+        icon: "book",
+        iconType: "Feather",
         name: "My Courses",
         RouteName: 'StudentCourses'
     },
