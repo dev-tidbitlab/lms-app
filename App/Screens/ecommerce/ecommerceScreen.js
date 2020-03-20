@@ -6,6 +6,7 @@ import {
     ScrollView,
     StatusBar,
     Dimensions,
+    StyleSheet
 } from "react-native";
 import { Container, Header, Left, Body, Right, Button } from 'native-base';
 import { withNavigation } from 'react-navigation';
@@ -15,6 +16,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import BestSellingComponents from './bestSelling'
 
 import { GET } from '../../service/index'
+import { fonts } from '../../Themes/style'
 class EcommerceScreen extends Component {
     state = {
         ScreenWidth: Dimensions.get('window').width,
@@ -88,11 +90,11 @@ class EcommerceScreen extends Component {
                         </Button> : null}
                     </Left>
                     <Body style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFF' }}>Ecommerce</Text>
+                        <Text style={{ fontWeight: '500', color: '#FFF', ...fonts.h5 }}>Ecommerce</Text>
                     </Body>
                     <Right style={{ flex: 0.5 }}>
                         {!email ? <TouchableOpacity onPress={() => this.GoToLogin()}>
-                            <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFF' }}>Login</Text>
+                            <Text style={{ fontWeight: '500', color: '#FFF', ...fonts.h5 }}>Login</Text>
                         </TouchableOpacity> : null}
                     </Right>
                 </Header>
@@ -104,24 +106,24 @@ class EcommerceScreen extends Component {
                     horizontal={false}
                 >
                     <View style={{ margin: 10 }}>
-                        {TrendingCourses.length > 0 ? <View style={{ marginLeft: 10, flexDirection: 'row', alignItems: 'center' }}>
-                            <Text style={{ fontSize: 18, color: '#000', fontWeight: '500' }}>Trending</Text>
+                        {TrendingCourses.length > 0 ? <View style={styles.CardStyle}>
+                            <Text style={styles.TextHeading}>Trending</Text>
                             <TouchableOpacity onPress={() => this.goToPortal()} style={{ position: 'absolute', right: 10 }}>
-                                <Text style={{ fontSize: 14, color: '#AAA', fontWeight: '500' }}>View All</Text>
+                                <Text style={styles.ViewAllStyle}>View All</Text>
                             </TouchableOpacity>
                         </View> : null}
                         {TrendingCourses.length > 0 ? <HomeTrendingSlider TrendingCourses={TrendingCourses} /> : null}
-                        {BestSellingCourses.length > 0 ? <View style={{ marginLeft: 10, flexDirection: 'row', alignItems: 'center' }}>
-                            <Text style={{ fontSize: 18, color: '#000', fontWeight: '500' }}>Bestselling</Text>
+                        {BestSellingCourses.length > 0 ? <View style={styles.CardStyle}>
+                            <Text style={styles.TextHeading}>Bestselling</Text>
                             <TouchableOpacity onPress={() => this.goToPortal()} style={{ position: 'absolute', right: 10 }}>
-                                <Text style={{ fontSize: 14, color: '#AAA', fontWeight: '500' }}>View All</Text>
+                                <Text style={styles.ViewAllStyle}>View All</Text>
                             </TouchableOpacity>
                         </View> : null}
                         {BestSellingCourses.length > 0 ? <BestSellingComponents BestSellingCourses={BestSellingCourses} /> : null}
-                        {AllCourses.length > 0 ? <View style={{ marginLeft: 10, flexDirection: 'row', alignItems: 'center' }}>
-                            <Text style={{ fontSize: 18, color: '#000', fontWeight: '500' }}>All Courses</Text>
+                        {AllCourses.length > 0 ? <View style={styles.CardStyle}>
+                            <Text style={styles.TextHeading}>All Courses</Text>
                             <TouchableOpacity onPress={() => this.goToPortal()} style={{ position: 'absolute', right: 10 }}>
-                                <Text style={{ fontSize: 14, color: '#AAA', fontWeight: '500' }}>View All</Text>
+                                <Text style={styles.ViewAllStyle}>View All</Text>
                             </TouchableOpacity>
                         </View> : null}
                         {AllCourses.length > 0 ? <BestSellingComponents BestSellingCourses={AllCourses} /> : null}
@@ -137,3 +139,14 @@ const mapStateToProps = (state) => {
     };
 };
 export default withNavigation(connect(mapStateToProps)(EcommerceScreen))
+const styles = StyleSheet.create({
+    TextHeading: {
+        color: '#000', fontWeight: '600', ...fonts.h6
+    },
+    ViewAllStyle: {
+        color: '#AAA', fontWeight: '500', ...fonts.h7
+    },
+    CardStyle: {
+         marginLeft: 10, flexDirection: 'row', alignItems: 'center' 
+        }
+})

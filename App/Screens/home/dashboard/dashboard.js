@@ -1,23 +1,19 @@
 import React, { Component } from "react";
 import {
     View,
-    Platform,
-    StyleSheet,
     TouchableOpacity,
     Image,
     Text,
     ScrollView,
-    StatusBar,
     Dimensions,
-    ActivityIndicator,
     RefreshControl
 } from "react-native";
-import { Avatar, ProgressBar } from 'react-native-paper';
-import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button, Title } from 'native-base';
-import { withNavigation, withNavigationFocus } from 'react-navigation';
+import { ProgressBar } from 'react-native-paper';
+import { withNavigationFocus } from 'react-navigation';
 import { StudentRecentlyCoursesList, MyCertificates } from '../../../Reducers/actions'
 import { connect } from 'react-redux';
 import { GET } from '../../../service/index'
+import { fonts } from '../../../Themes/style'
 class Dashboard extends Component {
     state = {
         ScreenWidth: Dimensions.get('window').width,
@@ -95,19 +91,19 @@ class Dashboard extends Component {
                             <View style={{ backgroundColor: '#EEE', borderRadius: 100, width: 80, height: 80, justifyContent: "center", alignItems: 'center' }}>
                                 <Image resizeMode={'stretch'} width={60} height={60} source={require('../../../Images/course64.png')} />
                             </View>
-                            <Text style={{ fontSize: 16, fontWeight: '600', marginTop: 5 }}>Total Courses</Text>
-                            <Text style={{ marginTop: 5 }}>{this.props.StudentCertificates ? this.props.StudentCertificates.totalCourses : 0}</Text>
+                            <Text style={{ ...fonts.h6, fontWeight: '500', marginTop: 5 }}>Total Courses</Text>
+                            <Text style={{ marginTop: 5, ...fonts.h6, fontWeight: '500' }}>{this.props.StudentCertificates ? this.props.StudentCertificates.totalCourses : 0}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.MyCertificates()} style={{ width: 150, height: 150, backgroundColor: '#FFF', marginTop: 10, marginRight: 10, marginBottom: 15, marginLeft: 10, justifyContent: 'center', alignItems: 'center', borderRadius: 5 }}>
                             <View style={{ backgroundColor: '#EEE', borderRadius: 100, width: 80, height: 80, justifyContent: "center", alignItems: 'center' }}>
                                 <Image resizeMode={'stretch'} source={require('../../../Images/certificate64.png')} />
                             </View>
-                            <Text style={{ fontSize: 16, fontWeight: '600', marginTop: 5 }}>Certifications</Text>
-                            <Text style={{ marginTop: 5 }}>{this.props.StudentCertificates ? this.props.StudentCertificates.totalCertificates : 0}</Text>
+                            <Text style={{ ...fonts.h6, fontWeight: '500', marginTop: 5 }}>Certifications</Text>
+                            <Text style={{ marginTop: 5, ...fonts.h6, fontWeight: '500' }}>{this.props.StudentCertificates ? this.props.StudentCertificates.totalCertificates : 0}</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{ marginLeft: 10 }}>
-                        <Text style={{ fontSize: 18, color: '#000', fontWeight: '600' }}>My recently courses</Text>
+                        <Text style={{ ...fonts.h6, color: '#222', fontWeight: '600' }}>My recently courses</Text>
                     </View>
                     {MyStudentRecentlyCourseList.length > 0 ? <View>
                         {MyStudentRecentlyCourseList.map((v, i) => {
@@ -117,10 +113,10 @@ class Dashboard extends Component {
                                         <Image style={{ width: 100, height: 100, borderRadius: 5, resizeMode: 'cover' }} source={v.courseId != undefined && v.courseId != null ? { uri: v.courseId.courseImage } : null} />
                                     </TouchableOpacity>
                                     <TouchableOpacity onPress={() => this.ViewCourseDetails(v)} style={{ flex: 1, marginRight: 10, marginLeft: 10, paddingBottom: 5 }}>
-                                        <Text style={{ fontSize: 14, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '500' }}>{v.courseId.courseName}</Text>
-                                        <Text numberOfLines={2} style={{ fontSize: 12, color: '#000', paddingBottom: 5 }}>{v.courseId.description}</Text>
+                                        <Text style={{ ...fonts.h7, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '500' }}>{v.courseId.courseName}</Text>
+                                        <Text numberOfLines={2} style={{ ...fonts.h8, color: '#000', paddingBottom: 5 }}>{v.courseId.description}</Text>
                                         <ProgressBar style={{ backgroundColor: '#CCC', marginBottom: 5 }} progress={v.progress ? v.progress / 100 : 0} color={'#1A5566'} />
-                                        <Text style={{ fontSize: 12, color: '#AAA' }}>{v.progress ? v.progress : 0}% complete</Text>
+                                        <Text style={{ ...fonts.h8, color: '#AAA' }}>{v.progress ? v.progress : 0}% complete</Text>
                                     </TouchableOpacity>
                                 </View>
                             )

@@ -7,7 +7,6 @@ import {
     ScrollView,
     StatusBar,
     RefreshControl,
-    KeyboardAvoidingView,
     Platform
 } from "react-native";
 import { Container, Header, Left, Body, Right, Button } from 'native-base';
@@ -17,11 +16,11 @@ import SnackBar from '../../Components/snackBar/index'
 import ReviewRatingModalComponent from '../reviewRating/rating'
 import Ionicons from "react-native-vector-icons/Ionicons";
 import RNFetchBlob from 'rn-fetch-blob'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { GET, POST } from '../../service/index'
 import LottieView from 'lottie-react-native';
 import IOSRating from '../reviewRating/iosRating'
 import moment from 'moment'
+import { fonts } from '../../Themes/style'
 class TestResult extends Component {
     constructor() {
         super();
@@ -58,7 +57,6 @@ class TestResult extends Component {
             this.setState({ loading: false })
         }).catch(function (error) {
             if (error) {
-                console.log('error==>>', error)
                 this.setState({ loading: false })
             }
         })
@@ -73,7 +71,6 @@ class TestResult extends Component {
         this.props.navigation.navigate('StartMCQ', {
             course_id: this.state.course_id
         })
-        // this.props.navigation.navigate('StudentCourses');
     }
     RetryAgain() {
         this.setState({ loading: true })
@@ -87,7 +84,6 @@ class TestResult extends Component {
             this.setState({ loading: false })
         }).catch(function (error) {
             if (error) {
-                console.log('error==>>', error)
                 this.setState({ loading: false })
             }
         })
@@ -100,7 +96,7 @@ class TestResult extends Component {
         }
     }
     toggleBottomNavigationView() {
-        this.setState({ ReviewRatingModal: false, BodyColor:'#F4F4F6' })
+        this.setState({ ReviewRatingModal: false, BodyColor: '#F4F4F6' })
     }
     SubmitRating(DataObject) {
         this.setState({ loading: true })
@@ -112,7 +108,6 @@ class TestResult extends Component {
         }).catch(function (error) {
             if (error) {
                 this.toggleBottomNavigationView()
-                console.log('error==>>', error)
                 this.setState({ loading: false })
             }
         })
@@ -129,10 +124,10 @@ class TestResult extends Component {
         let app = this
         const { config, fs } = RNFetchBlob
         app.setState({ isDownloaded: 1 })
-        let DownloadDir = Platform.OS=='android'?fs.dirs.DownloadDir: fs.dirs.DocumentDir 
+        let DownloadDir = Platform.OS == 'android' ? fs.dirs.DownloadDir : fs.dirs.DocumentDir
         let str = file.courseId.courseName
-            let fileName = str.replace(/^"(.*)"$/, '$1');
-            fileName = fileName + '.pdf'
+        let fileName = str.replace(/^"(.*)"$/, '$1');
+        fileName = fileName + '.pdf'
         RNFetchBlob
             .config({
                 addAndroidDownloads: {
@@ -147,7 +142,6 @@ class TestResult extends Component {
             })
             .fetch('GET', file.certificateUrl)
             .then((resp) => {
-                console.log(resp)
                 resp.path()
                 app.setState({ isDownloaded: 2 })
             })
@@ -175,7 +169,7 @@ class TestResult extends Component {
                         </Button>
                     </Left>
                     <Body style={{ flex: 2, alignItems: 'center' }}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFF' }}>MCQ Test Result</Text>
+                        <Text style={{ ...fonts.h5, fontWeight: '500', color: '#FFF' }}>MCQ Test Result</Text>
                     </Body>
                     <Right>
                     </Right>
@@ -202,35 +196,35 @@ class TestResult extends Component {
                                 {MyResult == 2 ? <LottieView style={{ width: 200, height: 200 }} source={require('./14651-error-animation.json')} autoPlay loop={false} /> : null}
                             </View>
                             <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                {MyResult == 1 ? <Text style={{ fontSize: 24, color: '#4FAE62', fontWeight: '600' }}>Congratulations!</Text> : null}
-                                {MyResult == 2 ? <Text style={{ fontSize: 24, color: '#D54534', fontWeight: '600' }}>Oops! You failed!</Text> : null}
+                                {MyResult == 1 ? <Text style={{ ...fonts.h2, color: '#4FAE62', fontWeight: '600' }}>Congratulations!</Text> : null}
+                                {MyResult == 2 ? <Text style={{ ...fonts.h2, color: '#D54534', fontWeight: '600' }}>Oops! You failed!</Text> : null}
                                 <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 10, marginLeft: 20, marginRight: 20 }}>
-                                    {MyResult == 1 ? <Text style={{ fontSize: 14, color: '#4FAE62', fontWeight: '500', textAlign: 'center' }}>You completed this test on date {moment(CourseDetails.completionDate).format('DD-MM-YYYY, h:mm A')}</Text> : null}
-                                    {MyResult == 2 ? <Text style={{ fontSize: 14, color: '#D54534', fontWeight: '500', marginBottom: 5, textAlign: 'center' }}>You completed this test on date {moment(CourseDetails.completionDate).format('DD-MM-YYYY, h:mm A')} </Text> : null}
-                                    {MyResult == 1 ? <Text style={{ fontSize: 18, color: '#4FAE62', fontWeight: '600' }}>Your score is {Result.percentage}%</Text> : null}
-                                    {MyResult == 2 ? <Text style={{ fontSize: 18, color: '#D54534', fontWeight: '600' }}>Your score is {Result.percentage}%</Text> : null}
+                                    {MyResult == 1 ? <Text style={{ ...fonts.h7, color: '#4FAE62', fontWeight: '500', textAlign: 'center' }}>You completed this test on date {moment(CourseDetails.completionDate).format('DD-MM-YYYY, h:mm A')}</Text> : null}
+                                    {MyResult == 2 ? <Text style={{ ...fonts.h7, color: '#D54534', fontWeight: '500', marginBottom: 5, textAlign: 'center' }}>You completed this test on date {moment(CourseDetails.completionDate).format('DD-MM-YYYY, h:mm A')} </Text> : null}
+                                    {MyResult == 1 ? <Text style={{ ...fonts.h5, color: '#4FAE62', fontWeight: '600' }}>Your score is {Result.percentage}%</Text> : null}
+                                    {MyResult == 2 ? <Text style={{ ...fonts.h5, color: '#D54534', fontWeight: '600' }}>Your score is {Result.percentage}%</Text> : null}
                                 </View>
                             </View>
                         </View>
                         {MyResult == 2 ?
                             <View style={{ alignItems: 'center', marginTop: 20 }}><TouchableOpacity onPress={() => this.RetryAgain()} style={{ width: 130, paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
-                                <Text style={{ fonSize: 12, color: '#FFF' }}>Take Test Again</Text>
+                                <Text style={{ ...fonts.h8, color: '#FFF' }}>Take Test Again</Text>
                             </TouchableOpacity></View> : null}
 
                         {isCompleted == 2 && MyResult == 1 ? <View style={{ alignItems: 'center', marginTop: 20 }}><TouchableOpacity onPress={() => this.DownloadResourses(CourseDetails)} style={{ width: 180, flexDirection: 'row', paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
                             <MaterialIcons name="file-download" size={18} color={'#FFF'} />
-                            <Text style={{ color: 'white', fonSize: 12, }}>Download Certificate</Text>
+                            <Text style={{ color: 'white', ...fonts.h8, }}>Download Certificate</Text>
                         </TouchableOpacity></View> : null}
                         {isCompleted == 1 && MyResult == 1 ? <View style={{ alignItems: 'center', marginTop: 20 }}><TouchableOpacity onPress={() => this.ReviewAndRatingModal()} style={{ width: 180, flexDirection: 'row', paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
-                            <Text style={{ color: 'white', fonSize: 12, }}>Share Review & Rating</Text>
+                            <Text style={{ color: 'white', ...fonts.h8, }}>Share Review & Rating</Text>
                         </TouchableOpacity></View> : null}
                         {MyResult == 2 ? <View style={{ alignItems: 'center', marginTop: 20 }}><TouchableOpacity onPress={() => this.ReviewTest()} style={{ width: 100, paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
-                            <Text style={{ fonSize: 12, color: '#FFF' }}>Review Test</Text>
+                            <Text style={{ ...fonts.h8, color: '#FFF' }}>Review Test</Text>
                         </TouchableOpacity></View> : null}
                     </View>
                 </ScrollView>
                 {Platform.OS == 'android' ? <ReviewRatingModalComponent SaveReviewAndRating={(v) => this.SaveReviewAndRating(v)} _toggleBottomNavigationViewClose={() => this._toggleBottomNavigationViewClose()} ReviewRatingModal={this.state.ReviewRatingModal} />
-                    : (this.state.ReviewRatingModal ? <IOSRating onPress={()=>this._toggleBottomNavigationViewClose()} SaveReviewAndRating={(v) => this.SaveReviewAndRating(v)} _toggleBottomNavigationViewClose={() => this._toggleBottomNavigationViewClose()} ReviewRatingModal={this.state.ReviewRatingModal} duration={0} /> : null)}
+                    : (this.state.ReviewRatingModal ? <IOSRating onPress={() => this._toggleBottomNavigationViewClose()} SaveReviewAndRating={(v) => this.SaveReviewAndRating(v)} _toggleBottomNavigationViewClose={() => this._toggleBottomNavigationViewClose()} ReviewRatingModal={this.state.ReviewRatingModal} duration={0} /> : null)}
                 {this.state.isDownloaded != 0 ? <SnackBar
                     style={{ backgroundColor: this.state.isDownloaded == 2 ? '#4FAE62' : '#222' }}
                     numberOfLines={2}

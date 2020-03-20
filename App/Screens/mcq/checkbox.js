@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import {
     View,
     StyleSheet,
-    TouchableOpacity,
-    Text,
 } from "react-native";
 import { CheckBox } from 'react-native-elements';
 class CheckBoxQuestion extends Component {
@@ -12,7 +10,6 @@ class CheckBoxQuestion extends Component {
         this.state = {
             isCheckBoxSelected: {},
             SelectedAns: [],
-
         };
     }
     componentDidMount() {
@@ -22,10 +19,8 @@ class CheckBoxQuestion extends Component {
         if ((nextProps.questionNo && this.props.questionNo) || (nextProps.data && this.props.data)) {
             if (nextProps.questionNo != this.props.questionNo || nextProps.data != this.props.data) {
                 this.setState({ isCheckBoxSelected: {}, SelectedAns: [] })
-                console.log('45')
                 return true
             }
-            console.log('456')
             return true
         }
         return true
@@ -43,7 +38,6 @@ class CheckBoxQuestion extends Component {
             UpdateAns.splice(index, 1);
             isCheckBoxSelected[option] = null
         }
-        console.log('UpdateAns', UpdateAns)
         this.setState({ isCheckBoxSelected: isCheckBoxSelected, SelectedAns: UpdateAns })
         this.props.onChangeOptions(UpdateAns)
     }

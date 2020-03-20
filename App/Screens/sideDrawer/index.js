@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { NavigationActions, withNavigation } from 'react-navigation';
+import { withNavigation } from 'react-navigation';
 import { StyleSheet, Text, View, TouchableOpacity, Linking, ScrollView, Platform, Share } from 'react-native';
-import { Thumbnail } from 'native-base'
 import { Avatar } from 'react-native-paper';
 import { logoutUser } from '../../Reducers/actions'
 import { connect } from 'react-redux';
 import FIcon from 'react-native-vector-icons/Feather'
-import { Progress } from '../ProgressDialog/index'
-
+import {fonts} from '../../Themes/style'
 let colors = { PRIMARY: '#1A5566' }
 var OnClickCheck = 0
 let SideBarRoutes = [
@@ -88,7 +86,7 @@ class SideMenu extends Component {
             sideRoutes = SideBarRoutes.map((item, i) => {
                 return (<TouchableOpacity key={i} onPress={() => this.NavigateDrawer(item.RouteName, i)} style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, paddingLeft: 20 }}>
                     <FIcon name={item.icon} size={24} color={'#757575'} />
-                    <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: '400', color: '#757575' }}>{item.name}</Text>
+                    <Text style={{ paddingLeft: 20, ...fonts.h5, fontWeight: '500', color: '#757575' }}>{item.name}</Text>
                 </TouchableOpacity>)
             })
         }
@@ -101,15 +99,15 @@ class SideMenu extends Component {
                 <View style={{ flex: 1 }}>
                     <TouchableOpacity onPress={() => this.GoToProfile()} style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', margin: 20 }}>
                         <Avatar.Image size={80} style={{ backgroundColor: '#EEE' }} source={profileImage ? { uri: profileImage } : null} />
-                        <Text style={{ marginTop: 10, fontSize: 18, fontWeight: '700' }}>{firstName ? firstName + ' ' + lastName : null}</Text>
-                        <Text style={{ fontSize: 14, fontWeight: '400' }}>{email ? email : null}</Text>
+                        <Text style={{ marginTop: 10, ...fonts.h5, fontWeight: '600' }}>{firstName ? firstName + ' ' + lastName : null}</Text>
+                        <Text style={{ ...fonts.h7, fontWeight: '500' }}>{email ? email : null}</Text>
                     </TouchableOpacity>
                     {this.FlatListItemSeparator()}
                     <View style={{ marginTop: 15, width: 300 }}>
                         {this.RenderSideBar()}
                         <TouchableOpacity onPress={() => this.LogoutUser()} style={{ flexDirection: 'row', alignItems: 'center', paddingTop: 10, paddingBottom: 10, paddingLeft: 24 }}>
                             <FIcon name="log-out" size={24} color='#757575' />
-                            <Text style={{ paddingLeft: 20, fontSize: 18, fontWeight: '400', color: '#757575' }}>Log Out</Text>
+                            <Text style={{ paddingLeft: 20, ...fonts.h5, fontWeight: '500', color: '#757575' }}>Log Out</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -118,7 +116,6 @@ class SideMenu extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    console.log(state, 'state sidebar11')
     return {
         loading: state.authReducer.loading,
         UserInfo: state.authReducer.UserInfo,

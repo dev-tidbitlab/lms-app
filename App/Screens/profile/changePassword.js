@@ -5,12 +5,10 @@ import {
     StyleSheet,
     TouchableOpacity,
     Text,
-    Platform,
-    Image,
     StatusBar
 } from "react-native";
 import { TextInput } from 'react-native-paper';
-import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button, Title } from 'native-base';
+import { Container, Header, Left, Body, Right, Button } from 'native-base';
 import { withNavigation } from 'react-navigation'
 import { Formik } from 'formik';
 import { Progress } from '../ProgressDialog/index'
@@ -18,6 +16,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import SnackBar from '../../Components/snackBar'
 import { POST } from '../../service/index'
 import * as yup from 'yup'
+import { fonts } from '../../Themes/style'
 var validationSchema = yup.object().shape({
     currentPassword: yup.string()
         .required(),
@@ -40,12 +39,12 @@ class UserChangePasswordScreen extends Component {
     }
     ChangePassword(values) {
         let app = this
-        this.setState({ loading: true, Errorcode: 0, status: false, message: ''})
+        this.setState({ loading: true, Errorcode: 0, status: false, message: '' })
         POST('auth/reguser/changePass', JSON.stringify(values)).then(res => {
             console.log('res', res)
             if (res.success) {
                 this.setState({ status: true, message: res.message, Errorcode: 1 })
-                setTimeout(function(){
+                setTimeout(function () {
                     app.GoBackToHome()
                 }, 10000);
             } else {
@@ -65,7 +64,7 @@ class UserChangePasswordScreen extends Component {
                         </Button>
                     </Left>
                     <Body style={{ flex: 2, alignItems: 'center' }}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFF' }}>Change Password</Text>
+                        <Text style={{ ...fonts.h5, fontWeight: '500', color: '#FFF' }}>Change Password</Text>
                     </Body>
                     <Right style={{ flex: 1 }}>
                     </Right>
@@ -169,7 +168,7 @@ const styles = StyleSheet.create({
 
     },
     LoginBtn: {
-        fontSize: 16,
+        ...fonts.h6,
         color: '#fff',
         borderRadius: 5,
         backgroundColor: '#1A5566',
@@ -177,15 +176,4 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         textAlign: 'center',
     },
-    LoginBtnPSWD: {
-        fontSize: 16,
-        color: '#888',
-        backgroundColor: 'transparent',
-        paddingTop: 5,
-        paddingBottom: 5,
-        textAlign: 'center',
-        marginTop: 30,
-        textDecorationLine: 'underline',
-    },
-
 });

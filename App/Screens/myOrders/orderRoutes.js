@@ -1,10 +1,8 @@
-import React, { Component } from 'react'
 import {
     createStackNavigator,
 } from 'react-navigation-stack'
 import { Animated, Easing, Platform } from 'react-native';
 import MyOrders from './orders'
-// import ViewCourseDetails from './viewCourseDetails'
 let SlideFromRight = (index, position, width) => {
     const translateX = position.interpolate({
         inputRange: [index - 1, index],
@@ -37,7 +35,6 @@ const TransitionConfiguration = () => {
 const CourseStack = createStackNavigator(
     {
         StudentOrders: { screen: MyOrders },
-        // ViewCourseDetails: { screen: ViewCourseDetails }
     },
     {
         initialRouteName: 'StudentOrders',

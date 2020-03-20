@@ -2,6 +2,11 @@
   "name": "tidbit-mobile-boilerplate",
   "version": "2.0.6",
   "private": true,
+  "rnpm":{
+    "assets":[
+      "./App/assets/fonts"
+    ]
+  },
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",

@@ -1,8 +1,7 @@
-import React, { Component } from 'react'
 import {
   createStackNavigator,
 } from 'react-navigation-stack'
-import { Animated, Easing, Platform } from 'react-native';
+import { Animated, Easing } from 'react-native';
 
 import StudentProfile from './userProfile'
 import EditUserProfile from './EditUserProfile'
@@ -51,19 +50,4 @@ const ProfileStack = createStackNavigator(
     },
     transitionConfig: TransitionConfiguration,
   })
-// ProfileStack.navigationOptions = ({ navigation }) => {
-//   let tabBarVisible = true;
-//   if (navigation.state.routes.length > 1) {
-//     navigation.state.routes.map(route => {
-//       if (route.routeName === "EditUserProfile") {
-//         tabBarVisible = false;
-//       } else {
-//         tabBarVisible = true;
-//       }
-//     });
-//   }
-//   return {
-//     tabBarVisible
-//   };
-// };
 export default ProfileStack;

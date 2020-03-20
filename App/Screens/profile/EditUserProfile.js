@@ -3,7 +3,6 @@ import {
     View,
     Text,
     StyleSheet,
-    Platform,
     Dimensions,
     TouchableOpacity,
     ScrollView,
@@ -13,7 +12,7 @@ import { TextInput } from 'react-native-paper';
 import { withNavigationFocus } from 'react-navigation'
 import Icon from 'react-native-vector-icons/Ionicons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import { Container, Thumbnail, Header, Picker, Left, Body, Right, Button, Title } from 'native-base';
+import { Container, Header, Left, Body, Right, Button } from 'native-base';
 import { Avatar } from 'react-native-paper';
 import ImagePicker from 'react-native-image-picker'
 import { connect } from 'react-redux';
@@ -22,6 +21,7 @@ const width = Dimensions.get('window').width
 import { Progress } from '../ProgressDialog/index'
 import ErrorToaster from '../../Components/alerts/error'
 import { FormPostAPI } from '../../service/index'
+import {fonts} from '../../Themes/style'
 class EditUserProfile extends Component {
     constructor() {
         super();
@@ -58,7 +58,6 @@ class EditUserProfile extends Component {
         this.props.navigation.goBack();
     }
     SaveUserDetails() {
-        console.log(this.state)
         const { UserInfo, ValidationArray } = this.state
         let ob = {
             firstName: UserInfo.firstName,
@@ -112,7 +111,6 @@ class EditUserProfile extends Component {
             noData: true,
         }
         ImagePicker.launchImageLibrary(options, response => {
-            console.log(options, response, 'ffd==>>>>')
             if (response.didCancel == undefined) {
                 var formData = new FormData();
                 formData.append('profileImage', {
@@ -120,7 +118,6 @@ class EditUserProfile extends Component {
                     name: response.fileName,
                     type: response.type
                 })
-                console.log('hh==>>', formData)
                 this.setState({ Loader: true })
                 FormPostAPI('auth/reguser/update', formData).then(response => {
                     console.log(response, 'ttt==>>')
@@ -132,7 +129,6 @@ class EditUserProfile extends Component {
                         this.setState({ Loader: false })
                     }
                 }).catch(function (error) {
-                    console.log('error', error)
                     this.setState({ Loader: false })
                 })
             }
@@ -157,12 +153,9 @@ class EditUserProfile extends Component {
                         </Button>
                     </Left>
                     <Body style={{ flex: 2, alignItems: 'center' }}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFF' }}>Edit Profile</Text>
+                        <Text style={{ ...fonts.h5, fontWeight: '500', color: '#FFF' }}>Edit Profile</Text>
                     </Body>
                     <Right style={{ flex: 1 }}>
-                        {/* <Button transparent >
-                            <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFF' }}>Save</Text>
-                        </Button> */}
                     </Right>
                 </Header>
                 <ScrollView
@@ -219,14 +212,6 @@ class EditUserProfile extends Component {
                                     theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#1A5566', underlineColor: 'transparent' } }}
                                 />
 
-                                {/* <TextInput
-                                    style={styles.TextInputAll}
-                                    label="Street Address"
-                                    onChangeText={(v) => this.setState({ UserInfo: { ...this.state.UserInfo, streetAddress: v } })}
-                                    value={UserInfo.streetAddress}
-                                    theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#1A5566', underlineColor: 'transparent' } }}
-                                /> */}
-
                                 <TextInput
                                     error={ValidationArray.city}
                                     style={styles.TextInputAll}
@@ -245,14 +230,6 @@ class EditUserProfile extends Component {
                                     theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#1A5566', underlineColor: 'transparent' } }}
                                 />
 
-                                {/* <TextInput
-                                    style={styles.TextInputAll}
-                                    label="Pascode"
-                                    onChangeText={(v) => this.setState({ UserInfo: { ...this.state.UserInfo, passcode: v } })}
-                                    value={UserInfo.passcode}
-                                    theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#1A5566', underlineColor: 'transparent' } }}
-                                /> */}
-
                                 <TextInput
                                     error={ValidationArray.country}
                                     style={styles.TextInputAll}
@@ -262,7 +239,7 @@ class EditUserProfile extends Component {
                                     theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#1A5566', underlineColor: 'transparent' } }}
                                 />
                                 <TouchableOpacity onPress={() => this.SaveUserDetails()} style={{ marginTop: 25, bottom: 5, padding: 6, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
-                                    <Text style={{ fontSize: 16, fontWeight: '600', padding: 10, color: '#FFF' }}>Save</Text>
+                                    <Text style={{ ...fonts.h6, fontWeight: '500', padding: 10, color: '#FFF' }}>Save</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>

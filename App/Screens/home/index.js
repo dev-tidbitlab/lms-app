@@ -1,17 +1,15 @@
 import React, { Component } from "react";
 import {
-  View,
-  StyleSheet,
   TouchableOpacity,
-  Image,
   Text,
   StatusBar
 } from "react-native";
-import { Container, Header, Left, Body, Right, Button, Title } from 'native-base';
+import { Container, Header, Left, Body, Right } from 'native-base';
 import { withNavigationFocus } from 'react-navigation'
 import { Avatar } from 'react-native-paper';
 import { connect } from 'react-redux';
 import UserDashboard from './dashboard/dashboard'
+import {fonts} from '../../Themes/style'
 class HomeScreen extends Component {
   GoToUserProfile() {
     this.props.navigation.openDrawer();
@@ -34,7 +32,7 @@ class HomeScreen extends Component {
             </TouchableOpacity>
           </Left>
           <Body style={{ flex: 2, alignItems: 'center' }}>
-            <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFF' }}>Dashboard</Text>
+            <Text style={{ ...fonts.h5, fontWeight: '500', color: '#FFF' }}>Dashboard</Text>
           </Body>
           <Right>
           </Right>

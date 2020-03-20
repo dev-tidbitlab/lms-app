@@ -1,27 +1,22 @@
 import React, { Component } from "react";
 import {
     View,
-    Platform,
     StyleSheet,
-    TouchableOpacity,
     Modal,
     TouchableHighlight,
     Text,
     ScrollView,
     StatusBar,
-    Dimensions,
     RefreshControl
 } from "react-native";
-import { Avatar, ProgressBar, Colors } from 'react-native-paper';
-import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button, Title } from 'native-base';
-import { withNavigation, withNavigationFocus } from 'react-navigation';
+import { Container, Header, Left, Body, Right, Button } from 'native-base';
+import { withNavigationFocus } from 'react-navigation';
 import Ionicons from "react-native-vector-icons/Ionicons";
-const ScreenWidth = Dimensions.get('window').width
 import { GET, POST } from '../../service/index'
-import { CheckBox } from 'react-native-elements';
 import ReviewRatingModalComponent from '../reviewRating/rating'
 import RadioQuestionComponenets from './radio'
 import CheckBoxQuestionComponenets from './checkbox'
+import {fonts} from '../../Themes/style'
 class MCQs extends Component {
     constructor() {
         super();
@@ -84,7 +79,6 @@ class MCQs extends Component {
             this.setState({ loading: false })
         }).catch(function (error) {
             if (error) {
-                console.log('error==>>', error)
                 this.setState({ loading: false })
             }
         })
@@ -109,12 +103,7 @@ class MCQs extends Component {
     }
     GoToNextMCQQuestion() {
         const { MCQCompleted } = this.state
-        console.log(MCQCompleted)
-        // if (MCQCompleted) {
-        //     this.setState({ ConfirmationModal: true })
-        // } else {
         this.getNextQuestion()
-        // }
     }
     SubmitTest() {
         this.getNextQuestion()
@@ -136,7 +125,6 @@ class MCQs extends Component {
             }
         }).catch(function (error) {
             if (error) {
-                console.log('error==>>', error)
                 this.setState({ loading: false, isActiveButton: false })
             }
         })
@@ -177,7 +165,7 @@ class MCQs extends Component {
                         </Button>
                     </Left>
                     <Body style={{ flex: 2, alignItems: 'center' }}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFF' }}>MCQ Test ({String(questionNo) + String('/') + String(TotalQuestions)})</Text>
+                        <Text style={{ ...fonts.h5, fontWeight: '500', color: '#FFF' }}>MCQ Test ({String(questionNo) + String('/') + String(TotalQuestions)})</Text>
                     </Body>
                     <Right>
                     </Right>
@@ -199,13 +187,13 @@ class MCQs extends Component {
                 >
                     <View style={{ padding: 10 }}>
                         <View style={{ margin: 10 }}>
-                            <Text style={{ fontSize: 16, color: '#D54534', fontWeight: '400', paddingBottom: 10 }}>Note: Answer once submitted will not be changed later.</Text>
+                            <Text style={{ ...fonts.h6, color: '#D54534', fontWeight: '500', paddingBottom: 10 }}>Note: Answer once submitted will not be changed later.</Text>
                         </View>
                         {QuestionType ? <View style={{ flexDirection: 'row', paddingLeft: 10, paddingRight: 10 }}>
                             <View style={{ width: 25, height: 25, marginLeft: 5, marginTop: 5, marginRight: 10, backgroundColor: '#4FAE62', borderRadius: 100, justifyContent: 'center', alignItems: 'center' }}>
-                                <Text style={{ color: '#FFF', textAlign: 'center' }}>{questionNo}</Text>
+                                <Text style={{...fonts.h7, color: '#FFF', textAlign: 'center' }}>{questionNo}</Text>
                             </View>
-                            <Text style={{ fontSize: 14, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '500', marginRight: 10 }}>{MCQData.question}</Text>
+                            <Text style={{ ...fonts.h7, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '500', marginRight: 10 }}>{MCQData.question}</Text>
                         </View> : null}
                         {QuestionType == 'radio' ? <RadioQuestionComponenets onChangeRadio={(v) => this.onChangeRadio(v)} data={MCQData} questionNo={questionNo} /> : null}
                         {QuestionType == 'checkbox' ? <CheckBoxQuestionComponenets onChangeOptions={(v) => this.onChangeOptions(v)} data={MCQData} questionNo={questionNo} /> : null}
@@ -225,14 +213,14 @@ class MCQs extends Component {
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
                         <View style={styles.ModalContainerStyle}>
                             <View style={{ flexDirection: 'row', padding: 20 }}>
-                                <Text style={{ fontSize: 16, color: '#222', fontWeight: '500', textAlign: 'center' }}>Do you want to submit the mcq test?</Text>
+                                <Text style={{ ...fonts.h6, color: '#222', fontWeight: '500', textAlign: 'center' }}>Do you want to submit the mcq test?</Text>
                             </View>
                             <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 15 }}>
                                 <Button onPress={() => this.GoBackToStartTest()} small full style={{ backgroundColor: '#AAA', marginTop: 10, borderRadius: 5, marginBottom: 5, marginRight: 15, padding: 10 }}>
-                                    <Text style={{ color: 'white', fontSize: 12 }}>Cancel</Text>
+                                    <Text style={{ color: 'white', ...fonts.h8 }}>Cancel</Text>
                                 </Button>
                                 <Button onPress={() => this.SubmitTest()} small full style={{ backgroundColor: '#1A5566', marginTop: 10, borderRadius: 5, marginBottom: 5, marginLeft: 15, padding: 10 }}>
-                                    <Text style={{ color: 'white', fontSize: 12 }}>Submit</Text>
+                                    <Text style={{ color: 'white', ...fonts.h8 }}>Submit</Text>
                                 </Button>
                             </View>
                         </View>

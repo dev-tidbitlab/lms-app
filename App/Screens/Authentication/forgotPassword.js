@@ -17,7 +17,8 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import ErrorToaster from '../../Components/alerts/error'
 import SuccessToaster from '../../Components/alerts/success'
 import { ForgotPasswordAction } from '../../Reducers/actions'
-import CustomSnackBar from '../../Components/alerts/snackbar'
+// import CustomSnackBar from '../../Components/alerts/snackbar'
+import {fonts} from '../../Themes/style'
 class ForgotPasswordScreen extends Component {
     state = {
         Email: '',
@@ -51,7 +52,7 @@ class ForgotPasswordScreen extends Component {
                         </Button>
                     </Left>
                     <Body style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFF' }}>Forgot Password</Text>
+                        <Text style={{ ...fonts.h5, fontWeight: '500', color: '#FFF' }}>Forgot Password</Text>
                     </Body>
                     <Right style={{ flex: 0.5 }}>
                     </Right>
@@ -139,8 +140,8 @@ const styles = StyleSheet.create({
 
     },
     LoginBtn: {
-        fontSize: 16,
-        color: '#fff',
+        ...fonts.h6,
+        color: '#FFF',
         borderRadius: 5,
         backgroundColor: '#1A5566',
         paddingTop: 10,

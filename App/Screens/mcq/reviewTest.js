@@ -1,22 +1,16 @@
 import React, { Component } from "react";
 import {
-    View,
-    Platform,
     StyleSheet,
-    TouchableOpacity,
-    ActivityIndicator,
     Text,
     ScrollView,
     StatusBar,
-    Dimensions,
     RefreshControl
 } from "react-native";
-import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button, Title } from 'native-base';
-import { withNavigation, withNavigationFocus } from 'react-navigation';
+import { Container, Header, Left, Body, Right, Button } from 'native-base';
+import { withNavigationFocus } from 'react-navigation';
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { GET, POST } from '../../service/index'
-import RadioQuestionComponenets from './radio'
-import CheckBoxQuestionComponenets from './checkbox'
+import { GET } from '../../service/index'
+import { fonts } from '../../Themes/style'
 class ReviewTestScreen extends Component {
     constructor() {
         super();
@@ -43,9 +37,6 @@ class ReviewTestScreen extends Component {
             console.log('response==>> mcq==', response)
             if (response.success) {
                 if (response.data.latestOn == "result") {
-                    // this.props.navigation.navigate('TestResult', {
-                    //     course_id: this.state.course_id
-                    // })
                 }
             } else {
 
@@ -53,7 +44,6 @@ class ReviewTestScreen extends Component {
             this.setState({ loading: false })
         }).catch(function (error) {
             if (error) {
-                console.log('error==>>', error)
                 this.setState({ loading: false })
             }
         })
@@ -70,7 +60,6 @@ class ReviewTestScreen extends Component {
         this.getInitialMCQs(course_id)
     }
     render() {
-        const { QuestionType, MCQData, questionNo, isActiveButton } = this.state
         return (
             <Container style={{ backgroundColor: '#F4F4F6' }}>
                 <Header style={{ backgroundColor: '#1A5566' }}>
@@ -80,7 +69,7 @@ class ReviewTestScreen extends Component {
                         </Button>
                     </Left>
                     <Body style={{ flex: 2, alignItems: 'center' }}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFF' }}>Review Test</Text>
+                        <Text style={{ ...fonts.h5, fontWeight: '500', color: '#FFF' }}>Review Test</Text>
                     </Body>
                     <Right>
                     </Right>
@@ -100,22 +89,6 @@ class ReviewTestScreen extends Component {
                         />
                     }
                 >
-                    {/* <View style={{ margin: 10 }}>
-                        <View style={{margin: 10}}>
-                            <Text style={{ fontSize: 16, color: '#D54534', fontWeight: '400', paddingBottom: 10}}>Note: Answer once submitted will not be changed later.</Text>
-                        </View>
-                        {QuestionType?<View style={{ flexDirection: 'row', marginLeft: 5 }}>
-                            <View style={{ width: 25, height: 25, marginLeft: 5, marginTop: 5, marginRight: 10, backgroundColor: '#4FAE62', borderRadius: 100, justifyContent: 'center', alignItems: 'center' }}>
-                                <Text style={{ color: '#FFF', textAlign: 'center' }}>{questionNo}</Text>
-                            </View>
-                            <Text style={{ fontSize: 14, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '500' }}>{MCQData.question}</Text>
-                        </View>:null}
-                        {QuestionType == 'radio' ? <RadioQuestionComponenets onChangeRadio={(v) => this.onChangeRadio(v)} data={MCQData} questionNo={questionNo} /> : null}
-                        {QuestionType == 'checkbox' ? <CheckBoxQuestionComponenets onChangeOptions={(v) => this.onChangeOptions(v)} data={MCQData} questionNo={questionNo} /> : null}
-                        <View disabled={isActiveButton} style={{ alignItems: 'flex-end', padding: 20 }}>
-                            <Ionicons onPress={() => this.getNextQuestion()} color={isActiveButton ? "#BBB" : "#1A5566"} name="ios-arrow-dropright-circle" size={48} />
-                        </View>
-                    </View> */}
                 </ScrollView>
             </Container>
         );

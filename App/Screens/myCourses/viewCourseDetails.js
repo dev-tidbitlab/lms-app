@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {
-    TouchableOpacity, Slider, StyleSheet, TouchableNativeFeedback,
+    TouchableOpacity, Slider, StyleSheet,
     TouchableWithoutFeedback,
     BackHandler,
     Image,
     AppState,
-    ActivityIndicator, Text, StatusBar, View, ScrollView, Dimensions, PermissionsAndroid, Platform
+    ActivityIndicator, Text, View, ScrollView, Dimensions, PermissionsAndroid, Platform
 } from 'react-native';
 import { Button } from 'native-base'
 import Video from 'react-native-video';
@@ -20,8 +20,8 @@ import Collapsible from 'react-native-collapsible';
 const { width, height } = Dimensions.get('window');
 import SnackBar from '../../Components/snackBar/index'
 import Icon from 'react-native-vector-icons/FontAwesome5'; // and this
-import NetInfo from "@react-native-community/netinfo";
 import Ripple from 'react-native-material-ripple';
+import { fonts } from '../../Themes/style'
 const AppWidth = width > height ? height : width
 const AppHieght = width > height ? width : height
 class ViewCourseDetails extends Component {
@@ -56,15 +56,10 @@ class ViewCourseDetails extends Component {
         this.ScreenState = 0
     }
     componentWillUnmount() {
-        // NetInfo.removeEventListener(
-        //     'connectionChange',
-        //     this._handleConnectivityChange
-        // );
         AppState.removeEventListener('change', this._handleAppStateChange);
         BackHandler.removeEventListener('hardwareBackPress', this.handleBackButtonClick);
     }
     UpdateLastPlayedVideo(course_id, video_id) {
-        console.log(this.state.course_id, video_id)
         GET('coursejourney/student/' + course_id + '/' + video_id).then(response => {
             console.log('coursejourney==>>', response)
             if (response.success) {
@@ -76,7 +71,6 @@ class ViewCourseDetails extends Component {
                     }
                 }
             }
-            // this.GetCourseDEtails(course_id)()
         }).catch(function (error) {
         })
     }
@@ -95,24 +89,14 @@ class ViewCourseDetails extends Component {
         }).catch(function (error) {
         })
     }
-    _handleConnectivityChange = (isConnected) => {
-        console.log('isConnected==>>', isConnected)
-        if (isConnected == true) {
-            // this.setState({ connection_Status: "Online" })
-        }
-        else {
-            // this.setState({ connection_Status: "Offline" })
-        }
-    }
+
     _handleAppStateChange = (nextAppState) => {
         if (
             this.state.appState.match(/inactive|background/) &&
             nextAppState === 'active'
         ) {
-            console.log('App has come to the foreground!');
         } else {
             this.setState({ isDownloaded: false })
-            console.log('App has come to the bcklllll!');
         }
         this.setState({ appState: nextAppState });
     };
@@ -123,31 +107,23 @@ class ViewCourseDetails extends Component {
                 if (response.data.length > 0) {
                     this.setState({ StudentCourseDetails: response.data })
                     let data = response.data
-                    console.log('1')
                     if (CourseData) {
-                        console.log('2')
                         if (CourseData.lastVideoPlayed) {
-                            console.log('3')
                             if (data.length > 0) {
-                                console.log('4')
                                 data.map((v, i) => {
-                                    console.log('7==', v._id, CourseData.lastVideoPlayed, v._id == CourseData.lastVideoPlayed)
                                     if (v._id == CourseData.lastVideoPlayed) {
-                                        console.log('5')
                                         this.setState({ CurrentVideoDetail: v, CurrentVideoIndex: i })
                                         this.UpdateLastPlayedVideo(course_id, v._id)
                                     }
                                 })
                             }
                         } else {
-                            console.log('6')
                             this.setState({ CurrentVideoDetail: response.data[0], CurrentVideoIndex: 0, MyCourseCompleted: false })
                             this.UpdateLastPlayedVideo(course_id, response.data[0]._id)
                         }
                     }
                     this.setState({ screenLoader: 0 })
                 } else {
-                    console.log('puuuu')
                     this.setState({ paused: true, VideoLoading: false })
                     this.setState({ screenLoader: 2 })
                 }
@@ -168,7 +144,6 @@ class ViewCourseDetails extends Component {
         let app = this
         const { config, fs } = RNFetchBlob
         app.setState({ isDownloaded: 1 })
-        console.log('res=====>>>>>, res', config, fs, file)
         let DownloadDir = fs.dirs.DownloadDir // this is the pictures directory. You can check the available directories in the wiki.
         let fileName = Math.floor(new Date().getTime() + new Date().getSeconds())
         if (file.includes('.pdf') || file.includes('.PDF')) {
@@ -209,8 +184,6 @@ class ViewCourseDetails extends Component {
             })
     }
     _orientationDidChange = (orientation) => {
-        console.log(orientation, 'orientation')
-
         if (orientation === 'LANDSCAPE') {
             this.setState({ CurrentHieght: AppWidth, CurrentWidth: AppHieght, isFullScreen: true })
         } else {
@@ -224,15 +197,11 @@ class ViewCourseDetails extends Component {
     }
     GetAndSetOrientation() {
         Orientation.getOrientation((err, orientation) => {
-            console.log(err, orientation)
             if (orientation === 'PORTRAIT') {
-                // this.setState({ CurrentHieght: width, CurrentWidth: height, isFullScreen: true })
             } else {
                 this.ScreenState = 1
-                // console.log('w - h', width, height)
                 Orientation.unlockAllOrientations()
                 this.setState({ CurrentHieght: AppWidth, CurrentWidth: AppHieght, isFullScreen: true })
-                // this.setState({ CurrentHieght: width * 0.6, CurrentWidth: width, isFullScreen: false })
             }
             this.setState({ overlay: true });
             this.overlayTimer = setTimeout(() => this.setState({ overlay: false }), 3000);
@@ -240,25 +209,17 @@ class ViewCourseDetails extends Component {
     }
     handleBackButtonClick() {
         Orientation.unlockAllOrientations()
-        console.log(this.props)
         return false;
     }
     checkInternetConneectivity() {
 
     }
     componentDidMount() {
-        console.log('4444444444444========>>>>>>>>>>')
         this.GetAndSetOrientation()
-        // NetInfo.addEventListener(
-        //     'connectionChange',
-        //     this._handleConnectivityChange
-        // );
-
         this.checkInternetConneectivity()
         AppState.addEventListener('change', this._handleAppStateChange);
         Orientation.addOrientationListener(this._orientationDidChange);
         BackHandler.addEventListener('hardwareBackPress', this.handleBackButtonClick);
-        console.log('ffff===')
         if (Platform.OS == 'android') {
             let saveFile = async () => {
                 try {
@@ -266,12 +227,9 @@ class ViewCourseDetails extends Component {
                         PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
                     );
                     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                        console.log("Permission granted");
                     } else {
-                        console.log('Permission denied');
                     }
                 } catch (err) {
-                    console.warn(err);
                 }
             }
             saveFile()
@@ -280,9 +238,7 @@ class ViewCourseDetails extends Component {
         const course_id = navigation.getParam('course_id', '');
         const CourseData = navigation.getParam('CourseData', '');
         this.setState({ course_id: course_id, CourseData: CourseData })
-        console.log('course_id====>>>>>>>>>', course_id)
         this.getCourseDetailsVideo(course_id, CourseData)
-        // this.GetCourseDEtails(course_id)
     }
 
     GoBack() {
@@ -306,7 +262,6 @@ class ViewCourseDetails extends Component {
             CurrentVideoIndex: index
         })
         this.UpdateLastPlayedVideo(this.state.course_id, Videos._id)
-        // this.GetCourseDEtails(this.state.course_id)
     }
     lastTap = null;
     handleDoubleTap = (doubleTapCallback, singleTapCallback) => {
@@ -332,7 +287,6 @@ class ViewCourseDetails extends Component {
     }
 
     load = ({ duration }) => {
-        console.log('load', duration)
         this.setState({ duration })
     }
     progress = ({ currentTime }) => this.setState({ currentTime }) // here the current time is upated
@@ -369,16 +323,13 @@ class ViewCourseDetails extends Component {
         this.setState({ overlay: true })
     }
     FullScreenMethod = () => {
-        // return 0;
         const { fullscreen } = this.state;
         Orientation.getOrientation((err, orientation) => {
-            console.log(err, orientation)
             if (orientation === 'PORTRAIT') {
                 Orientation.lockToLandscape();
                 this.setState({ CurrentHieght: AppWidth, CurrentWidth: AppHieght, isFullScreen: true })
             } else {
                 Orientation.lockToPortrait();
-                // Orientation.unlockAllOrientations()
                 this.setState({ CurrentHieght: AppWidth * 0.6, CurrentWidth: AppWidth, isFullScreen: false })
             }
             this.setState({ overlay: true });
@@ -387,7 +338,6 @@ class ViewCourseDetails extends Component {
     }
 
     onLoadStart() {
-        console.log('onLoadStart')
     }
     onEnd() {
         console.log(this.state.CurrentVideoIndex, this.state.StudentCourseDetails.length)
@@ -400,10 +350,8 @@ class ViewCourseDetails extends Component {
     }
     onReadyForDisplay() {
         this.setState({ VideoLoading: false })
-        console.log('onReadyForDisplay')
     }
     onError(error) {
-        console.log(error, this.state.currentTime, this.state.duration, 'fnfwfjwefwfnj========')
     }
     lastTap = null;
     handleDoubleTap = (doubleTapCallback, singleTapCallback) => {
@@ -426,15 +374,12 @@ class ViewCourseDetails extends Component {
         this.UpdateLastPlayedVideo(course_id, StudentCourseDetails[0]._id)
     }
     render() {
-
         const { MyCourseCompleted, isCourseCompleted, screenLoader, isFullScreen, CurrentWidth, CurrentHieght, currentTime, isLoading, duration, paused, overlay, fullscreen, CurrentVideoIndex, VideoLoading, CurrentVideoDetail } = this.state;
-        console.log('CurrentWidth, CurrentHieght', CurrentWidth, CurrentHieght, AppWidth, AppHieght)
-
         if (screenLoader == 2) {
             return (<View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F4F4F6' }}>
                 <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                     <Image width='100' height="100" resizeMode={'stretch'} source={require('../../Images/video100.png')} />
-                    <Text style={{ fontSize: 16, color: '#222', fontWeight: '500', paddingTop: 10 }}>There no video to play for this course!</Text>
+                    <Text style={{ ...fonts.h6, color: '#222', fontWeight: '500', paddingTop: 10 }}>There no video to play for this course!</Text>
                 </View>
                 <View style={{ position: 'absolute', left: 5, top: 5, background: 'transparent', backgroundColor: "transparent" }}>
                     <Ripple onPress={() => this.GoBack()} rippleCentered={true} rippleOpacity={1} rippleSize={100} rippleDuration={600} rippleContainerBorderRadius={100} rippleColor={'#1A5566'}>
@@ -452,7 +397,6 @@ class ViewCourseDetails extends Component {
         } else {
             return (
                 <View style={{ flex: 1 }}>
-                    {/* <StatusBar hidden={true} /> */}
                     <View style={[fullscreen ? style.fullscreenVideo : style.video, { width: CurrentWidth, height: CurrentHieght, }]}>
                         <Video
                             fullscreen={fullscreen}
@@ -476,7 +420,6 @@ class ViewCourseDetails extends Component {
                             onProgress={this.progress}
                             onReadyForDisplay={() => this.onReadyForDisplay()}
                             onVideoEnd={this.onEndVideo}
-                        // onError={(error) => this.onError(error)}
                         />
                         {VideoLoading ? <View style={{ alignItems: 'center', justifyContent: 'center', width: CurrentWidth, height: CurrentHieght }}>
                             <ActivityIndicator size={64} color="yellow" />
@@ -489,7 +432,7 @@ class ViewCourseDetails extends Component {
                             </View>
                             <Text style={{ color: '#FFF', fontWeight: '600', fontSize: 16 }}>Course Completed!</Text>
                             <TouchableOpacity onPress={() => this.PlayAgain()} style={{ backgroundColor: '#1A5566', marginTop: 10, borderRadius: 5 }}>
-                                <Text style={{ color: '#FFF', fontWeight: '600', fontSize: 14, padding: 5 }}>Play Again</Text>
+                                <Text style={{ color: '#FFF', fontWeight: '600', ...fonts.h7, padding: 5 }}>Play Again</Text>
                             </TouchableOpacity>
                         </View> : null}
                         <View style={style.overlay}>
@@ -535,17 +478,17 @@ class ViewCourseDetails extends Component {
                     <View style={{ marginLeft: 10, marginRight: 10, marginBottom: 5 }}>
                         <View style={{ marginLeft: 10 }}>
                             <TouchableOpacity onPress={() => this.toggleExpanded()}>
-                                <Text style={{ fontSize: 14, color: '#000', paddingTop: 5, marginTop: 10, fontWeight: '600' }}>{CurrentVideoDetail ? CurrentVideoDetail.videoName : null}</Text>
+                                <Text style={{ ...fonts.h7, color: '#000', paddingTop: 5, marginTop: 10, fontWeight: '500' }}>{CurrentVideoDetail ? CurrentVideoDetail.videoName : null}</Text>
                                 {CurrentVideoDetail.courseId ? <View style={{ flexDirection: 'row', marginBottom: 5 }}>
-                                    <Text style={{ fontSize: 12, color: '#AAA', fontWeight: '400' }}>{CurrentVideoDetail.courseId ? (CurrentVideoDetail.courseId.instructor ? CurrentVideoDetail.courseId.instructor + (CurrentVideoDetail.courseId.coInstructor ? ' || ' : null) : null) : null}</Text>
-                                    <Text style={{ fontSize: 12, color: '#AAA', fontWeight: '400' }}>{CurrentVideoDetail.courseId ? (CurrentVideoDetail.courseId.coInstructor ? CurrentVideoDetail.courseId.coInstructor : null) : null}</Text>
+                                    <Text style={{ ...fonts.h8, color: '#AAA', fontWeight: '400' }}>{CurrentVideoDetail.courseId ? (CurrentVideoDetail.courseId.instructor ? CurrentVideoDetail.courseId.instructor + (CurrentVideoDetail.courseId.coInstructor ? ' || ' : null) : null) : null}</Text>
+                                    <Text style={{ ...fonts.h8, color: '#AAA', fontWeight: '400' }}>{CurrentVideoDetail.courseId ? (CurrentVideoDetail.courseId.coInstructor ? CurrentVideoDetail.courseId.coInstructor : null) : null}</Text>
                                 </View> : null}
                             </TouchableOpacity>
                             <TouchableOpacity style={{ position: 'absolute', right: 2, paddingTop: 5 }} onPress={() => this.toggleExpanded()}>
                                 <MaterialIcons color="#AAA" name={!this.state.collapsed ? "arrow-drop-up" : 'arrow-drop-down'} size={36} />
                             </TouchableOpacity>
                             <Collapsible collapsed={this.state.collapsed} align="center">
-                                <Text style={{ fontSize: 12, color: '#222', paddingBottom: 5, fontWeight: '500' }}>{CurrentVideoDetail ? CurrentVideoDetail.description : null}</Text>
+                                <Text style={{ ...fonts.h8, color: '#222', paddingBottom: 5, fontWeight: '500' }}>{CurrentVideoDetail ? CurrentVideoDetail.description : null}</Text>
                                 <View>
                                     {CurrentVideoDetail.attachedFiles.length > 0 ?
                                         CurrentVideoDetail.attachedFiles.map((val, j) => {
@@ -562,9 +505,9 @@ class ViewCourseDetails extends Component {
                     </View>
                     <View style={{ margin: 10 }}>
                         <View style={{ marginLeft: 10, flexDirection: 'row' }}>
-                            <Text style={{ fontSize: 18, color: '#000', fontWeight: '600' }}>Course Videos</Text>
+                            <Text style={{ ...fonts.h5, color: '#000', fontWeight: '600' }}>Course Videos</Text>
                             {isCourseCompleted == true ? <Button onPress={() => this.StartMCQ()} small full style={{ position: 'absolute', right: 10, padding: 6, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5 }}>
-                                <Text style={{ color: 'white', fontSize: 12 }}>Take MCQ Test</Text>
+                                <Text style={{ color: 'white', ...fonts.h8 }}>Take MCQ Test</Text>
                             </Button> : null}
                         </View>
                     </View>
@@ -586,8 +529,8 @@ class ViewCourseDetails extends Component {
                                                 <Image style={{ width: 60, height: 60, borderRadius: 5 }} source={v.thumbnailUrl != undefined && v.thumbnailUrl != null ? { uri: v.thumbnailUrl } : null} />
                                             </View>
                                             <View style={{ flex: 1, marginRight: 10, marginLeft: 10, padding: 5 }}>
-                                                <Text style={{ fontSize: 14, color: CurrentVideoIndex == i ? '#FFF' : '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '600' }}>{v.videoName}</Text>
-                                                <Text numberOfLines={2} style={{ fontSize: 12, color: CurrentVideoIndex == i ? '#FFF' : '#AAA', fontWeight: '500', paddingBottom: 5 }}>{v.description}</Text>
+                                                <Text style={{ ...fonts.h7, color: CurrentVideoIndex == i ? '#FFF' : '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '500' }}>{v.videoName}</Text>
+                                                <Text numberOfLines={2} style={{ ...fonts.h8, color: CurrentVideoIndex == i ? '#FFF' : '#AAA', fontWeight: '500', paddingBottom: 5 }}>{v.description}</Text>
                                             </View>
                                         </TouchableOpacity>
                                     )

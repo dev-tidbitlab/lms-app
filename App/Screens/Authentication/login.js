@@ -19,7 +19,8 @@ import firebase from 'react-native-firebase';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Progress } from '../ProgressDialog/index'
 import ErrorToaster from '../../Components/alerts/error'
-import CustomSnackBar from '../../Components/alerts/snackbar'
+// import CustomSnackBar from '../../Components/alerts/snackbar'
+import {fonts} from '../../Themes/style'
 class LoginScreen extends Component {
     state = {
         Password: '',
@@ -192,7 +193,7 @@ class LoginScreen extends Component {
                         </Button>
                     </Left>
                     <Body style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFF' }}>Login</Text>
+                        <Text style={{ ...fonts.h5, fontWeight: '500', color: '#FFF' }}>Login</Text>
                     </Body>
                     <Right style={{ flex: 0.5 }}>
                     </Right>
@@ -294,8 +295,8 @@ const styles = StyleSheet.create({
     TouchableOpacityBtn: {
     },
     LoginBtn: {
-        fontSize: 16,
-        color: '#fff',
+        ...fonts.h6,
+        color: '#FFF',
         borderRadius: 5,
         backgroundColor: '#1A5566',
         paddingTop: 10,
@@ -303,7 +304,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     LoginBtnPSWD: {
-        fontSize: 16,
+        ...fonts.h6,
         color: '#888',
         backgroundColor: 'transparent',
         paddingTop: 5,

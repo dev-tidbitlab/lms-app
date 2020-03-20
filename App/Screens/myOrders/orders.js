@@ -4,17 +4,13 @@ import {
     Platform,
     StyleSheet,
     TouchableOpacity,
-    Image,
     Text,
     ScrollView,
     TextInput,
     StatusBar,
-    Dimensions,
-    ActivityIndicator,
     RefreshControl
 } from "react-native";
-import { Avatar, ProgressBar, Colors } from 'react-native-paper';
-import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button, Title } from 'native-base';
+import { Container, Header, Left, Body, Right, Button } from 'native-base';
 import { withNavigation } from 'react-navigation';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
@@ -24,10 +20,9 @@ import { connect } from 'react-redux';
 import AntDesign from "react-native-vector-icons/AntDesign";
 import OrdersFilter from './filter'
 import moment from 'moment'
-const ScreenWidth = Dimensions.get('window').width
+import { fonts } from '../../Themes/style'
 class MyOrders extends Component {
     state = {
-        ScreenWidth: Dimensions.get('window').width,
         CourseArray: [{}, {}, {}, {}, {}, {}, {}, {}, {}],
         FilterModal: false,
         search: '',
@@ -43,13 +38,7 @@ class MyOrders extends Component {
         this.props.StudentOrderList({ props: this.props, query: '&sort=updatedAt' })
     }
     componentDidMount() {
-        Dimensions.addEventListener('change', () => {
-            this.getOrientation();
-        });
         this.props.StudentOrderList({ props: this.props, query: '&sort=updatedAt' })
-    }
-    getOrientation() {
-        this.setState({ ScreenWidth: Dimensions.get('window').width })
     }
     DisplayFilter() {
         this.setState({ FilterModal: true });
@@ -58,16 +47,13 @@ class MyOrders extends Component {
         this.setState({ FilterModal: false });
     }
     onTextChange(v) {
-        console.log('vvv', v)
         this.setState({ search: v })
     }
     onSubmitEditing() {
         const { query, search } = this.state
-        console.log(query, search, 'vvv===>>>>>>>')
         this.props.StudentOrderList({ props: this.props, search: search, query: query })
     }
     ApplyFilter(v) {
-        console.log('vvv===>>>>>>>++++++++++', v)
         this.setState({ query: v })
         const { search } = this.state
         this.props.StudentOrderList({ props: this.props, search: search, query: v })
@@ -127,7 +113,7 @@ class MyOrders extends Component {
                 >
                     <View style={{ margin: 10 }}>
                         <View style={{ marginLeft: 10 }}>
-                            <Text style={{ fontSize: 18, color: '#000', fontWeight: '600' }}>My Orders List</Text>
+                            <Text style={{ ...fonts.h5, color: '#000', fontWeight: '500' }}>My Orders List</Text>
                         </View>
                         {this.props.StudentOrdersList.length > 0 ? <View>
                             {this.props.StudentOrdersList.map((v, i) => {
@@ -139,19 +125,19 @@ class MyOrders extends Component {
                                             </View>
                                             <View style={{ flex: 1, marginRight: 10, marginLeft: 10 }}>
                                                 <View style={{ flexDirection: 'row', width: '100%' }}>
-                                                    <Text style={{ fontSize: 14, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '600', marginRight: 60 }}>{v.course.courseName}</Text>
+                                                    <Text style={{ ...fonts.h7, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '500', marginRight: 60 }}>{v.course.courseName}</Text>
                                                     <View style={{ position: 'absolute', flexDirection: 'row', right: 5, top: 5, alignItems: 'center', justifyContent: 'center' }}>
                                                         <FontAwesome name="rupee" size={16} color="#AAA" />
-                                                        <Text style={{ fontSize: 14, color: '#AAA' }}>{v.amount}</Text>
+                                                        <Text style={{ ...fonts.h7, color: '#AAA' }}>{v.amount}</Text>
                                                     </View>
                                                 </View>
-                                                <Text style={{ fontSize: 12, color: '#AAA', paddingBottom: 5, marginBottom: 5 }}>Transaction No. {v.transactionId}</Text>
+                                                <Text style={{ ...fonts.h8, color: '#AAA', paddingBottom: 5, marginBottom: 5 }}>Transaction No. {v.transactionId}</Text>
                                             </View>
                                         </View>
                                         <View style={{ flex: 1 }}>
                                             <View style={{ justifyContent: 'space-between', flexDirection: 'row', padding: 5 }}>
-                                                <Text style={{ fontSize: 12, color: '#AAA' }}>{this.DatedFormatting(v.actionTimestamp)}</Text>
-                                                <Text style={{ fontSize: 12, color: '#AAA' }}>Payment mode: {v.modeOfPayment}</Text>
+                                                <Text style={{ ...fonts.h8, color: '#AAA' }}>{this.DatedFormatting(v.actionTimestamp)}</Text>
+                                                <Text style={{ ...fonts.h8, color: '#AAA' }}>Payment mode: {v.modeOfPayment}</Text>
                                             </View>
                                         </View>
                                     </View>
@@ -166,7 +152,6 @@ class MyOrders extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    console.log(state, 'state StudentOrdersList')
     return {
         loading: state.authReducer.loading,
         StudentOrdersList: state.authReducer.StudentOrdersList
@@ -178,22 +163,3 @@ const mapDispatchToProps = (dispatch) => {
     };
 };
 export default withNavigation(connect(mapStateToProps, mapDispatchToProps)(MyOrders));
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    BackBottonBG: {
-        height: 150,
-        backgroundColor: '#ddd',
-        // overflow: 'hidden',
-    },
-    BackBotton: {
-        position: 'absolute',
-        left: 20, top: 15
-    },
-    scene: {
-        flex: 1,
-    },
-
-});

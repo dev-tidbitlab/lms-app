@@ -9,21 +9,18 @@ import {
     ScrollView,
     StatusBar,
     Dimensions,
-    ActivityIndicator,
     TextInput,
-    Picker,
     RefreshControl
 } from "react-native";
 import { BottomSheet } from 'react-native-btr';
-import { Avatar, ProgressBar, Colors } from 'react-native-paper';
-import { Container, Card, CardItem, Header, Icon, Form, Left, Body, Right, Button, Title } from 'native-base';
-import { withNavigation, withNavigationFocus } from 'react-navigation';
+import { ProgressBar } from 'react-native-paper';
+import { Container, Header, Left, Body, Right, Button } from 'native-base';
+import { withNavigationFocus } from 'react-navigation';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
-
-const ScreenWidth = Dimensions.get('window').width
 import { connect } from 'react-redux';
 import { StudentCoursesList } from '../../Reducers/actions'
+import { fonts } from '../../Themes/style'
 import moment from 'moment'
 class MyCourses extends Component {
     state = {
@@ -37,7 +34,6 @@ class MyCourses extends Component {
         this.props.navigation.navigate('UserListScreen');
     }
     ViewCourseDetails(v) {
-        console.log('ttt')
         if (v.isExpire == 'Yes') {
             return 0;
         }
@@ -46,15 +42,10 @@ class MyCourses extends Component {
         );
     }
     componentDidMount() {
-        Dimensions.addEventListener('change', () => {
-            this.getOrientation();
-        });
         this.props.StudentCoursesList({ props: this.props })
     }
     onTextChange(v) {
-        console.log('vvv', v)
         this.setState({ search: v })
-        // this.props.StudentCoursesList({ props: this.props, search: v })
     }
     onSubmitSearch() {
         const { search } = this.state
@@ -65,12 +56,8 @@ class MyCourses extends Component {
     }
     componentDidUpdate(prevProps) {
         if (prevProps.isFocused !== this.props.isFocused) {
-            console.log(prevProps.isFocused, this.props.isFocused)
             this.props.StudentCoursesList(this.props)
         }
-    }
-    getOrientation() {
-        this.setState({ ScreenWidth: Dimensions.get('window').width })
     }
     DatedFormatting(date) {
         return moment(date).format("DD") + '-' + moment(date).format("MMM") + '-' + moment(date).format("YYYY")
@@ -99,9 +86,6 @@ class MyCourses extends Component {
         this.setState({ visible: false });
     }
     render() {
-        console.log('mooo===>>>', this.props.StudentCourseList)
-        const { courseStarted, courseCompleted } = this.props.StudentCourseList
-        let ScreenWidth = this.state.ScreenWidth
         return (
             <Container style={{ backgroundColor: '#F4F4F6' }}>
                 <Header style={{ backgroundColor: '#1A5566' }}>
@@ -152,7 +136,7 @@ class MyCourses extends Component {
                 >
                     <View style={{ margin: 10 }}>
                         <View style={{ marginLeft: 10 }}>
-                            <Text style={{ fontSize: 18, color: '#000', fontWeight: '600' }}>My Courses</Text>
+                            <Text style={{ ...fonts.h6, color: '#000', fontWeight: '600' }}>My Courses</Text>
                         </View>
                         {this.props.StudentCourseList.length > 0 ? <View>
                             {this.props.StudentCourseList.map((v, i) => {
@@ -161,20 +145,20 @@ class MyCourses extends Component {
                                         <TouchableOpacity disabled={v.isExpire == 'Yes' ? true : false} onPress={() => this.ViewCourseDetails(v)} style={{ marginLeft: 5, marginTop: 5 }}>
                                             <Image style={{ width: 100, height: 100, borderRadius: 5 }} source={v.courseId != undefined && v.courseId != null ? { uri: v.courseId.courseImage } : null} />
                                             <Button disabled={v.isExpire == 'Yes' ? true : false} onPress={() => this.ViewCourseDetails(v)} small full style={{ backgroundColor: '#1A5566', marginTop: 10, borderRadius: 5, marginBottom: 5 }}>
-                                                {v.courseStarted == false && v.isExpire != 'Yes' ? <Text style={{ color: 'white', fontSize: 12 }}>Start Course</Text> : null}
-                                                {v.courseStarted == true && v.courseCompleted == false && v.isExpire != 'Yes' ? <Text style={{ color: 'white', fontSize: 12 }}>Resume Course</Text> : null}
-                                                {v.courseCompleted == true && v.courseStarted == true && v.isExpire != 'Yes' ? <Text style={{ color: 'white', fontSize: 12 }}>Review Course</Text> : null}
-                                                {v.isExpire == 'Yes' ? <Text style={{ color: 'white', fontSize: 12 }}>Course Expired</Text> : null}
+                                                {v.courseStarted == false && v.isExpire != 'Yes' ? <Text style={{ color: 'white', ...fonts.h8 }}>Start Course</Text> : null}
+                                                {v.courseStarted == true && v.courseCompleted == false && v.isExpire != 'Yes' ? <Text style={{ color: 'white', ...fonts.h8 }}>Resume Course</Text> : null}
+                                                {v.courseCompleted == true && v.courseStarted == true && v.isExpire != 'Yes' ? <Text style={{ color: 'white', ...fonts.h8 }}>Review Course</Text> : null}
+                                                {v.isExpire == 'Yes' ? <Text style={{ color: 'white', ...fonts.h8 }}>Course Expired</Text> : null}
                                             </Button>
                                         </TouchableOpacity>
                                         <TouchableOpacity disabled={v.isExpire == 'Yes' ? true : false} onPress={() => this.ViewCourseDetails(v)} style={{ flex: 1, marginRight: 10, marginLeft: 10 }}>
-                                            <Text style={{ fontSize: 14, color: '#000', paddingBottom: 5, paddingTop: 5, fontWeight: '400' }}>{v.courseId ? v.courseId.courseName : ''}</Text>
-                                            <Text numberOfLines={2} style={{ fontSize: 12, color: '#000', paddingBottom: 5 }}>{v.courseId ? v.courseId.description : ''}</Text>
-                                            <Text style={{ fontSize: 12, color: '#AAA', paddingBottom: 5 }}>Assigned Date: {this.DatedFormatting(v.coursePurchasedTimeStamp)}</Text>
-                                            <Text style={{ fontSize: 12, color: '#AAA', paddingBottom: 5 }}>Completion Date: {this.DatedFormatting(v.completionDate)}</Text>
-                                            <Text style={{ fontSize: 12, color: '#AAA', paddingBottom: 5 }}>Expiration Date: {this.DatedFormatting(v.courseExpiryTimeStamp)}</Text>
+                                            <Text style={{ ...fonts.h7, color: '#373737', paddingBottom: 5, paddingTop: 5, fontWeight: '600' }}>{v.courseId ? v.courseId.courseName : ''}</Text>
+                                            <Text numberOfLines={2} style={{ ...fonts.h8, color: '#222', paddingBottom: 5 }}>{v.courseId ? v.courseId.description : ''}</Text>
+                                            <Text style={{ ...fonts.h8, color: '#AAA', paddingBottom: 5 }}>Assigned Date: {this.DatedFormatting(v.coursePurchasedTimeStamp)}</Text>
+                                            <Text style={{ ...fonts.h8, color: '#AAA', paddingBottom: 5 }}>Completion Date: {this.DatedFormatting(v.completionDate)}</Text>
+                                            <Text style={{ ...fonts.h8, color: '#AAA', paddingBottom: 5 }}>Expiration Date: {this.DatedFormatting(v.courseExpiryTimeStamp)}</Text>
                                             <ProgressBar style={{ backgroundColor: '#CCC', marginBottom: 5 }} progress={v.progress ? v.progress / 100 : 0} color={'#1A5566'} />
-                                            <Text style={{ fontSize: 12, color: '#AAA', paddingBottom: 10 }}>{v.progress ? v.progress : 0}% complete</Text>
+                                            <Text style={{ ...fonts.h8, color: '#AAA', paddingBottom: 10 }}>{v.progress ? v.progress : 0}% complete</Text>
                                         </TouchableOpacity>
                                     </View>
                                 )
@@ -228,7 +212,6 @@ class MyCourses extends Component {
     }
 }
 const mapStateToProps = (state) => {
-    console.log(state, 'state dash', state.authReducer.StudentCourseList)
     return {
         loading: state.authReducer.loading,
         StudentCourseList: state.authReducer.StudentCourseList

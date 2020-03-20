@@ -22,7 +22,7 @@ import RNFetchBlob from 'rn-fetch-blob'
 import SnackBar from '../../Components/snackBar/index'
 import { connect } from 'react-redux';
 import { GET } from '../../service/index'
-
+import {fonts} from '../../Themes/style'
 import moment from 'moment'
 class StudentCertificates extends Component {
     state = {
@@ -103,10 +103,9 @@ class StudentCertificates extends Component {
                         </Button>
                     </Left>
                     <Body style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFF' }}>My Certificates</Text>
+                        <Text style={{ ...fonts.h5, fontWeight: '500', color: '#FFF' }}>My Certificates</Text>
                     </Body>
                     <Right style={{ flex: 0.5 }}>
-
                     </Right>
                 </Header>
                 <StatusBar backgroundColor="#1A5566" barStyle="light-content" />
@@ -126,7 +125,7 @@ class StudentCertificates extends Component {
                 >
                     <View style={{ margin: 10 }}>
                         <View style={{ marginLeft: 10 }}>
-                            <Text style={{ fontSize: 18, color: '#000', fontWeight: '600' }}>My Certificates</Text>
+                            <Text style={{ ...fonts.h6, color: '#000', fontWeight: '600' }}>My Certificates</Text>
                         </View>
                         {MyCourseCertificates.length > 0 ? <View>
                             {MyCourseCertificates.map((v, i) => {
@@ -136,11 +135,11 @@ class StudentCertificates extends Component {
                                             <Image style={{ width: 100, height: 100, borderRadius: 5 }} source={require('../../Images/certificateImg.png')} />
                                         </View>
                                         <View style={{ flex: 1, marginRight: 10, marginLeft: 10 }}>
-                                            <Text style={{ fontSize: 14, color: '#000', paddingBottom: 10, paddingTop: 5, fontWeight: '400' }}>{v ? v.courseName : ''}</Text>
-                                            <Text style={{ fontSize: 12, color: '#AAA', paddingBottom: 10 }}>Completion Date: {this.DatedFormatting(v.completionDate)}</Text>
+                                            <Text style={{ ...fonts.h7, color: '#000', paddingBottom: 10, paddingTop: 5, fontWeight: '500' }}>{v ? v.courseName : ''}</Text>
+                                            <Text style={{ ...fonts.h8, color: '#AAA', paddingBottom: 10 }}>Completion Date: {this.DatedFormatting(v.completionDate)}</Text>
                                             <TouchableOpacity onPress={() => this.DownloadMyCertificates(v)} style={{ width: 180, flexDirection: 'row', paddingTop: 6, paddingBottom: 6, paddingLeft: 10, paddingRight: 10, backgroundColor: '#1A5566', alignItems: 'center', justifyContent: 'center', borderRadius: 5, marginBottom: 5 }}>
                                                 <MaterialIcons name="file-download" size={18} color={'#FFF'} />
-                                                <Text style={{ color: 'white', fonSize: 12, }}>Download Certificate</Text>
+                                                <Text style={{ color: 'white', ...fonts.h8, }}>Download Certificate</Text>
                                             </TouchableOpacity>
                                         </View>
                                     </View>

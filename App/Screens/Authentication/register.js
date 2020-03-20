@@ -5,7 +5,6 @@ import {
     ScrollView,
     Text,
     Platform,
-    Dimensions,
     TouchableOpacity
 } from "react-native";
 import { withNavigation } from 'react-navigation'

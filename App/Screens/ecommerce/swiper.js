@@ -11,6 +11,7 @@ import {
 import Swiper from 'react-native-swiper';
 import { withNavigation } from 'react-navigation'
 const width = Dimensions.get('window').width
+import { fonts } from '../../Themes/style'
 class HomeTrendingSlider extends Component {
     renderDots() {
         return (
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     textStyle: {
-        fontSize: 12,
+        ...fonts.h8,
         color: "#FFF",
         fontWeight: 'bold',
         textAlign: 'center'
