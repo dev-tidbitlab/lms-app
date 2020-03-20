@@ -11,7 +11,8 @@ import { createDrawerNavigator } from 'react-navigation-drawer';
 import { Animated, Easing, Platform } from 'react-native';
 import SideDrawer from '../App/Screens/sideDrawer'
 import HomeBottomTabBar from '../App/Screens/bottomTabNavigation/index'
-import AppSplashScreen from '../App/Screens/Authentication/authRoutes'
+import AppAuthScreen from '../App/Screens/Authentication/authRoutes'
+import AppSplashScreen from '../App/Screens/Authentication/splash'
 const width = Dimensions.get('window').width
 let SlideFromRight = (index, position, width) => {
     const translateX = position.interpolate({
@@ -72,10 +73,11 @@ const AppDrawerNavigator = createDrawerNavigator({
 })
 const AppSwitchNav = createSwitchNavigator({
     Home: { screen: AppDrawerNavigator },
-    IsLoggedIn: { screen: AppSplashScreen }
+    IsLoggedIn: { screen: AppAuthScreen },
+    AppSplashScreen: { screen: AppSplashScreen }
 },
     {
-        initialRouteName: 'IsLoggedIn',
+        initialRouteName: 'AppSplashScreen',
         transitionConfig: TransitionConfiguration,
     }
 )

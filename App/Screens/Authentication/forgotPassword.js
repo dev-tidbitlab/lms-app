@@ -5,21 +5,19 @@ import {
     StyleSheet,
     TouchableOpacity,
     Text,
-    Platform,
     Image,
-    ImageBackground
+    StatusBar
 } from "react-native";
 import { TextInput } from 'react-native-paper';
-import AsyncStorage from '@react-native-community/async-storage';
-import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button, Title } from 'native-base';
+import { Container, Header, Left, Body, Right, Button } from 'native-base';
 import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux';
-import firebase from 'react-native-firebase';
 import { Progress } from '../ProgressDialog/index'
 import Ionicons from "react-native-vector-icons/Ionicons";
 import ErrorToaster from '../../Components/alerts/error'
 import SuccessToaster from '../../Components/alerts/success'
 import { ForgotPasswordAction } from '../../Reducers/actions'
+import CustomSnackBar from '../../Components/alerts/snackbar'
 class ForgotPasswordScreen extends Component {
     state = {
         Email: '',
@@ -45,19 +43,25 @@ class ForgotPasswordScreen extends Component {
     render() {
         let EmailValidation = this.state.EmailValidation
         return (
+            <Container style={{ backgroundColor: '#F4F4F6' }}>
+                <Header style={{ backgroundColor: '#1A5566' }}>
+                    <Left style={{ paddingLeft: 5, flex: 0.5 }}>
+                        <Button transparent onPress={() => this.GoBackToHome()} >
+                            <Ionicons name='md-arrow-back' size={24} color='#FFF' />
+                        </Button>
+                    </Left>
+                    <Body style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFF' }}>Forgot Password</Text>
+                    </Body>
+                    <Right style={{ flex: 0.5 }}>
+                    </Right>
+                </Header>
+                <StatusBar backgroundColor="#1A5566" barStyle="light-content" />
             <ScrollView contentContainerStyle={{ flex: 1, height: '100%', backgroundColor: '#f1f2f7' }}>
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                     <View style={{ justifyContent: 'center', alignItems: 'center', alignContent: 'center', }}>
                         <Image style={{ height: 150, width: 150, justifyContent: 'center', alignItems: 'center', alignContent: 'center', resizeMode: 'contain', }} source={require('../../Images/logo.png')} />
                     </View>
-                    <Ionicons
-                        onPress={() => this.GoBackToHome()}
-                        name={Platform.OS === 'android' ? "md-arrow-back" : "ios-arrow-round-back"}
-                        color='#1A5566'
-                        size={32}
-                        style={{ backgroundColor: 'transparent', position: 'absolute', padding: 10, left: 10, top: 10 }}
-                    />
-                    {/* <Text style={styles.loginText}>Forgot Password</Text> */}
                     <View style={styles.MainView3}>
                         <TextInput
                             error={EmailValidation}
@@ -77,13 +81,14 @@ class ForgotPasswordScreen extends Component {
                     <Progress DialogLoader={this.props.loading} title={'Please wait...'} />
                     {this.props.ErrorToaster.toast ? <ErrorToaster message={this.props.ErrorToaster.message} /> : null}
                     {this.props.SuccessToaster.toast?<SuccessToaster message={this.props.SuccessToaster.message}/>:null}
+                    {/* <CustomSnackBar duration={0} visible={true} style={{backgroundColor:'#D54534'}} text={'fvd v d  fwfwe  ge g e  g e g e g eg  '}/> */}
                 </View>
             </ScrollView>
+            </Container>
         );
     }
 }
 const mapStateToProps = (state) => {
-    console.log(state, 'state')
     return {
         loading: state.authReducer.loading,
         ErrorToaster: state.authReducer.ErrorToaster,

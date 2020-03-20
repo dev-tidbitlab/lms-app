@@ -33,7 +33,7 @@ class SnackBar extends Component {
         if (this.props.visible) {
             return (
                 <Animated.View
-                    style={{ ...styles.container, bottom: this.state.yPosition }}>
+                    style={{ ...styles.container, bottom: this.state.yPosition, ...this.props.style }}>
                     <Text numberOfLines={3} style={this.props.textStyle}>
                         {this.props.text}
                     </Text>
@@ -42,7 +42,7 @@ class SnackBar extends Component {
                     </Text>
                 </Animated.View>
             );
-        } else{
+        } else {
             return null;
         }
 

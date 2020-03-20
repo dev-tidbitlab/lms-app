@@ -6,7 +6,6 @@ import {
     ScrollView,
     StatusBar,
     Dimensions,
-    RefreshControl
 } from "react-native";
 import { Container, Header, Left, Body, Right, Button } from 'native-base';
 import { withNavigation } from 'react-navigation';
@@ -14,6 +13,7 @@ import HomeTrendingSlider from './swiper'
 import { connect } from 'react-redux';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import BestSellingComponents from './bestSelling'
+
 import { GET } from '../../service/index'
 class EcommerceScreen extends Component {
     state = {
@@ -35,7 +35,6 @@ class EcommerceScreen extends Component {
             console.log('res tre', res)
             if (res.success) {
                 if (res.count > 0) {
-                    console.log('333')
                     this.setState({ TrendingCourses: res.data })
                 }
             }
@@ -47,7 +46,6 @@ class EcommerceScreen extends Component {
             console.log('res best', res)
             if (res.success) {
                 if (res.count > 0) {
-                    console.log('333')
                     this.setState({ BestSellingCourses: res.data })
                 }
             }
@@ -59,7 +57,6 @@ class EcommerceScreen extends Component {
             console.log('res AllCourses', res)
             if (res.success) {
                 if (res.count > 0) {
-                    console.log('333')
                     this.setState({ AllCourses: res.data })
                 }
             }
@@ -71,11 +68,13 @@ class EcommerceScreen extends Component {
         this.GetBestSellingCourses()
         this.GetAllCourses()
     }
-    OpenDrawer() {
-        this.props.navigation.openDrawer();
-    }
     GoBack() {
         this.props.navigation.goBack();
+    }
+    goToPortal() {
+        this.props.navigation.navigate('PortalWebView',
+            { portalParams: '' }
+        );
     }
     render() {
         const { TrendingCourses, BestSellingCourses, AllCourses, loading } = this.state
@@ -83,10 +82,10 @@ class EcommerceScreen extends Component {
         return (
             <Container style={{ backgroundColor: '#F4F4F6' }}>
                 <Header style={{ backgroundColor: '#1A5566' }}>
-                    <Left style={{ paddingLeft: 5, flex: 1 }}>
-                    {email?<Button transparent onPress={() => this.GoBack()} >
+                    <Left style={{ paddingLeft: 5, flex: 0.5 }}>
+                        {email ? <Button transparent onPress={() => this.GoBack()} >
                             <Ionicons name='md-arrow-back' size={24} color='#FFF' />
-                        </Button>:null}
+                        </Button> : null}
                     </Left>
                     <Body style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }}>
                         <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFF' }}>Ecommerce</Text>
@@ -103,26 +102,27 @@ class EcommerceScreen extends Component {
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
                     horizontal={false}
-                    refreshControl={
-                        <RefreshControl
-                            colors={['#1A5566']}
-                            progressBackgroundColor="#FFF"
-                            refreshing={loading}
-                            onRefresh={() => this._onRefresh()}
-                        />
-                    }
                 >
                     <View style={{ margin: 10 }}>
-                        {TrendingCourses.length > 0 ? <View style={{ marginLeft: 10 }}>
+                        {TrendingCourses.length > 0 ? <View style={{ marginLeft: 10, flexDirection: 'row', alignItems: 'center' }}>
                             <Text style={{ fontSize: 18, color: '#000', fontWeight: '500' }}>Trending</Text>
+                            <TouchableOpacity onPress={() => this.goToPortal()} style={{ position: 'absolute', right: 10 }}>
+                                <Text style={{ fontSize: 14, color: '#AAA', fontWeight: '500' }}>View All</Text>
+                            </TouchableOpacity>
                         </View> : null}
                         {TrendingCourses.length > 0 ? <HomeTrendingSlider TrendingCourses={TrendingCourses} /> : null}
-                        {BestSellingCourses.length > 0 ? <View style={{ marginLeft: 10 }}>
-                            <Text style={{ fontSize: 18, color: '#000', fontWeight: '500' }}>Best Selling</Text>
+                        {BestSellingCourses.length > 0 ? <View style={{ marginLeft: 10, flexDirection: 'row', alignItems: 'center' }}>
+                            <Text style={{ fontSize: 18, color: '#000', fontWeight: '500' }}>Bestselling</Text>
+                            <TouchableOpacity onPress={() => this.goToPortal()} style={{ position: 'absolute', right: 10 }}>
+                                <Text style={{ fontSize: 14, color: '#AAA', fontWeight: '500' }}>View All</Text>
+                            </TouchableOpacity>
                         </View> : null}
                         {BestSellingCourses.length > 0 ? <BestSellingComponents BestSellingCourses={BestSellingCourses} /> : null}
-                        {AllCourses.length > 0 ? <View style={{ marginLeft: 10 }}>
+                        {AllCourses.length > 0 ? <View style={{ marginLeft: 10, flexDirection: 'row', alignItems: 'center' }}>
                             <Text style={{ fontSize: 18, color: '#000', fontWeight: '500' }}>All Courses</Text>
+                            <TouchableOpacity onPress={() => this.goToPortal()} style={{ position: 'absolute', right: 10 }}>
+                                <Text style={{ fontSize: 14, color: '#AAA', fontWeight: '500' }}>View All</Text>
+                            </TouchableOpacity>
                         </View> : null}
                         {AllCourses.length > 0 ? <BestSellingComponents BestSellingCourses={AllCourses} /> : null}
                     </View>

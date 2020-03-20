@@ -11,6 +11,7 @@ import ResetPassword from '../sideDrawer/resetPassword'
 import StudentOrders from '../myOrders/orderRoutes'
 import StudentCertificates from '../certificates/myCertificates'
 import AllCourses from '../ecommerce/ecommerceScreen'
+import PortalWebView from '../ecommerce/webView'
 let SlideFromRight = (index, position, width) => {
     const translateX = position.interpolate({
         inputRange: [index - 1, index],
@@ -49,7 +50,8 @@ const HomeStack = createStackNavigator(
         StudentProfile: { screen: StudentProfile },
         StudentOrders: { screen: StudentOrders },
         StudentCertificates: { screen: StudentCertificates },
-        LMSAllCourses:{screen: AllCourses}
+        LMSAllCourses:{screen: AllCourses},
+        PortalWebView: { screen: PortalWebView }
     },
     {
         initialRouteName: 'UserListScreen',

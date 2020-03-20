@@ -68,6 +68,10 @@
         "source": "/Users/tsl102/Desktop/lms-app/android/app/src/main/res/mipmap-mdpi/ic_launcher.png"
     },
     {
+        "merged": "/Users/tsl102/Desktop/lms-app/android/app/build/intermediates/res/merged/release/xml_file_provider_paths.xml.flat",
+        "source": "/Users/tsl102/Desktop/lms-app/node_modules/react-native-webview/android/build/intermediates/packaged_res/release/xml/file_provider_paths.xml"
+    },
+    {
         "merged": "/Users/tsl102/Desktop/lms-app/android/app/build/intermediates/res/merged/release/drawable_default_scroll_handle_top.xml.flat",
         "source": "/Users/tsl102/.gradle/caches/transforms-2/files-2.1/e74ddfb3b5daaeb22dc54ff2fca37cd5/res/drawable/default_scroll_handle_top.xml"
     },

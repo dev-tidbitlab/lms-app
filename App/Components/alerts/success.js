@@ -57,7 +57,8 @@ class SuccessAlert extends Component {
             <Animated.View
                 style={{
                     transform: [{ translateY: this.animatedValue }],
-                    height: 70,
+                    paddingTop:10,
+                    paddingBottom:10,
                     backgroundColor: 'green',
                     position: 'absolute',
                     left: 0,
@@ -67,6 +68,7 @@ class SuccessAlert extends Component {
                     justifyContent: 'center'
                 }}>
                 <Text
+                    numberOfLines={3}
                     style={{
                         marginLeft: 20,
                         color: 'white',

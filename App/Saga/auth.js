@@ -1,5 +1,5 @@
 export const logout = (props) => {
-    props.navigation.navigate('EcommerceScreen')
+    props.navigation.navigate('IsLoggedIn')
 };
 
 export const goHomeScreen = (props) => {

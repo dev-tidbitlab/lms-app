@@ -59,7 +59,9 @@ class ErrorAlert extends Component {
             <Animated.View
                 style={{
                     transform: [{ translateY: this.animatedValue }],
-                    height: 70,
+                    // height: 70,
+                    paddingTop:10,
+                    paddingBottom:10,
                     backgroundColor: '#ff5733',
                     position: 'absolute',
                     left: 0,
@@ -69,8 +71,9 @@ class ErrorAlert extends Component {
                     justifyContent: 'center'
                 }}>
                 <Text
+                    numberOfLines={3}
                     style={{
-                        marginLeft: 10,
+                        marginLeft: 20,
                         color: '#FFF',
                         fontSize: 14,
                         fontWeight: '400'

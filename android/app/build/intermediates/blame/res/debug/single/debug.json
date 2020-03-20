@@ -1092,6 +1092,10 @@
         "source": "/Users/tsl102/.gradle/caches/transforms-2/files-2.1/bdeb12eddfe06f41a60484f535618b90/res/drawable-hdpi-v4/notification_bg_low_pressed.9.png"
     },
     {
+        "merged": "/Users/tsl102/Desktop/lms-app/android/app/build/intermediates/res/merged/debug/xml_file_provider_paths.xml.flat",
+        "source": "/Users/tsl102/Desktop/lms-app/node_modules/react-native-webview/android/build/intermediates/packaged_res/debug/xml/file_provider_paths.xml"
+    },
+    {
         "merged": "/Users/tsl102/Desktop/lms-app/android/app/build/intermediates/res/merged/debug/drawable_common_google_signin_btn_icon_light_normal.xml.flat",
         "source": "/Users/tsl102/.gradle/caches/transforms-2/files-2.1/f2da629e8bcc474b332a4efdfa5109c3/res/drawable/common_google_signin_btn_icon_light_normal.xml"
     },

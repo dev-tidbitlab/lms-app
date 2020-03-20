@@ -7,12 +7,11 @@ import {
     Text,
     Alert,
     Image,
-    ImageBackground,
-    TouchableWithoutFeedback
+    StatusBar
 } from "react-native";
 import { TextInput } from 'react-native-paper';
 import AsyncStorage from '@react-native-community/async-storage';
-import { Container, Card, CardItem, Header, Thumbnail, Left, Body, Right, Button, Title } from 'native-base';
+import { Container, Header, Left, Body, Right, Button } from 'native-base';
 import { withNavigation } from 'react-navigation'
 import { connect } from 'react-redux';
 import { loginAction } from '../../Reducers/actions'
@@ -20,8 +19,6 @@ import firebase from 'react-native-firebase';
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { Progress } from '../ProgressDialog/index'
 import ErrorToaster from '../../Components/alerts/error'
-import { Formik } from 'formik';
-import * as yup from 'yup';
 import CustomSnackBar from '../../Components/alerts/snackbar'
 class LoginScreen extends Component {
     state = {
@@ -31,32 +28,24 @@ class LoginScreen extends Component {
     }
     GoToUserProfile() {
         this.props.navigation.openDrawer();
-        // this.props.navigation.navigate('UserProfile')
-        console.log('user')
     }
     OpenDrawer() {
         this.props.navigation.openDrawer();
     }
     async getFCMToken() {
         let fcmToken = await AsyncStorage.getItem('worddiagnostics_fcm_token');
-        console.log("before fcmToken: ", fcmToken);
         if (!fcmToken) {
             fcmToken = await firebase.messaging().getToken();
-            console.log("----fcmToken: ", fcmToken);
             if (fcmToken) {
-                console.log("after fcmToken: ", fcmToken);
             }
         }
     }
     async checkPermission() {
         firebase.messaging().hasPermission()
             .then(enabled => {
-                console.log("Permission enabled", enabled);
                 if (enabled) {
-                    console.log("Permission granted", enabled);
                     this.getFCMToken();
                 } else {
-                    console.log("Request Permission");
                     this.requestPermission();
                 }
             });
@@ -69,7 +58,6 @@ class LoginScreen extends Component {
                 this.getFCMToken();
             })
             .catch(error => {
-                console.log('permission rejected');
             });
     }
     async createNotificationListeners() {
@@ -91,7 +79,6 @@ class LoginScreen extends Component {
         // trigger when app is open
         this.notificationListener = firebase.notifications().onNotification((notification) => {
             const { title, body } = notification;
-            console.log('onNotification:', notification);
 
             const localNotification = new firebase.notifications.Notification({
                 sound: 'sampleaudio',
@@ -169,7 +156,6 @@ class LoginScreen extends Component {
             return 0;
         }
         this.props.loginAction({ data: JSON.stringify(bodyData), props: this.props })
-        // this.props.navigation.navigate('HomeScreen')
     }
     componentWillUnmount() {
         this.notificationListener;
@@ -198,57 +184,65 @@ class LoginScreen extends Component {
     render() {
         let ValidationArray = this.state.ValidationArray
         return (
-            <ScrollView contentContainerStyle={{ flex: 1, height: '100%', backgroundColor: '#f1f2f7' }}>
-                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                    <View style={{ justifyContent: 'center', alignItems: 'center', alignContent: 'center', }}>
-                        <Image style={{ height: 150, width: 150, justifyContent: 'center', alignItems: 'center', alignContent: 'center', resizeMode: 'contain', }} source={require('../../Images/logo.png')} />
-                    </View>
-                    <Ionicons
-                        onPress={() => this.GoBackToHome()}
-                        name={Platform.OS === 'android' ? "md-arrow-back" : "ios-arrow-round-back"}
-                        color='#1A5566'
-                        size={32}
-                        style={{ backgroundColor: 'transparent', position: 'absolute', padding: 10, left: 10, top: 10 }}
-                    />
-                    <View style={styles.MainView3}>
-                        <TextInput
-                            error={ValidationArray.email}
-                            style={styles.TextInputAll}
-                            onChangeText={(v) => this.onChangeEmail(v)}
-                            label="Email"
-                            value={this.state.Email}
-                            onSubmitEditing={()=>this.MakeLogin()}  
-                            theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#1A5566', underlineColor: 'transparent' } }}
-                        />
-                        <TextInput
-                            error={ValidationArray.password}
-                            style={styles.TextInputAll}
-                            label="Password"
-                            onChangeText={(v) => this.onChangePassword(v)}
-                            secureTextEntry={true}
-                            value={this.state.Password}
-                            onSubmitEditing={()=>this.MakeLogin()}
-                            theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#1A5566', underlineColor: 'transparent' } }}
-                        />
-                        <View style={styles.LoginBtnView}>
-                            <TouchableOpacity onPress={() => this.MakeLogin()} style={styles.TouchableOpacityBtn}>
-                                <Text style={styles.LoginBtn}>Login</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => this.ForgotPasswordMethod()} style={styles.TouchableOpacityBtn}>
-                                <Text style={styles.LoginBtnPSWD}>Forgot Password?</Text>
-                            </TouchableOpacity>
+            <Container style={{ backgroundColor: '#F4F4F6' }}>
+                <Header style={{ backgroundColor: '#1A5566' }}>
+                    <Left style={{ paddingLeft: 5, flex: 0.5 }}>
+                        <Button transparent onPress={() => this.GoBackToHome()} >
+                            <Ionicons name='md-arrow-back' size={24} color='#FFF' />
+                        </Button>
+                    </Left>
+                    <Body style={{ flex: 2, alignItems: 'center', justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#FFF' }}>Login</Text>
+                    </Body>
+                    <Right style={{ flex: 0.5 }}>
+                    </Right>
+                </Header>
+                <StatusBar backgroundColor="#1A5566" barStyle="light-content" />
+                <ScrollView contentContainerStyle={{ flex: 1, height: '100%', backgroundColor: '#f1f2f7' }}>
+                    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                        <View style={{ justifyContent: 'center', alignItems: 'center', alignContent: 'center', }}>
+                            <Image style={{ height: 150, width: 150, justifyContent: 'center', alignItems: 'center', alignContent: 'center', resizeMode: 'contain', }} source={require('../../Images/logo.png')} />
                         </View>
-                    </View>
-                    {/* <View style={{ position: 'absolute', width: '100%', alignItems: 'center', justifyContent: 'center', bottom: 10 }}>
+                        <View style={styles.MainView3}>
+                            <TextInput
+                                error={ValidationArray.email}
+                                style={styles.TextInputAll}
+                                onChangeText={(v) => this.onChangeEmail(v)}
+                                label="Email"
+                                value={this.state.Email}
+                                onSubmitEditing={() => this.MakeLogin()}
+                                theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#1A5566', underlineColor: 'transparent' } }}
+                            />
+                            <TextInput
+                                error={ValidationArray.password}
+                                style={styles.TextInputAll}
+                                label="Password"
+                                onChangeText={(v) => this.onChangePassword(v)}
+                                secureTextEntry={true}
+                                value={this.state.Password}
+                                onSubmitEditing={() => this.MakeLogin()}
+                                theme={{ colors: { background: 'white', placeholder: '#888', text: '#000', primary: '#1A5566', underlineColor: 'transparent' } }}
+                            />
+                            <View style={styles.LoginBtnView}>
+                                <TouchableOpacity onPress={() => this.MakeLogin()} style={styles.TouchableOpacityBtn}>
+                                    <Text style={styles.LoginBtn}>Login</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => this.ForgotPasswordMethod()} style={styles.TouchableOpacityBtn}>
+                                    <Text style={styles.LoginBtnPSWD}>Forgot Password?</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                        {/* <View style={{ position: 'absolute', width: '100%', alignItems: 'center', justifyContent: 'center', bottom: 10 }}>
                         <TouchableOpacity onPress={() => this.SignUpScreen()} style={{ padding: 10 }}>
                             <Text>Don't have account? Sign up now</Text>
                         </TouchableOpacity>
                     </View> */}
-                    <Progress DialogLoader={this.props.loading} title={'Authenticating'} />
-                    {this.props.ErrorToaster.toast ? <ErrorToaster message={this.props.ErrorToaster.message} /> : null}
-                </View>
-                {/* <CustomSnackBar duration={0} visible={true} text={'fvd v d  fwfwe  ge g e  g e g e g eg  '}/> */}
-            </ScrollView>
+                        <Progress DialogLoader={this.props.loading} title={'Authenticating'} />
+                        {this.props.ErrorToaster.toast ? <ErrorToaster message={this.props.ErrorToaster.message} /> : null}
+                    </View>
+                    {/* <CustomSnackBar duration={0} visible={true} text={'fvd v d  fwfwe  ge g e  g e g e g eg  '}/> */}
+                </ScrollView>
+            </Container>
 
         );
     }

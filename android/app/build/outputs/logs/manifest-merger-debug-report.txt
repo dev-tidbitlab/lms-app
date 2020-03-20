@@ -18,6 +18,7 @@ MERGED from [:react-native-gesture-handler] /Users/tsl102/Desktop/lms-app/node_m
 MERGED from [:react-native-pdf] /Users/tsl102/Desktop/lms-app/node_modules/react-native-pdf/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:react-native-reanimated] /Users/tsl102/Desktop/lms-app/node_modules/react-native-reanimated/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-vector-icons] /Users/tsl102/Desktop/lms-app/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
+MERGED from [:react-native-webview] /Users/tsl102/Desktop/lms-app/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-23:12
 MERGED from [com.facebook.react:react-native:0.61.4] /Users/tsl102/.gradle/caches/transforms-2/files-2.1/3012969746b245f8d94fb6e2b60922d1/AndroidManifest.xml:2:1-13:12
 MERGED from [com.airbnb.android:lottie:3.0.7] /Users/tsl102/.gradle/caches/transforms-2/files-2.1/16e8fcb4e10471691a460e6631c95ab5/AndroidManifest.xml:2:1-11:12
 MERGED from [androidx.appcompat:appcompat:1.0.2] /Users/tsl102/.gradle/caches/transforms-2/files-2.1/1b59ea128f64674e7f72aa185be11aab/AndroidManifest.xml:17:1-22:12
@@ -169,6 +170,8 @@ MERGED from [:rn-fetch-blob] /Users/tsl102/Desktop/lms-app/node_modules/rn-fetch
 MERGED from [:rn-fetch-blob] /Users/tsl102/Desktop/lms-app/node_modules/rn-fetch-blob/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:35:5-45:19
 MERGED from [:react-native-firebase] /Users/tsl102/Desktop/lms-app/node_modules/react-native-firebase/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:5-21:19
 MERGED from [:react-native-firebase] /Users/tsl102/Desktop/lms-app/node_modules/react-native-firebase/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:5-21:19
+MERGED from [:react-native-webview] /Users/tsl102/Desktop/lms-app/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-21:19
+MERGED from [:react-native-webview] /Users/tsl102/Desktop/lms-app/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-21:19
 MERGED from [com.facebook.react:react-native:0.61.4] /Users/tsl102/.gradle/caches/transforms-2/files-2.1/3012969746b245f8d94fb6e2b60922d1/AndroidManifest.xml:11:5-20
 MERGED from [com.facebook.react:react-native:0.61.4] /Users/tsl102/.gradle/caches/transforms-2/files-2.1/3012969746b245f8d94fb6e2b60922d1/AndroidManifest.xml:11:5-20
 MERGED from [com.airbnb.android:lottie:3.0.7] /Users/tsl102/.gradle/caches/transforms-2/files-2.1/16e8fcb4e10471691a460e6631c95ab5/AndroidManifest.xml:9:5-20
@@ -326,6 +329,8 @@ MERGED from [:react-native-reanimated] /Users/tsl102/Desktop/lms-app/node_module
 MERGED from [:react-native-reanimated] /Users/tsl102/Desktop/lms-app/node_modules/react-native-reanimated/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-vector-icons] /Users/tsl102/Desktop/lms-app/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-vector-icons] /Users/tsl102/Desktop/lms-app/node_modules/react-native-vector-icons/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-webview] /Users/tsl102/Desktop/lms-app/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-webview] /Users/tsl102/Desktop/lms-app/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
 MERGED from [com.facebook.react:react-native:0.61.4] /Users/tsl102/.gradle/caches/transforms-2/files-2.1/3012969746b245f8d94fb6e2b60922d1/AndroidManifest.xml:7:5-9:41
 MERGED from [com.facebook.react:react-native:0.61.4] /Users/tsl102/.gradle/caches/transforms-2/files-2.1/3012969746b245f8d94fb6e2b60922d1/AndroidManifest.xml:7:5-9:41
 MERGED from [com.airbnb.android:lottie:3.0.7] /Users/tsl102/.gradle/caches/transforms-2/files-2.1/16e8fcb4e10471691a460e6631c95ab5/AndroidManifest.xml:5:5-7:41
@@ -532,6 +537,16 @@ ADDED from [:react-native-firebase] /Users/tsl102/Desktop/lms-app/node_modules/r
 		ADDED from [:react-native-firebase] /Users/tsl102/Desktop/lms-app/node_modules/react-native-firebase/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:17-82
 	android:name
 		ADDED from [:react-native-firebase] /Users/tsl102/Desktop/lms-app/node_modules/react-native-firebase/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:17-116
+provider#com.reactnativecommunity.webview.RNCWebViewFileProvider
+ADDED from [:react-native-webview] /Users/tsl102/Desktop/lms-app/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-20:20
+	android:grantUriPermissions
+		ADDED from [:react-native-webview] /Users/tsl102/Desktop/lms-app/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-47
+	android:authorities
+		ADDED from [:react-native-webview] /Users/tsl102/Desktop/lms-app/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-64
+	android:exported
+		ADDED from [:react-native-webview] /Users/tsl102/Desktop/lms-app/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-37
+	android:name
+		ADDED from [:react-native-webview] /Users/tsl102/Desktop/lms-app/node_modules/react-native-webview/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-83
 service#com.google.firebase.messaging.FirebaseMessagingService
 ADDED from [com.google.firebase:firebase-messaging:19.0.1] /Users/tsl102/.gradle/caches/transforms-2/files-2.1/9528c16ccb60990a8e85f8db708f17fb/AndroidManifest.xml:28:9-34:19
 	android:exported

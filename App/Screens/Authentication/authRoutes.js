@@ -1,14 +1,13 @@
-import React, { Component } from 'react'
 import {
     createStackNavigator,
 } from 'react-navigation-stack'
 import { Animated, Easing, Platform } from 'react-native';
 
-import AppSplashScreen from './splash'
 import AppLoginScreen from './login'
 import AppRegisterScreen from './register'
 import ForgotPassword from './forgotPassword'
 import EcommerceScreen from '../ecommerce/ecommerceScreen'
+import PortalWebView from '../ecommerce/webView'
 let SlideFromRight = (index, position, width) => {
     const translateX = position.interpolate({
         inputRange: [index - 1, index],
@@ -45,10 +44,10 @@ const AuthStack = createStackNavigator(
         AppLoginScreen: { screen: AppLoginScreen },
         ForgotPassword: { screen: ForgotPassword },
         AppRegisterScreen: { screen: AppRegisterScreen },
-        AppSplashScreen: { screen: AppSplashScreen },
+        PortalWebView: { screen: PortalWebView }
     },
     {
-        initialRouteName: 'AppSplashScreen',
+        initialRouteName: 'EcommerceScreen',
         headerMode: 'none',
         navigationOptions: {
             headerVisible: false,

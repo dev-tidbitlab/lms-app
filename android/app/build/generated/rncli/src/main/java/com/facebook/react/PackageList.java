@@ -38,6 +38,8 @@ import com.swmansion.reanimated.ReanimatedPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 // react-native-video
 import com.brentvatne.react.ReactVideoPackage;
+// react-native-webview
+import com.reactnativecommunity.webview.RNCWebViewPackage;
 // rn-fetch-blob
 import com.RNFetchBlob.RNFetchBlobPackage;
 
@@ -97,6 +99,7 @@ public class PackageList {
       new ReanimatedPackage(),
       new VectorIconsPackage(),
       new ReactVideoPackage(),
+      new RNCWebViewPackage(),
       new RNFetchBlobPackage()
     ));
   }

@@ -16,11 +16,9 @@ class AppSplash extends Component {
         }
     }
     RedirectUser() {
-        console.log('sllllllllll====>>>>>>')
         this.props.IsUserLoggedIn(this.props)
     }
-    componentDidMount(){
-        console.log('sllllllllll====>>>>>>nhiiii')
+    componentDidMount() {
         this.SplashTimer()
     }
     SplashTimer() {
@@ -36,7 +34,6 @@ class AppSplash extends Component {
                 <View style={{ backgroundColor: '#f1f2f7', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <Image width="200" height="300" source={require('../../Images/logo.png')} />
                 </View>
-                {/* {this.SplashTimer()} */}
             </View>
         );
     }
